@@ -254,7 +254,7 @@ page(
 <table class="stack">
   <tr><th>Clinic</th><th>Location</th><th>Days</th><th>Time</th></tr>
   <tr><td data-label="Clinic"><a href="midas.html">MIDAS Hospital and Surgical Centre</a></td><td data-label="Location">Ollur, Thrissur</td><td data-label="Days">Monday to Saturday</td><td data-label="Time">3:00 pm to 5:00 pm</td></tr>
-  <tr><td data-label="Clinic"><a href="metropolitan.html">MIDAS ENT at Metropolitan Hospital</a></td><td data-label="Location">Thrissur</td><td data-label="Days">Please call to confirm</td><td data-label="Time">5:45 pm to 6:45 pm (evening OPD)</td></tr>
+  <tr><td data-label="Clinic"><a href="metropolitan.html">MIDAS ENT at Metropolitan Hospital</a></td><td data-label="Location">Thrissur</td><td data-label="Days">Monday to Saturday</td><td data-label="Time">5:45 pm to 6:45 pm, by appointment only</td></tr>
 </table>
 </div>
 <p>More MIDAS ENT clinics are planned in Thrissur. New branches will be listed here when they open.</p>
@@ -285,9 +285,9 @@ clinic("midas.html", "ENT Clinic at MIDAS Hospital and Surgical Centre", "Ollur,
        "MIDAS Hospital and Surgical Centre, Ollur, Thrissur", PHONE_TEL, PHONE_SHOW,
        "<p>A day-care surgical hospital, where most ENT operations are done with same-day discharge.</p>")
 clinic("metropolitan.html", "MIDAS ENT at Metropolitan Hospital", "Thrissur",
-       "Evening OPD, 5:45 pm to 6:45 pm. Please call to confirm the days.", None,
+       "Monday to Saturday, 5:45 pm to 6:45 pm. By appointment only.", None,
        "", PHONE_TEL, PHONE_SHOW,
-       "<p>An evening ENT clinic run by the MIDAS ENT team.</p>")
+       "<p>An evening ENT clinic of MIDAS ENT, where patients are seen by Dr Rejith R S. Please book an appointment before visiting.</p>")
 
 # ---------------------------------------------------------------- Snoring (new page)
 page(

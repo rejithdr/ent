@@ -16,9 +16,35 @@ NAV = [
     ("about.html", "About Dr Rejith"),
     ("hospitals.html", "Clinics & timings"),
     ("snoring.html", "Snoring & sleep apnoea"),
-    ("adenoids.html", "Adenoids"),
-    ("vertigo.html", "Vertigo"),
-    ("earsurgery.html", "Ear"),
+]
+
+# All condition pages, grouped. Keywords help the search box find a page
+# when people use everyday words.
+CONDITIONS = [
+    ("Sleep", [
+        ("snoring.html", "Snoring in children and adults", "snore snoring mouth breathing child sleep"),
+        ("sleepapnoea.html", "Obstructive sleep apnoea", "osa apnea apnoea sleepy tired cpap breathing pauses"),
+    ]),
+    ("Ear and balance", [
+        ("earsurgery.html", "Ear discharge, hearing loss and ear surgery", "ear discharge pus hole eardrum deaf deafness hearing loss tympanoplasty wax"),
+        ("vertigo.html", "Vertigo, dizziness and imbalance", "vertigo giddiness dizziness dizzy spinning balance bppv ear balance"),
+    ]),
+    ("Nose and sinus", [
+        ("septum.html", "Blocked nose and deviated septum", "nose block blocked septum deviated septoplasty nosebleed"),
+        ("polyp.html", "Nasal polyps and sinus surgery", "polyp polyps sinus sinusitis smell"),
+        ("migraine.html", "Headache and migraine", "headache migraine head pain"),
+    ]),
+    ("Throat and neck", [
+        ("adenoids.html", "Adenoids", "adenoid adenoids mouth breathing child snoring"),
+        ("tonsil.html", "Tonsils and tonsil surgery", "tonsil tonsils tonsillitis throat infection quinsy tonsillectomy stones"),
+        ("voice.html", "Voice change and hoarseness", "voice hoarse hoarseness throat nodule polyp"),
+        ("thyroid.html", "Thyroid swelling and thyroid surgery", "thyroid neck swelling goitre nodule"),
+        ("sial.html", "Salivary gland swelling and stones", "salivary saliva gland stone swelling sialendoscopy jaw"),
+    ]),
+    ("Specialised surgery", [
+        ("skullbase.html", "Skull base surgery", "skull base pituitary csf leak facial nerve palsy"),
+        ("daycare.html", "Day-care surgery", "day care daycare same day discharge"),
+    ]),
 ]
 
 PAGES = {}
@@ -33,6 +59,18 @@ def render(slug, p):
     nav = "\n      ".join(
         f'<a href="{href}"{" aria-current=\"page\"" if href == slug else ""}>{label}</a>'
         for href, label in NAV
+    )
+    in_conditions = any(href == slug for _, items in CONDITIONS for href, _, _ in items)
+    cond_html = "\n".join(
+        '              <div class="cond-group"><h3>' + group + '</h3><ul>'
+        + "".join(
+            f'<li data-k="{label.lower()} {kw}"><a href="{href}"'
+            + (' aria-current="page"' if href == slug else "")
+            + f'>{label}</a></li>'
+            for href, label, kw in items
+        )
+        + "</ul></div>"
+        for group, items in CONDITIONS
     )
     schema = ""
     if p["schema"]:
@@ -75,6 +113,19 @@ def render(slug, p):
   <nav class="main" aria-label="Main">
     <div class="wrap">
       {nav}
+      <details class="conditions"{" data-current=\"1\"" if in_conditions else ""}>
+        <summary>All conditions</summary>
+        <div class="cond-panel">
+          <div class="wrap">
+            <label class="cond-search-label" for="cond-search">Search conditions</label>
+            <input id="cond-search" class="cond-search" type="search" placeholder="For example: tonsils, giddiness, ear discharge" autocomplete="off">
+            <div class="cond-groups">
+{cond_html}
+            </div>
+            <p class="cond-none" hidden>No matching page. Please call <a href="tel:{PHONE_TEL}">{PHONE_SHOW}</a> and we'll help.</p>
+          </div>
+        </div>
+      </details>
     </div>
   </nav>
 </header>
@@ -100,6 +151,8 @@ def render(slug, p):
     <p class="fine">This website provides general information and is not a substitute for medical advice. Please consult a doctor about your own symptoms. Written and reviewed by Dr Rejith R S. Last updated {UPDATED}.</p>
   </div>
 </footer>
+
+<script src="js/site.js" defer></script>
 
 <div class="dock" aria-label="Book a consultation">
   <a href="tel:{PHONE_TEL}">Call</a>

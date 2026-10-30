@@ -35,9 +35,23 @@
       <a href="about.html">About Dr Rejith</a>
       <a href="hospitals.html">Clinics & timings</a>
       <a href="snoring.html">Snoring & sleep apnoea</a>
-      <a href="adenoids.html">Adenoids</a>
-      <a href="vertigo.html">Vertigo</a>
-      <a href="earsurgery.html">Ear</a>
+      <details class="conditions" data-current="1">
+        <summary>All conditions</summary>
+        <div class="cond-panel">
+          <div class="wrap">
+            <label class="cond-search-label" for="cond-search">Search conditions</label>
+            <input id="cond-search" class="cond-search" type="search" placeholder="For example: tonsils, giddiness, ear discharge" autocomplete="off">
+            <div class="cond-groups">
+              <div class="cond-group"><h3>Sleep</h3><ul><li data-k="snoring in children and adults snore snoring mouth breathing child sleep"><a href="snoring.html">Snoring in children and adults</a></li><li data-k="obstructive sleep apnoea osa apnea apnoea sleepy tired cpap breathing pauses"><a href="sleepapnoea.html">Obstructive sleep apnoea</a></li></ul></div>
+              <div class="cond-group"><h3>Ear and balance</h3><ul><li data-k="ear discharge, hearing loss and ear surgery ear discharge pus hole eardrum deaf deafness hearing loss tympanoplasty wax"><a href="earsurgery.html">Ear discharge, hearing loss and ear surgery</a></li><li data-k="vertigo, dizziness and imbalance vertigo giddiness dizziness dizzy spinning balance bppv ear balance"><a href="vertigo.html">Vertigo, dizziness and imbalance</a></li></ul></div>
+              <div class="cond-group"><h3>Nose and sinus</h3><ul><li data-k="blocked nose and deviated septum nose block blocked septum deviated septoplasty nosebleed"><a href="septum.html">Blocked nose and deviated septum</a></li><li data-k="nasal polyps and sinus surgery polyp polyps sinus sinusitis smell"><a href="polyp.html">Nasal polyps and sinus surgery</a></li><li data-k="headache and migraine headache migraine head pain"><a href="migraine.html" aria-current="page">Headache and migraine</a></li></ul></div>
+              <div class="cond-group"><h3>Throat and neck</h3><ul><li data-k="adenoids adenoid adenoids mouth breathing child snoring"><a href="adenoids.html">Adenoids</a></li><li data-k="tonsils and tonsil surgery tonsil tonsils tonsillitis throat infection quinsy tonsillectomy stones"><a href="tonsil.html">Tonsils and tonsil surgery</a></li><li data-k="voice change and hoarseness voice hoarse hoarseness throat nodule polyp"><a href="voice.html">Voice change and hoarseness</a></li><li data-k="thyroid swelling and thyroid surgery thyroid neck swelling goitre nodule"><a href="thyroid.html">Thyroid swelling and thyroid surgery</a></li><li data-k="salivary gland swelling and stones salivary saliva gland stone swelling sialendoscopy jaw"><a href="sial.html">Salivary gland swelling and stones</a></li></ul></div>
+              <div class="cond-group"><h3>Specialised surgery</h3><ul><li data-k="skull base surgery skull base pituitary csf leak facial nerve palsy"><a href="skullbase.html">Skull base surgery</a></li><li data-k="day-care surgery day care daycare same day discharge"><a href="daycare.html">Day-care surgery</a></li></ul></div>
+            </div>
+            <p class="cond-none" hidden>No matching page. Please call <a href="tel:+918139005150">81390 05150</a> and we'll help.</p>
+          </div>
+        </div>
+      </details>
     </div>
   </nav>
 </header>
@@ -90,6 +104,8 @@
     <p class="fine">This website provides general information and is not a substitute for medical advice. Please consult a doctor about your own symptoms. Written and reviewed by Dr Rejith R S. Last updated October 2026.</p>
   </div>
 </footer>
+
+<script src="js/site.js" defer></script>
 
 <div class="dock" aria-label="Book a consultation">
   <a href="tel:+918139005150">Call</a>

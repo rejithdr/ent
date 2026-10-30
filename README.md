@@ -1,1 +1,1 @@
-Old site. Moved to http://entmidas.com
+Website for Dr Rejith R S, ENT surgeon, Thrissur: https://entmidas.com

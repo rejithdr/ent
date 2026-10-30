@@ -11,19 +11,26 @@
 <meta property="og:url" content="https://entmidas.com/daycare.html">
 <meta property="og:type" content="website">
 <link rel="icon" href="favicon.ico">
+<link rel="preload" href="fonts/manjari-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/site.css">
 </head>
 <body>
 
-<div class="callbar">
-  To book a consultation, call <a href="tel:+918139005150">81390 05150</a>
-  &nbsp;|&nbsp; <a href="https://wa.me/918139005150">WhatsApp</a>
-</div>
+<a class="skip" href="#content">Skip to content</a>
 
 <header class="site">
-  <div class="wrap">
-    <a class="brand" href="index.html">Dr Rejith R S, ENT Surgeon<small>Thrissur, Kerala</small></a>
-    <nav class="main">
+  <div class="wrap bar">
+    <a class="brand" href="index.html">
+      <span class="name">Dr Rejith R S</span>
+      <span class="role">ENT Surgeon, Thrissur</span>
+    </a>
+    <div class="actions">
+      <a class="btn" href="tel:+918139005150">Call 81390 05150</a>
+      <a class="btn quiet" href="https://wa.me/918139005150">WhatsApp</a>
+    </div>
+  </div>
+  <nav class="main" aria-label="Main">
+    <div class="wrap">
       <a href="index.html">Home</a>
       <a href="about.html">About Dr Rejith</a>
       <a href="hospitals.html">Clinics & timings</a>
@@ -31,11 +38,11 @@
       <a href="adenoids.html">Adenoids</a>
       <a href="vertigo.html">Vertigo</a>
       <a href="earsurgery.html">Ear</a>
-    </nav>
-  </div>
+    </div>
+  </nav>
 </header>
 
-<main class="wrap">
+<main id="content" class="wrap">
 <img class="hero" src="ot.jpg" alt="Operation theatre">
 <h1>Day-Care ENT Surgery in Thrissur</h1>
 
@@ -75,11 +82,26 @@
 
 <footer class="site">
   <div class="wrap">
-    <p>This website provides general information and is not a substitute for medical advice. Please consult a doctor about your own symptoms.</p>
-    <p>Written and reviewed by Dr Rejith R S, MBBS, MS (ENT), Consultant ENT Surgeon, Thrissur. Last updated October 2026.</p>
-    <p><a href="hospitals.html">Clinics and timings</a> · <a href="tel:+918139005150">Call 81390 05150</a> · <a href="https://wa.me/918139005150">WhatsApp</a></p>
+    <div class="foot-grid">
+      <div>
+        <p class="foot-name">Dr Rejith R S</p>
+        <p>MBBS, MS (ENT), Consultant ENT Surgeon, Thrissur</p>
+        <p><a href="tel:+918139005150">Call 81390 05150</a><br><a href="https://wa.me/918139005150">Message on WhatsApp</a></p>
+      </div>
+      <div>
+        <p class="foot-name">Clinics</p>
+        <p><a href="midas.html">MIDAS Hospital, Ollur</a><br><a href="mother.html">Mother Hospital, Olari</a><br><a href="elixir.html">Elixir Clinic, West Fort</a><br><a href="cooph.html">Co-operative Hospital, Shoranur Road</a><br><a href="apollo.html">Apollo Adlux, Angamaly</a></p>
+        <p><a href="hospitals.html">All timings</a></p>
+      </div>
+    </div>
+    <p class="fine">This website provides general information and is not a substitute for medical advice. Please consult a doctor about your own symptoms. Written and reviewed by Dr Rejith R S. Last updated October 2026.</p>
   </div>
 </footer>
+
+<div class="dock" aria-label="Book a consultation">
+  <a href="tel:+918139005150">Call</a>
+  <a href="https://wa.me/918139005150">WhatsApp</a>
+</div>
 
 </body>
 </html>

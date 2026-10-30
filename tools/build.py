@@ -54,35 +54,57 @@ def render(slug, p):
 <meta property="og:url" content="{url}">
 <meta property="og:type" content="website">
 <link rel="icon" href="favicon.ico">
+<link rel="preload" href="fonts/manjari-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/site.css">
 {schema}</head>
 <body>
 
-<div class="callbar">
-  To book a consultation, call <a href="tel:{PHONE_TEL}">{PHONE_SHOW}</a>
-  &nbsp;|&nbsp; <a href="{WHATSAPP}">WhatsApp</a>
-</div>
+<a class="skip" href="#content">Skip to content</a>
 
 <header class="site">
-  <div class="wrap">
-    <a class="brand" href="index.html">Dr Rejith R S, ENT Surgeon<small>Thrissur, Kerala</small></a>
-    <nav class="main">
-      {nav}
-    </nav>
+  <div class="wrap bar">
+    <a class="brand" href="index.html">
+      <span class="name">Dr Rejith R S</span>
+      <span class="role">ENT Surgeon, Thrissur</span>
+    </a>
+    <div class="actions">
+      <a class="btn" href="tel:{PHONE_TEL}">Call {PHONE_SHOW}</a>
+      <a class="btn quiet" href="{WHATSAPP}">WhatsApp</a>
+    </div>
   </div>
+  <nav class="main" aria-label="Main">
+    <div class="wrap">
+      {nav}
+    </div>
+  </nav>
 </header>
 
-<main class="wrap">
+<main id="content" class="wrap">
 {p["body"].strip()}
 </main>
 
 <footer class="site">
   <div class="wrap">
-    <p>This website provides general information and is not a substitute for medical advice. Please consult a doctor about your own symptoms.</p>
-    <p>Written and reviewed by Dr Rejith R S, MBBS, MS (ENT), Consultant ENT Surgeon, Thrissur. Last updated {UPDATED}.</p>
-    <p><a href="hospitals.html">Clinics and timings</a> · <a href="tel:{PHONE_TEL}">Call {PHONE_SHOW}</a> · <a href="{WHATSAPP}">WhatsApp</a></p>
+    <div class="foot-grid">
+      <div>
+        <p class="foot-name">Dr Rejith R S</p>
+        <p>MBBS, MS (ENT), Consultant ENT Surgeon, Thrissur</p>
+        <p><a href="tel:{PHONE_TEL}">Call {PHONE_SHOW}</a><br><a href="{WHATSAPP}">Message on WhatsApp</a></p>
+      </div>
+      <div>
+        <p class="foot-name">Clinics</p>
+        <p><a href="midas.html">MIDAS Hospital, Ollur</a><br><a href="mother.html">Mother Hospital, Olari</a><br><a href="elixir.html">Elixir Clinic, West Fort</a><br><a href="cooph.html">Co-operative Hospital, Shoranur Road</a><br><a href="apollo.html">Apollo Adlux, Angamaly</a></p>
+        <p><a href="hospitals.html">All timings</a></p>
+      </div>
+    </div>
+    <p class="fine">This website provides general information and is not a substitute for medical advice. Please consult a doctor about your own symptoms. Written and reviewed by Dr Rejith R S. Last updated {UPDATED}.</p>
   </div>
 </footer>
+
+<div class="dock" aria-label="Book a consultation">
+  <a href="tel:{PHONE_TEL}">Call</a>
+  <a href="{WHATSAPP}">WhatsApp</a>
+</div>
 
 </body>
 </html>
@@ -117,17 +139,26 @@ page(
     "ENT Doctor in Thrissur | Dr Rejith R S, ENT Surgeon",
     "Dr Rejith R S, ENT surgeon in Thrissur. Snoring and sleep apnoea, adenoids and tonsils, vertigo, ear surgery, sinus, voice and thyroid care, with day-care surgery.",
     f"""
-<img class="hero" src="entpro.jpg" alt="ENT specialist care in Thrissur">
-<h1>ENT Doctor in Thrissur</h1>
-<p class="lead">Care for problems of the ear, nose, throat and neck, for children and adults, from Dr Rejith R S and team.</p>
-<p class="tagline">MIDAS MERA: Maximising Effectiveness, Retaining Anatomy. Treat what's diseased. Protect what works.</p>
+<section class="intro">
+  <div class="intro-text">
+    <h1>ENT care in Thrissur, for children and adults</h1>
+    <p class="lead">Snoring, a blocked nose, dizziness, ear trouble, or a child who breathes through the mouth. Dr Rejith R S and team treat problems of the ear, nose, throat and neck, and most operations need no overnight stay.</p>
+    <p class="intro-actions"><a class="btn" href="tel:{PHONE_TEL}">Call {PHONE_SHOW}</a> <a class="btn quiet" href="hospitals.html">Clinics and timings</a></p>
+  </div>
+  <img class="intro-photo" src="photo.jpg" alt="Dr Rejith R S, ENT surgeon, Thrissur" width="250" height="300">
+</section>
 
-<div class="choose">
-  <a href="snoring.html">Snoring or sleep apnoea</a>
-  <a href="adenoids.html">Child with mouth breathing</a>
-  <a href="vertigo.html">Vertigo or dizziness</a>
-  <a href="earsurgery.html">Ear discharge or hearing loss</a>
-</div>
+<p class="tagline"><strong>MIDAS MERA</strong>: Maximising Effectiveness, Retaining Anatomy. Treat what's diseased. Protect what works.</p>
+
+<h2>What brings you here?</h2>
+<ul class="paths">
+  <li><a href="snoring.html"><strong>Snoring or sleep apnoea</strong><span>Loud snoring, pauses in breathing, tired all day</span></a></li>
+  <li><a href="adenoids.html"><strong>A child who breathes through the mouth</strong><span>Snoring, open-mouth sleep, blocked nose, ear fluid</span></a></li>
+  <li><a href="vertigo.html"><strong>Vertigo or dizziness</strong><span>Spinning on turning in bed, imbalance</span></a></li>
+  <li><a href="earsurgery.html"><strong>Ear discharge or hearing loss</strong><span>Hole in the eardrum, blocked ear, sudden deafness</span></a></li>
+  <li><a href="septum.html"><strong>Blocked nose or sinus trouble</strong><span>Deviated septum, polyps, sinusitis</span></a></li>
+  <li><a href="voice.html"><strong>Voice change</strong><span>Hoarseness that doesn't settle</span></a></li>
+</ul>
 
 <h2>What does an ENT specialist treat?</h2>
 <p>Diseases of the ear, nose, throat and neck, including hearing loss, ear infections, vertigo, nasal blockage, sinusitis, snoring, voice problems, tonsil and adenoid problems, and thyroid swellings.</p>

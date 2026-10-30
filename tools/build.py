@@ -88,12 +88,12 @@ def render(slug, p):
     <div class="foot-grid">
       <div>
         <p class="foot-name">Dr Rejith R S</p>
-        <p>MBBS, MS (ENT), Consultant ENT Surgeon, Thrissur</p>
+        <p>MBBS, DLO, Consultant ENT Surgeon, Thrissur</p>
         <p><a href="tel:{PHONE_TEL}">Call {PHONE_SHOW}</a><br><a href="{WHATSAPP}">Message on WhatsApp</a></p>
       </div>
       <div>
-        <p class="foot-name">Clinics</p>
-        <p><a href="midas.html">MIDAS Hospital, Ollur</a><br><a href="mother.html">Mother Hospital, Olari</a><br><a href="elixir.html">Elixir Clinic, West Fort</a><br><a href="cooph.html">Co-operative Hospital, Shoranur Road</a><br><a href="apollo.html">Apollo Adlux, Angamaly</a></p>
+        <p class="foot-name">MIDAS ENT clinics</p>
+        <p><a href="midas.html">MIDAS Hospital, Ollur</a><br><a href="metropolitan.html">MIDAS ENT at Metropolitan Hospital, Thrissur</a></p>
         <p><a href="hospitals.html">All timings</a></p>
       </div>
     </div>
@@ -216,7 +216,7 @@ page(
 page(
     "about.html",
     "About Dr Rejith R S, ENT Surgeon in Thrissur",
-    "Dr Rejith R S, MBBS, MS (ENT), Government Medical College Trivandrum. ENT surgeon in Thrissur with an interest in sleep apnoea, vertigo and day-care ENT surgery.",
+    "Dr Rejith R S, MBBS, DLO, Government Medical College Trivandrum. ENT surgeon in Thrissur with an interest in sleep apnoea, vertigo and day-care ENT surgery.",
     f"""
 <img class="portrait" src="photo.jpg" alt="Dr Rejith R S, ENT surgeon, Thrissur">
 <h1>Dr Rejith R S</h1>
@@ -224,13 +224,11 @@ page(
 <p>ENT surgeon since 2010, with a special interest in snoring and sleep apnoea, vertigo, endoscopic ear surgery and day-care ENT surgery. He also works on medical innovation and on training young ENT surgeons.</p>
 
 <h2>Education</h2>
-<p>MBBS and postgraduate training in ENT (MS) from Government Medical College, Thiruvananthapuram.</p>
+<p>MBBS and postgraduate Diploma in Otorhinolaryngology (DLO) from Government Medical College, Thiruvananthapuram.</p>
 
 <h2>Positions held</h2>
 <ul>
   <li>Senior Consultant ENT Surgeon, <a href="midas.html">MIDAS Hospital and Surgical Centre</a>, Ollur, Thrissur (since 2024)</li>
-  <li>Senior Consultant ENT Surgeon, <a href="mother.html">Mother Hospital</a>, Olari, Thrissur (since 2023)</li>
-  <li>Visiting Consultant ENT Surgeon, <a href="apollo.html">Apollo Adlux Hospital</a>, Angamaly (since 2024)</li>
   <li>Senior Consultant ENT Surgeon, Daya General Hospital, Thrissur (2017–2023)</li>
   <li>Consultant ENT Surgeon, Muthoot Medical Centre, Pathanamthitta</li>
   <li>ENT Surgeon, Meditrina Hospital, Thiruvananthapuram</li>
@@ -247,22 +245,19 @@ page(
 # ---------------------------------------------------------------- Clinics
 page(
     "hospitals.html",
-    "Dr Rejith's ENT Clinics and Timings in Thrissur",
-    "Consultation timings for Dr Rejith R S, ENT surgeon, at MIDAS Hospital Ollur, Mother Hospital Olari, Elixir Clinic, Thrissur Co-operative Hospital and Apollo Adlux Angamaly.",
+    "MIDAS ENT Clinics and Timings in Thrissur | Dr Rejith ENT",
+    "Consultation timings for Dr Rejith R S and the MIDAS ENT team at MIDAS Hospital, Ollur, and the MIDAS ENT evening clinic at Metropolitan Hospital, Thrissur.",
     f"""
-<h1>Clinics and Timings</h1>
+<h1>MIDAS ENT Clinics and Timings</h1>
 <p class="lead">Please call before visiting, as timings can change on holidays.</p>
 <div class="table-scroll">
 <table class="stack">
   <tr><th>Clinic</th><th>Location</th><th>Days</th><th>Time</th></tr>
-  <tr><td data-label="Clinic"><a href="mother.html">Mother Hospital</a></td><td data-label="Location">Olari, Thrissur</td><td data-label="Days">Monday to Wednesday</td><td data-label="Time">9:30 am to 10:30 am</td></tr>
-  <tr><td data-label="Clinic"><a href="mother.html">Mother Hospital</a></td><td data-label="Location">Olari, Thrissur</td><td data-label="Days">Thursday to Saturday</td><td data-label="Time">9:30 am to 1:00 pm</td></tr>
-  <tr><td data-label="Clinic"><a href="elixir.html">Elixir Clinic</a></td><td data-label="Location">West Fort, Thrissur</td><td data-label="Days">Monday and Wednesday</td><td data-label="Time">10:45 am to 11:30 am</td></tr>
-  <tr><td data-label="Clinic"><a href="apollo.html">Apollo Adlux Hospital</a></td><td data-label="Location">Angamaly</td><td data-label="Days">Tuesday</td><td data-label="Time">Surgery only, by appointment</td></tr>
   <tr><td data-label="Clinic"><a href="midas.html">MIDAS Hospital and Surgical Centre</a></td><td data-label="Location">Ollur, Thrissur</td><td data-label="Days">Monday to Saturday</td><td data-label="Time">3:00 pm to 5:00 pm</td></tr>
-  <tr><td data-label="Clinic"><a href="cooph.html">Thrissur District Co-operative Hospital</a></td><td data-label="Location">Shoranur Road, Thrissur</td><td data-label="Days">Monday to Friday</td><td data-label="Time">5:30 pm to 7:00 pm</td></tr>
+  <tr><td data-label="Clinic"><a href="metropolitan.html">MIDAS ENT at Metropolitan Hospital</a></td><td data-label="Location">Thrissur</td><td data-label="Days">Please call to confirm</td><td data-label="Time">5:45 pm to 6:45 pm (evening OPD)</td></tr>
 </table>
 </div>
+<p>More MIDAS ENT clinics are planned in Thrissur. New branches will be listed here when they open.</p>
 {BOOK}
 """,
 )
@@ -271,13 +266,13 @@ page(
 def clinic(slug, name, place, timing, img, alt, tel, tel_show, extra=""):
     page(
         slug,
-        f"Dr Rejith's ENT Clinic at {name}, {place}",
+        f"{name}, {place} | Dr Rejith ENT",
         f"ENT consultation with Dr Rejith R S at {name}, {place}. {timing}",
         f"""
-<img class="hero" src="{img}" alt="{alt}">
-<h1>ENT Clinic at {name}</h1>
+{f'<img class="hero" src="{img}" alt="{alt}">' if img else ""}
+<h1>{name}</h1>
 <p class="lead">{place}</p>
-<div class="box"><strong>Dr Rejith's ENT timings:</strong> {timing}</div>
+<div class="box"><strong>ENT clinic timings:</strong> {timing}</div>
 {extra}
 <p><a class="btn" href="tel:{tel}">Call {tel_show} to book</a></p>
 <p><a href="hospitals.html">See all clinics and timings</a></p>
@@ -285,22 +280,14 @@ def clinic(slug, name, place, timing, img, alt, tel, tel_show, extra=""):
     )
 
 
-clinic("midas.html", "MIDAS Hospital and Surgical Centre", "Ollur, Thrissur",
+clinic("midas.html", "ENT Clinic at MIDAS Hospital and Surgical Centre", "Ollur, Thrissur",
        "Monday to Saturday, 3:00 pm to 5:00 pm.", "midas.jpg",
        "MIDAS Hospital and Surgical Centre, Ollur, Thrissur", PHONE_TEL, PHONE_SHOW,
        "<p>A day-care surgical hospital, where most ENT operations are done with same-day discharge.</p>")
-clinic("mother.html", "Mother Hospital", "Olari, Thrissur",
-       "Monday to Wednesday, 9:30 am to 10:30 am; Thursday to Saturday, 9:30 am to 1:00 pm.",
-       "mother.jpg", "Mother Hospital, Olari, Thrissur", "+914872434100", "0487 243 4100")
-clinic("elixir.html", "Elixir Clinic", "1st Floor, Zabs Fort, Collectorate Road, West Fort, Thrissur",
-       "Monday and Wednesday, 10:45 am to 11:30 am.", "elixir.jpg", "Elixir Clinic, West Fort, Thrissur",
-       PHONE_TEL, PHONE_SHOW)
-clinic("apollo.html", "Apollo Adlux Hospital", "Angamaly, Kochi",
-       "Tuesday, surgery only, by appointment.", "apollo.jpg", "Apollo Adlux Hospital, Angamaly",
-       PHONE_TEL, PHONE_SHOW)
-clinic("cooph.html", "Thrissur District Co-operative Hospital", "Shoranur Road, Thrissur",
-       "Monday to Friday, 5:30 pm to 7:00 pm.", "coop.jpg",
-       "Thrissur District Co-operative Hospital, Shoranur Road", "+914872335550", "0487 233 5550")
+clinic("metropolitan.html", "MIDAS ENT at Metropolitan Hospital", "Thrissur",
+       "Evening OPD, 5:45 pm to 6:45 pm. Please call to confirm the days.", None,
+       "", PHONE_TEL, PHONE_SHOW,
+       "<p>An evening ENT clinic run by the MIDAS ENT team.</p>")
 
 # ---------------------------------------------------------------- Snoring (new page)
 page(
@@ -1016,6 +1003,10 @@ REDIRECTS = {
     "mmc.html": "hospitals.html",
     "ephphartha.html": "hospitals.html",
     "adnoids.html": "adenoids.html",
+    "mother.html": "hospitals.html",
+    "elixir.html": "hospitals.html",
+    "apollo.html": "hospitals.html",
+    "cooph.html": "hospitals.html",
 }
 for slug, target in REDIRECTS.items():
     (OUT / slug).write_text(redirect(target), encoding="utf-8")

@@ -35,12 +35,14 @@ CONDITIONS = [
         ("sleepapnoea.html", "Obstructive sleep apnoea", "osa apnea apnoea sleepy tired cpap breathing pauses"),
     ]),
     ("Ear and balance", [
-        ("earsurgery.html", "Ear discharge, hearing loss and ear surgery", "ear discharge pus hole eardrum deaf deafness hearing loss tympanoplasty wax"),
+        ("earsurgery.html", "Ear discharge, hearing loss and ear surgery", "ear discharge pus hole eardrum deaf deafness hearing loss tympanoplasty interlay wax"),
+        ("balloon-et.html", "Blocked ear and balloon Eustachian tube dilation", "blocked ear ear block fullness popping eustachian tube balloon dilation tuboplasty pressure flying"),
         ("vertigo.html", "Vertigo, dizziness and imbalance", "vertigo giddiness dizziness dizzy spinning balance bppv ear balance"),
     ]),
     ("Nose and sinus", [
         ("septum.html", "Blocked nose and deviated septum", "nose block blocked septum deviated septoplasty nosebleed"),
         ("polyp.html", "Nasal polyps and sinus surgery", "polyp polyps sinus sinusitis smell"),
+        ("balloon-sinus.html", "Balloon sinus surgery", "balloon sinus sinusitis sinuplasty sinus headache"),
         ("migraine.html", "Headache and migraine", "headache migraine head pain"),
     ]),
     ("Throat and neck", [
@@ -190,6 +192,35 @@ def redirect(target):
 """
 
 
+def ask_ai(prompt_text, topic):
+    return f"""
+<section class="ai-help" aria-labelledby="ai-{topic}">
+  <h2 id="ai-{topic}">Ask your AI assistant</h2>
+  <p>Many patients like to read more before their visit. You can copy this question into ChatGPT, Gemini, Claude or any AI assistant, and change the details to match your own situation.</p>
+  <div class="prompt-box">
+    <p class="prompt-text" id="prompt-{topic}">{prompt_text}</p>
+    <button type="button" class="btn copy-btn" data-copy="prompt-{topic}">Copy question</button>
+  </div>
+  <p class="ai-note">AI assistants can give wrong or outdated answers, and they can't examine you. Use the answer to understand your condition, not to diagnose or treat yourself. Bring your questions to the clinic and we'll go through them with you.</p>
+</section>
+"""
+
+
+def chat(items, topic):
+    rows = "".join(
+        f'<div class="msg q"><span class="who">Patient</span><p>{q}</p></div>'
+        f'<div class="msg a"><span class="who">Dr Rejith</span><p>{a}</p></div>'
+        for q, a in items
+    )
+    return f"""
+<section class="chat" aria-labelledby="chat-{topic}">
+  <h2 id="chat-{topic}">Questions patients ask</h2>
+  <p class="chat-note">Common questions from the clinic, with answers written by Dr Rejith R S.</p>
+  <div class="thread">{rows}</div>
+</section>
+"""
+
+
 BOOK = f"""
 <h2>Book a consultation</h2>
 <p>Call <a href="tel:{PHONE_TEL}">{PHONE_SHOW}</a> or message on <a href="{WHATSAPP}">WhatsApp</a>. See <a href="hospitals.html">clinics and timings</a>.</p>
@@ -245,7 +276,9 @@ page(
   <li><a href="snoring.html">Snoring and sleep apnoea clinic</a>, for children and adults</li>
   <li><a href="adenoids.html">Endoscopic coblation adenoidectomy</a> and <a href="tonsil.html">intracapsular tonsil surgery</a></li>
   <li><a href="vertigo.html">Vertigo and balance clinic</a></li>
-  <li><a href="earsurgery.html">Endoscopic ear surgery</a></li>
+  <li><a href="earsurgery.html">Endoscopic ear surgery</a>, including endoscopic interlay tympanoplasty</li>
+  <li><a href="balloon-et.html">Balloon Eustachian tube dilation</a> for blocked ears</li>
+  <li><a href="balloon-sinus.html">Balloon sinus surgery</a></li>
   <li><a href="septum.html">Endoscopic nasal and septal surgery</a> and <a href="polyp.html">nasal polyps</a></li>
   <li><a href="voice.html">Voice clinic (laryngology)</a></li>
   <li><a href="thyroid.html">Thyroid surgery</a></li>
@@ -350,6 +383,40 @@ clinic("metropolitan.html", "MIDAS ENT at Metropolitan Hospital", "Thrissur",
        "Monday to Saturday, 5:45 pm to 6:45 pm. By appointment only.", None,
        "", PHONE_TEL, PHONE_SHOW,
        "<p>An evening ENT clinic of MIDAS ENT, where patients are seen by Dr Rejith R S. Please book an appointment before visiting.</p>")
+
+SLEEP_CHAT = chat([
+    ("I only snore. Why do I need a sleep test?",
+     "Snoring alone can be harmless. But loud snoring with daytime sleepiness, pauses in breathing noticed by your family, or high blood pressure may mean sleep apnoea. A sleep study is the only way to know how severe it is, and the right treatment depends on that."),
+    ("Is the sleep study done at home or in hospital?",
+     "Both are possible. A home sleep study is convenient and suits many adults. A full study in hospital gives more detail and is better for some patients. We'll suggest which suits you."),
+    ("Will surgery cure my sleep apnoea?",
+     "It can in selected patients, especially when there is a clear blockage such as large tonsils or a blocked nose. For many adults, CPAP works best. Before airway surgery we often do sleep endoscopy (DISE) to see exactly where your airway closes, so the operation is planned for your airway."),
+    ("I tried CPAP and couldn't tolerate it. What now?",
+     "That's common, and often fixable. The mask fit, the pressure setting or a blocked nose is frequently the problem. If CPAP still doesn't work for you, an oral device or surgery planned with sleep endoscopy may help."),
+    ("Does losing weight help?",
+     "Yes. Weight loss reduces sleep apnoea for most people, and sometimes removes it. For moderate or severe sleep apnoea, it works best alongside other treatment rather than as the only plan."),
+], "sleep")
+
+SLEEP_AI = ask_ai(
+    "I am a 45-year-old man. I snore loudly, my wife says I sometimes stop breathing at night, and I feel sleepy during the day. In simple language, please explain what obstructive sleep apnoea is, what can happen if it is not treated, how it is tested, and what treatments are available. Also list 5 questions I should ask my ENT doctor.",
+    "sleep")
+
+CHILD_CHAT = chat([
+    ("My child snores only when he has a cold. Is that a problem?",
+     "Snoring only during colds is usually not a concern. Snoring on most nights, especially with mouth breathing, is worth getting checked."),
+    ("Will my child need surgery?",
+     "Not always. Many children improve with nasal sprays and treatment of allergy, so we usually try medicines first and review. Surgery is advised when breathing, sleep or growth don't improve."),
+    ("Won't the adenoids shrink by themselves?",
+     "Normal adenoids shrink by about 11 years. But years of mouth breathing before that can affect the face, teeth, sleep and learning, so we don't wait if a child is clearly affected."),
+    ("Is adenoid surgery painful?",
+     "Most children have little pain after endoscopic coblation adenoidectomy and go home the same day. After tonsil surgery, recovery depends on the type: intracapsular surgery usually means less pain."),
+    ("Should I send my child's sleep video on WhatsApp?",
+     "No, please don't. Record it as described on this page, keep it on your phone, and show it to us in the clinic."),
+], "child")
+
+CHILD_AI = ask_ai(
+    "My 6-year-old child snores most nights and sleeps with the mouth open. In simple language, please explain the common causes in children, why mouth breathing matters for a growing child, when I should see an ENT doctor, and what treatments are usually tried first. Also list 5 questions I should ask the doctor.",
+    "child")
 
 # ---------------------------------------------------------------- Snoring (new page)
 page(
@@ -465,6 +532,9 @@ page(
 </table>
 </div>
 
+{CHILD_CHAT}
+{CHILD_AI}
+
 <h2 id="doctors">For doctors: referring a patient</h2>
 <p>We welcome referrals from paediatricians, pulmonologists, physicians, dentists and orthodontists.</p>
 <h3>Consider referring</h3>
@@ -527,6 +597,9 @@ page(
   <li>Bariatric surgery for some patients with a BMI over 40</li>
   <li>In children, <a href="adenoids.html">adenoidectomy</a> and <a href="tonsil.html">tonsil surgery</a></li>
 </ul>
+{SLEEP_CHAT}
+{SLEEP_AI}
+
 <p>Read more about <a href="snoring.html">snoring in children and adults</a>.</p>
 {BOOK}
 """,
@@ -736,11 +809,22 @@ page(
 
 <h2>What can be done endoscopically?</h2>
 <ul>
-  <li>Closing a hole in the eardrum (tympanoplasty)</li>
+  <li>Closing a hole in the eardrum (tympanoplasty), including <a href="#interlay">endoscopic interlay tympanoplasty</a></li>
   <li>Draining fluid from the middle ear (myringotomy)</li>
   <li>Repairing the ear bones (ossiculoplasty)</li>
   <li>Removing limited bone-eroding disease (cholesteatoma)</li>
 </ul>
+
+<h2 id="interlay">Endoscopic interlay tympanoplasty</h2>
+<p>The eardrum has three thin layers. In the usual method (underlay), the graft that closes the hole is placed underneath the whole eardrum. In the <strong>interlay</strong> method, the graft is slipped between the outer skin layer and the middle layer of the eardrum, where it sits very securely.</p>
+<ul>
+  <li>Done through the ear canal with an endoscope, so no cut is needed behind the ear for access.</li>
+  <li>The graft is usually your own tissue (temporalis fascia), taken through a small cut hidden in the hairline. In selected small holes, PRF (a healing membrane made from your own blood) may be used.</li>
+  <li>The method is chosen during surgery: interlay is used when the ear bones are working well. If they aren't, we use the underlay method and repair the ear bones at the same time.</li>
+  <li>Usually done as <a href="daycare.html">day-care surgery</a>.</li>
+</ul>
+<p>Published studies of endoscopic interlay tympanoplasty report high rates of successful closure and good hearing results. It is technically demanding, so it is offered at relatively few centres.</p>
+<p>A blocked or poorly working Eustachian tube can make holes in the eardrum come back. In selected patients, <a href="balloon-et.html">balloon Eustachian tube dilation</a> may be advised as well.</p>
 
 <h2>How long is the rest after ear surgery?</h2>
 <p>Usually 4–6 weeks of avoiding strain and keeping water out of the ear. After myringotomy alone, no rest is needed.</p>
@@ -774,6 +858,7 @@ page(
   <li><a href="tonsil.html">Coblation intracapsular tonsil surgery</a></li>
   <li><a href="septum.html">Nasal septum surgery</a> and <a href="polyp.html">endoscopic sinus and polyp surgery</a></li>
   <li><a href="earsurgery.html">Endoscopic ear surgery to close a hole in the eardrum</a></li>
+  <li><a href="balloon-sinus.html">Balloon sinus surgery</a> and <a href="balloon-et.html">balloon Eustachian tube dilation</a></li>
   <li>Coblation snoring surgery</li>
   <li><a href="voice.html">Surgery for vocal nodules or polyps</a></li>
   <li>Procedures under local anaesthesia</li>
@@ -836,6 +921,8 @@ page(
 
 <h2>Treatment</h2>
 <p>Ethmoidal polyps are treated with medicines first, and many respond well. Polyps that don't respond, and AC polyps, need surgery.</p>
+
+<p>For sinusitis without polyps, <a href="balloon-sinus.html">balloon sinus surgery</a> may be an option.</p>
 
 <h2>How is polypectomy done?</h2>
 <p>Under endoscopic view, using a microdebrider. It can be done as <a href="daycare.html">day-care surgery</a>.</p>
@@ -1047,6 +1134,108 @@ page(
 
 <h2>Labyrinthectomy for severe vertigo</h2>
 <p>For severe, disabling vertigo that has not responded to any other treatment, the balance organ of the inner ear can be deactivated, either with gentamicin injections into the ear or by surgery. Both can cause permanent hearing loss in that ear, so this is considered only after careful discussion. <a href="vertigo.html">Read more about vertigo</a>.</p>
+{BOOK}
+""",
+)
+
+# ---------------------------------------------------------------- Balloon Eustachian tube
+page(
+    "balloon-et.html",
+    "Blocked Ear Treatment and Balloon Eustachian Tube Dilation in Thrissur | Dr Rejith ENT",
+    "Eustachian tube dysfunction: blocked ear, fullness, popping and fluid behind the eardrum. Medical treatment and balloon Eustachian tube dilation as day-care surgery in Thrissur.",
+    f"""
+<h1>Blocked Ear and Balloon Eustachian Tube Dilation</h1>
+<p class="lead">The Eustachian tube connects the back of the nose to the middle ear. It opens briefly when you swallow or yawn, to balance the pressure in the ear and let it drain.</p>
+
+<h2>Signs the tube isn't working well</h2>
+<ul>
+  <li>A blocked or full feeling in the ear that doesn't clear</li>
+  <li>Muffled hearing</li>
+  <li>Popping or crackling sounds</li>
+  <li>Ear discomfort with pressure changes, such as flying or travelling to the hills</li>
+  <li>Repeated fluid behind the eardrum, or an eardrum that is pulled inwards</li>
+  <li>A hole in the eardrum that keeps coming back after surgery</li>
+</ul>
+
+<h2>Common causes</h2>
+<p>Colds, allergy, sinusitis, acid reflux, and enlarged adenoids in children.</p>
+
+<h2>Tests</h2>
+<p>Examination of the ear and nose with an endoscope, a pressure test of the eardrum (tympanometry) and a hearing test. A CT scan is needed in some patients.</p>
+
+<h2>Treatment starts with medicines</h2>
+<ul>
+  <li>Treating allergy, sinusitis or reflux</li>
+  <li>Steroid nasal spray and medicines to thin mucus</li>
+  <li>Exercises to open the tube gently, as we show you in the clinic</li>
+</ul>
+<p>We avoid routine antihistamines unless there is clear allergy, because drying the secretions can slow the tube's recovery.</p>
+
+<h2>When is balloon dilation advised?</h2>
+<p>For selected patients whose symptoms continue despite proper medical treatment, for example:</p>
+<ul>
+  <li>Long-standing blocked ear or repeated fluid behind the eardrum in adults</li>
+  <li>An eardrum that keeps pulling inwards</li>
+  <li>Repeat ear surgery, or eardrum grafts that haven't held</li>
+</ul>
+<p>In children, adenoid treatment comes first. Balloon dilation is considered only in selected older children, usually above 12 years.</p>
+
+<h2>How is it done?</h2>
+<ul>
+  <li>Under anaesthesia, an endoscope is passed through the nose to the opening of the Eustachian tube.</li>
+  <li>A small balloon is placed in the tube and gently inflated with saline for about two minutes, then removed.</li>
+  <li>There are no cuts, and it is usually <a href="daycare.html">day-care surgery</a>. It can be combined with other nose or ear surgery.</li>
+</ul>
+
+<h2>Is it suitable for everyone?</h2>
+<p>No. It is not used when the tube stays abnormally open (patulous Eustachian tube), and a CT scan is reviewed first when needed. We'll explain whether it suits you.</p>
+
+<h2>After the procedure</h2>
+<p>Improvement is usually gradual over a few weeks. Avoid forceful nose-blowing and flying for a short period, as advised. Side effects are usually minor, such as a small nosebleed or temporary ear discomfort; serious complications are rare.</p>
+<p>Studies, including a randomised trial, have shown better results with balloon dilation plus medical treatment than with medical treatment alone in selected patients.</p>
+<p>Read more about <a href="earsurgery.html">ear problems and ear surgery</a>.</p>
+{BOOK}
+""",
+)
+
+# ---------------------------------------------------------------- Balloon sinus
+page(
+    "balloon-sinus.html",
+    "Balloon Sinus Surgery in Thrissur | Balloon Sinuplasty | Dr Rejith ENT",
+    "Balloon sinus surgery for selected patients with chronic or repeated sinusitis: how it works, who it suits, benefits, risks and recovery, in Thrissur.",
+    f"""
+<h1>Balloon Sinus Surgery</h1>
+<p class="lead">A minimally invasive way to open blocked sinus drainage pathways by widening them with a small balloon, without removing bone or the lining of the nose.</p>
+
+<h2>Who is it for?</h2>
+<p>Selected patients with chronic sinusitis, or sinusitis that keeps coming back, affecting the maxillary, frontal or sphenoid sinuses, when:</p>
+<ul>
+  <li>symptoms continue despite a proper course of medicines, and</li>
+  <li>a CT scan of the sinuses confirms the blocked pathways.</li>
+</ul>
+
+<h2>Who is it not for?</h2>
+<p>It is not suitable for nasal polyps, widespread sinus disease, fungal sinusitis or growths. These need <a href="polyp.html">endoscopic sinus surgery</a>. Sometimes balloon and conventional techniques are combined, or done with <a href="septum.html">septum surgery</a>.</p>
+
+<h2>How is it done?</h2>
+<ul>
+  <li>An endoscope is used to see inside the nose.</li>
+  <li>A thin guide places a small balloon in the opening of the blocked sinus.</li>
+  <li>The balloon is inflated to widen the opening, then removed. The sinus can be washed out at the same time.</li>
+</ul>
+
+<h2>Benefits</h2>
+<ul>
+  <li>The natural lining of the nose is preserved</li>
+  <li>Less bleeding, and usually no nasal packing</li>
+  <li>Usually <a href="daycare.html">day-care surgery</a>, with a quicker return to normal activities</li>
+</ul>
+
+<h2>Risks</h2>
+<p>Usually minor, such as bleeding or infection. Rare risks are the same as for any sinus surgery, including injury near the eye or the base of the skull. We'll discuss these with you before surgery.</p>
+
+<h2>After surgery</h2>
+<p>Saline nasal rinses for a few weeks, and a follow-up endoscopy to check healing.</p>
 {BOOK}
 """,
 )

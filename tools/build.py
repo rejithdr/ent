@@ -11,6 +11,15 @@ PHONE_SHOW = "81390 05150"
 WHATSAPP = "https://wa.me/918139005150"
 UPDATED = "October 2026"
 
+import hashlib
+
+
+def asset(path):
+    """Adds a short content hash so browsers fetch the new file after each change."""
+    h = hashlib.md5((OUT / path).read_bytes()).hexdigest()[:8]
+    return f"{path}?v={h}"
+
+
 NAV = [
     ("index.html", "Home"),
     ("about.html", "About Dr Rejith"),
@@ -93,7 +102,7 @@ def render(slug, p):
 <meta property="og:type" content="website">
 <link rel="icon" href="favicon.ico">
 <link rel="preload" href="fonts/manjari-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/site.css">
+<link rel="stylesheet" href="{asset('css/site.css')}">
 {schema}</head>
 <body>
 
@@ -152,7 +161,7 @@ def render(slug, p):
   </div>
 </footer>
 
-<script src="js/site.js" defer></script>
+<script src="{asset('js/site.js')}" defer></script>
 
 <div class="dock" aria-label="Book a consultation">
   <a href="tel:{PHONE_TEL}">Call</a>

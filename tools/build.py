@@ -1266,7 +1266,7 @@ page(
 <p class="lead">A self-check for adults (18 years and above) who snore or feel sleepy during the day. Answer each question, and you'll see how likely obstructive sleep apnoea is.</p>
 <div class="box">This is a self-check, not a diagnosis. Only a sleep study can confirm sleep apnoea. Your answers stay on your phone or computer and are not stored or sent anywhere. For children under 18, use the <a href="child-sleep-score.html">MERA Child Sleep Apnoea Score</a>.</div>
 
-<form id="mera-score" class="score-form" novalidate>
+<form id="mera-score" class="score-form" autocomplete="off" novalidate>
 {SCORE_FORM}
 <p class="score-missing" id="score-missing" hidden></p>
 <p><button type="submit" class="btn">See my score</button></p>
@@ -1366,7 +1366,7 @@ page(
 <p class="lead">A check for parents of children aged 2 to 17 who snore or breathe through the mouth. Answer each question, and you'll see how likely obstructive sleep apnoea is.</p>
 <div class="box">This is a check, not a diagnosis. Your answers stay on your phone or computer and are not stored or sent anywhere. For 18 years and above, use the <a href="sleep-score.html">adult MERA Sleep Apnoea Score</a>. For a child under 2 who snores, please see a doctor directly.</div>
 
-<form id="mera-child" class="score-form" novalidate>
+<form id="mera-child" class="score-form" autocomplete="off" novalidate>
 {CHILD_FORM}
 <p class="bmi-out" id="c-who" aria-live="polite"></p>
 <p class="score-missing" id="c-missing" hidden></p>
@@ -1573,7 +1573,7 @@ mera("adult.html", "MERA Sleep Apnoea Score: Free Self-Check for Adults",
 <h1>MERA Sleep Apnoea Score</h1>
 <p class="lead">A self-check for adults (18 years and above) who snore or feel sleepy during the day.</p>
 {MERA_NOTE}
-<form id="mera-score" class="score-form" novalidate>
+<form id="mera-score" class="score-form" autocomplete="off" novalidate>
 {SCORE_FORM}
 <p class="score-missing" id="score-missing" hidden></p>
 <p><button type="submit" class="btn">See my score</button></p>
@@ -1594,7 +1594,7 @@ mera("child.html", "MERA Child Sleep Apnoea Score: Free Check for Parents",
 <h1>MERA Child Sleep Apnoea Score</h1>
 <p class="lead">A check for parents of children aged 2 to 17 who snore or breathe through the mouth.</p>
 {MERA_NOTE}
-<form id="mera-child" class="score-form" data-adult="adult.html" novalidate>
+<form id="mera-child" class="score-form" data-adult="adult.html" autocomplete="off" novalidate>
 {CHILD_FORM}
 <p class="bmi-out" id="c-who" aria-live="polite"></p>
 <p class="score-missing" id="c-missing" hidden></p>

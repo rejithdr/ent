@@ -151,7 +151,7 @@ def render(slug, p):
       <div>
         <p class="foot-name">Dr Rejith R S</p>
         <p>MBBS, DLO, Consultant ENT Surgeon, Thrissur</p>
-        <p><a href="tel:{PHONE_TEL}">Call {PHONE_SHOW}</a><br><a href="{WHATSAPP}">Message on WhatsApp</a></p>
+        <p><a href="tel:{PHONE_TEL}">Call {PHONE_SHOW}</a><br><a href="{WHATSAPP}">Message on WhatsApp</a><br><a href="https://www.youtube.com/@Entdoctormidas">Videos on YouTube</a></p>
       </div>
       <div>
         <p class="foot-name">MIDAS ENT clinics</p>
@@ -189,6 +189,20 @@ def redirect(target):
 <p>This page has moved. Please visit <a href="{target}">{target}</a>.</p>
 </body>
 </html>
+"""
+
+
+CHANNEL = "https://www.youtube.com/@Entdoctormidas"
+
+
+def video(vid, title):
+    return f"""
+<figure class="video-fig">
+  <div class="video">
+    <iframe src="https://www.youtube-nocookie.com/embed/{vid}" title="{title}" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  </div>
+  <figcaption>Video by Dr Rejith R S: {title}</figcaption>
+</figure>
 """
 
 
@@ -436,9 +450,7 @@ page(
   <a href="#doctors">I'm a doctor referring a patient</a>
 </div>
 
-<div class="video">
-  <iframe src="https://www.youtube-nocookie.com/embed/1kbIIYia3Ug" title="Snoring and sleep apnoea explained" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-</div>
+{video("1kbIIYia3Ug", "Snoring: is it normal? Should you consult a doctor?")}
 
 <h2>What is snoring?</h2>
 <p>Snoring is the sound made when the airway in the nose and throat partly narrows during sleep, and the soft tissues vibrate as air passes through.</p>
@@ -450,7 +462,7 @@ page(
 </ul>
 
 <h2 id="children">Snoring in children</h2>
-<img class="hero" src="mouthbreathing.jpg" alt="Child sleeping with mouth open, a sign of mouth breathing">
+{video("s2h-rO01osY", "Is snoring and mouth breathing in children normal?")}
 <p>Children should not snore regularly. Regular snoring, especially with mouth breathing, usually means the airway is narrowed, most often by enlarged <a href="adenoids.html">adenoids</a> or <a href="tonsil.html">tonsils</a>.</p>
 
 <h3>Signs parents often miss</h3>
@@ -599,6 +611,9 @@ page(
   <li>Bariatric surgery for some patients with a BMI over 40</li>
   <li>In children, <a href="adenoids.html">adenoidectomy</a> and <a href="tonsil.html">tonsil surgery</a></li>
 </ul>
+{video("mw-TR7gF-jU", "Exercises for snoring and sleep apnoea")}
+<p>Exercises can help some people with snoring and mild sleep apnoea. They work best alongside the treatment your doctor advises, not instead of it.</p>
+
 {SLEEP_CHAT}
 {SLEEP_AI}
 
@@ -615,6 +630,7 @@ page(
     f"""
 <img class="hero" src="adenoid.jpg" alt="Diagram of normal adenoids and enlarged adenoids blocking the airway">
 <h1>Adenoids and Adenoid Surgery</h1>
+{video("s2h-rO01osY", "Is snoring and mouth breathing in children normal?")}
 
 <h2>What are adenoids?</h2>
 <p>Adenoids are a small mass of immune tissue behind the nose. All children have them. They grow from about 1 year of age, reach their largest size around 7 years, and usually shrink away by about 11 years. So adenoids are normal.</p>
@@ -691,6 +707,7 @@ page(
     f"""
 <img class="hero" src="tonsil.jpg" alt="Tonsils">
 <h1>Tonsils and Tonsil Surgery</h1>
+{video("pjgPvwq3RKE", "Tonsillectomy: explaining extracapsular and intracapsular tonsillectomy")}
 
 <h2>Tonsil problems</h2>
 <ul>
@@ -740,6 +757,8 @@ page(
 <img class="hero" src="vertigoclinic.jpg" alt="Vertigo and balance clinic">
 <h1>Vertigo and Balance Clinic in Thrissur</h1>
 
+{video("E-4NMVUT89k", "Which specialist to consult for thalakarakam (vertigo, dizziness, fainting)?")}
+
 <h2>Is vertigo a disease?</h2>
 <p>No. Vertigo is a feeling caused by an underlying disease. We treat the disease, not just the feeling.</p>
 
@@ -759,6 +778,8 @@ page(
 <div class="urgent">
   <strong>Go to the emergency department</strong> if vertigo is severe even when lying completely still, or comes with weakness, numbness, slurred speech, double vision or difficulty walking. These can be signs of a stroke.
 </div>
+
+{video("6WHuKi_fpwQ", "How to manage sudden-onset vertigo")}
 
 <h2>What is the "ear balance" problem people talk about?</h2>
 <p>This usually means BPPV, the most common cause of vertigo.</p>

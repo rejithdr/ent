@@ -152,7 +152,7 @@
   function refresh() {
     var a = (parseInt(ageIn.value, 10) || 0) + (parseInt(monIn.value, 10) || 0) / 12;
     ageMsg.hidden = !(a > 0 && (a < 2 || a >= 18));
-    ageMsg.innerHTML = a >= 18 ? 'From 18 years, please use the <a href="sleep-score.html">adult MERA Sleep Apnoea Score</a>.' : "For a child under 2 who snores, please see a doctor directly.";
+    ageMsg.innerHTML = a >= 18 ? 'From 18 years, please use the <a href="' + (form.getAttribute("data-adult") || "sleep-score.html") + '">adult MERA Sleep Apnoea Score</a>.' : "For a child under 2 who snores, please see a doctor directly.";
     form.querySelectorAll("fieldset[data-minage],fieldset[data-maxage]").forEach(function (fs) { fs.hidden = !applies(fs); });
   }
   ageIn.addEventListener("input", refresh); monIn.addEventListener("input", refresh);

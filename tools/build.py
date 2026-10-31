@@ -12,6 +12,7 @@ WHATSAPP = "https://wa.me/918139005150"
 UPDATED = "October 2026"
 
 import hashlib
+import datetime
 
 
 def asset(path):
@@ -1519,8 +1520,106 @@ for slug, target in REDIRECTS.items():
     body="<h1>Page not found</h1><p>Sorry, this page doesn't exist. Please go to the <a href=\"index.html\">home page</a> or see <a href=\"hospitals.html\">clinics and timings</a>.</p>",
 )), encoding="utf-8")
 
+# ---------------------------------------------------------------- MERA tools: unbranded copies for any doctor to share
+MERA_PAGES = {}
+
+
+def mera(slug, title, description, body):
+    url = f"{SITE}/mera/{'' if slug == 'index.html' else slug}"
+    MERA_PAGES[slug] = f"""<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{title}</title>
+<meta name="description" content="{description}">
+<link rel="canonical" href="{url}">
+<meta property="og:title" content="{title}">
+<meta property="og:description" content="{description}">
+<meta property="og:url" content="{url}">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="../{asset('css/site.css')}">
+</head>
+<body class="mera">
+<header class="mera-head"><div class="wrap"><a href="index.html">MERA</a> <span>sleep apnoea scores</span></div></header>
+<main id="content" class="wrap">
+{body}
+</main>
+<footer class="mera-foot"><div class="wrap">&copy; {datetime.date.today().year} Dr Rejith R S. MERA Sleep Apnoea Scores. Free to use and share.</div></footer>
+<script src="../{asset('js/site.js')}" defer></script>
+</body>
+</html>
+"""
+
+
+MERA_NOTE = '<div class="box">This is a self-check, not a diagnosis. Your answers stay on your phone or computer and are not stored or sent anywhere.</div>'
+MERA_RESULT_END = '<p>Take a screenshot of this result and show it to your doctor.</p>\n</section>'
+
+mera("index.html", "MERA Sleep Apnoea Scores: Free Self-Check for Adults and Children",
+     "Free MERA Sleep Apnoea Scores for adults and children. Answer a few questions to see how likely obstructive sleep apnoea is. Nothing you enter is stored.",
+     f"""
+<h1>MERA Sleep Apnoea Scores</h1>
+<p class="lead">Free checks for snoring and sleep apnoea. Answer a few questions and see how likely obstructive sleep apnoea is.</p>
+{MERA_NOTE}
+<ul class="paths">
+  <li><a href="adult.html"><strong>Adults (18 years and above)</strong><span>MERA Sleep Apnoea Score</span></a></li>
+  <li><a href="child.html"><strong>Children (2 to 17 years)</strong><span>MERA Child Sleep Apnoea Score, with a WHO growth check</span></a></li>
+</ul>
+""")
+
+mera("adult.html", "MERA Sleep Apnoea Score: Free Self-Check for Adults",
+     "A free self-check for adults who snore or feel sleepy: see how likely obstructive sleep apnoea is. Nothing you enter is stored.",
+     f"""
+<h1>MERA Sleep Apnoea Score</h1>
+<p class="lead">A self-check for adults (18 years and above) who snore or feel sleepy during the day.</p>
+{MERA_NOTE}
+<form id="mera-score" class="score-form" novalidate>
+{SCORE_FORM}
+<p class="score-missing" id="score-missing" hidden></p>
+<p><button type="submit" class="btn">See my score</button></p>
+</form>
+<section class="score-result" id="score-result" hidden aria-live="polite">
+  <h2>Your result</h2>
+  <div class="urgent" id="drive-warning" hidden><strong>Please avoid driving until you've been assessed.</strong> Sleepiness at the wheel is a serious risk to you and others, whatever your score.</div>
+  <p class="score-big"><span id="score-pct"></span>%</p>
+  <p id="score-detail" class="score-detail"></p>
+  <p id="score-band" class="score-band"></p>
+  {MERA_RESULT_END}
+<p>For children under 18, use the <a href="child.html">MERA Child Sleep Apnoea Score</a>.</p>
+""")
+
+mera("child.html", "MERA Child Sleep Apnoea Score: Free Check for Parents",
+     "A free check for parents of children who snore or breathe through the mouth, with a WHO growth check. Nothing you enter is stored.",
+     f"""
+<h1>MERA Child Sleep Apnoea Score</h1>
+<p class="lead">A check for parents of children aged 2 to 17 who snore or breathe through the mouth.</p>
+{MERA_NOTE}
+<form id="mera-child" class="score-form" data-adult="adult.html" novalidate>
+{CHILD_FORM}
+<p class="bmi-out" id="c-who" aria-live="polite"></p>
+<p class="score-missing" id="c-missing" hidden></p>
+<p><button type="submit" class="btn">See the score</button></p>
+</form>
+<section class="score-result" id="c-result" hidden aria-live="polite">
+  <h2>Your child's result</h2>
+  <p class="score-big"><span id="c-pct"></span>%</p>
+  <p id="c-detail" class="score-detail"></p>
+  <p id="c-growth" class="score-detail"></p>
+  <p id="c-band" class="score-band"></p>
+  {MERA_RESULT_END}
+<p>For 18 years and above, use the <a href="adult.html">MERA Sleep Apnoea Score</a>. For a child under 2 who snores, please see a doctor.</p>
+<p class="q-hint">Growth is checked against the WHO Child Growth Standards (2006) up to 5 years and the WHO Growth Reference (2007) from 5 to 19 years.</p>
+<script src="../{asset('js/who.js')}"></script>
+""")
+
+(OUT / "mera").mkdir(exist_ok=True)
+for slug, html in MERA_PAGES.items():
+    (OUT / "mera" / slug).write_text(html, encoding="utf-8")
+
 urls = "\n".join(
     f"  <url><loc>{SITE}/{'' if s == 'index.html' else s}</loc></url>" for s in PAGES
+) + "\n" + "\n".join(
+    f"  <url><loc>{SITE}/mera/{'' if s == 'index.html' else s}</loc></url>" for s in MERA_PAGES
 )
 (OUT / "sitemap.xml").write_text(
     '<?xml version="1.0" encoding="UTF-8"?>\n'

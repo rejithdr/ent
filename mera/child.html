@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MERA Child Sleep Apnoea Score: Free Check for Parents</title>
+<meta name="description" content="A free check for parents of children who snore or breathe through the mouth, with a WHO growth check. Nothing you enter is stored.">
+<link rel="canonical" href="https://entmidas.com/mera/child.html">
+<meta property="og:title" content="MERA Child Sleep Apnoea Score: Free Check for Parents">
+<meta property="og:description" content="A free check for parents of children who snore or breathe through the mouth, with a WHO growth check. Nothing you enter is stored.">
+<meta property="og:url" content="https://entmidas.com/mera/child.html">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="../css/site.css?v=a86b1428">
+</head>
+<body class="mera">
+<header class="mera-head"><div class="wrap"><a href="index.html">MERA</a> <span>sleep apnoea scores</span></div></header>
+<main id="content" class="wrap">
+
+<h1>MERA Child Sleep Apnoea Score</h1>
+<p class="lead">A check for parents of children aged 2 to 17 who snore or breathe through the mouth.</p>
+<div class="box">This is a self-check, not a diagnosis. Your answers stay on your phone or computer and are not stored or sent anywhere.</div>
+<form id="mera-child" class="score-form" data-adult="adult.html" novalidate>
+<fieldset class="q" data-q="age"><legend>Your child's age</legend>
+<div class="bmi-row"><label>Years <input type="number" id="c-age" inputmode="numeric" min="2" max="17" step="1"></label>
+<label>Months <input type="number" id="c-mon" inputmode="numeric" min="0" max="11" step="1" placeholder="0"></label></div>
+<p class="score-missing" id="c-agemsg" hidden></p>
+<p class="q-hint">Some questions only apply to certain ages, and they'll appear or disappear when you enter the age.</p>
+</fieldset>
+<fieldset class="q" data-q="sex"><legend>Your child is a</legend><div class="opts"><label class="opt"><input type="radio" name="sex" value="b" required> <span>Boy</span></label><label class="opt"><input type="radio" name="sex" value="g" required> <span>Girl</span></label></div></fieldset>
+<h2>Sleep and breathing</h2>
+<fieldset class="q" data-q="snore"><legend>Does your child snore?</legend><div class="opts"><label class="opt"><input type="radio" name="snore" value="10" required> <span>Always</span></label><label class="opt"><input type="radio" name="snore" value="6" required> <span>Only in certain sleeping positions</span></label><label class="opt"><input type="radio" name="snore" value="3" required> <span>Only when they have a cold or infection</span></label><label class="opt"><input type="radio" name="snore" value="0" required> <span>No snoring</span></label></div></fieldset>
+<fieldset class="q" data-q="block"><legend>Have you seen your child's breathing stop or get blocked during sleep?</legend><div class="opts"><label class="opt"><input type="radio" name="block" value="20" required> <span>Yes, many times</span></label><label class="opt"><input type="radio" name="block" value="10" required> <span>Yes, a few times</span></label><label class="opt"><input type="radio" name="block" value="0" required> <span>Not seen</span></label></div></fieldset>
+<fieldset class="q" data-q="effort"><legend>Have you seen your child breathe with effort (laboured breathing) during sleep?</legend><div class="opts"><label class="opt"><input type="radio" name="effort" value="15" required> <span>Yes, even with the mouth open and without a cold</span></label><label class="opt"><input type="radio" name="effort" value="10" required> <span>Yes, with the mouth closed, without a cold</span></label><label class="opt"><input type="radio" name="effort" value="5" required> <span>Yes, only during a cold</span></label><label class="opt"><input type="radio" name="effort" value="0" required> <span>Not seen</span></label></div></fieldset>
+<fieldset class="q" data-q="position"><legend>Does your child change position during sleep?</legend><div class="opts"><label class="opt"><input type="radio" name="position" value="3" required> <span>Frequently</span></label><label class="opt"><input type="radio" name="position" value="2" required> <span>Occasionally</span></label><label class="opt"><input type="radio" name="position" value="0" required> <span>No change in position</span></label></div></fieldset>
+<fieldset class="q" data-q="neck"><legend>Does your child sleep with the head tilted back (as if looking up)?</legend><div class="opts"><label class="opt"><input type="radio" name="neck" value="3" required> <span>Always</span></label><label class="opt"><input type="radio" name="neck" value="2" required> <span>Only during a cold</span></label><label class="opt"><input type="radio" name="neck" value="1" required> <span>Occasionally</span></label><label class="opt"><input type="radio" name="neck" value="0" required> <span>Never noticed</span></label></div></fieldset>
+<fieldset class="q" data-q="mouthsleep"><legend>Does your child sleep with the mouth open?</legend><div class="opts"><label class="opt"><input type="radio" name="mouthsleep" value="10" required> <span>Yes, always</span></label><label class="opt"><input type="radio" name="mouthsleep" value="5" required> <span>Only during a cold</span></label><label class="opt"><input type="radio" name="mouthsleep" value="0" required> <span>No</span></label></div></fieldset>
+<fieldset class="q" data-q="mouthawake"><legend>Does your child breathe through the mouth while awake?</legend><div class="opts"><label class="opt"><input type="radio" name="mouthawake" value="10" required> <span>Yes, always</span></label><label class="opt"><input type="radio" name="mouthawake" value="5" required> <span>Only during a cold</span></label><label class="opt"><input type="radio" name="mouthawake" value="0" required> <span>No</span></label></div></fieldset>
+<fieldset class="q" data-minage="5" data-q="bedwet"><legend>Does your child wet the bed during sleep?</legend><p class="q-hint">Asked only from 5 years, as bedwetting is normal in younger children.</p><div class="opts"><label class="opt"><input type="radio" name="bedwet" value="5" required> <span>Yes</span></label><label class="opt"><input type="radio" name="bedwet" value="0" required> <span>No</span></label></div></fieldset>
+<h2>During the day</h2>
+<fieldset class="q" data-minage="4" data-maxage="12" data-q="restless"><legend>Is your child restless?</legend><p class="q-hint">Asked only for children aged 4 to 12.</p><div class="opts"><label class="opt"><input type="radio" name="restless" value="5" required> <span>Always running around, won't sit still for long (except for a favourite programme)</span></label><label class="opt"><input type="radio" name="restless" value="3" required> <span>Hard to get them to sit and listen or study</span></label><label class="opt"><input type="radio" name="restless" value="0" required> <span>No such problems</span></label></div></fieldset>
+<fieldset class="q" data-q="yawn"><legend>Does your child yawn repeatedly?</legend><div class="opts"><label class="opt"><input type="radio" name="yawn" value="5" required> <span>Always</span></label><label class="opt"><input type="radio" name="yawn" value="2" required> <span>Occasionally</span></label><label class="opt"><input type="radio" name="yawn" value="0" required> <span>Never</span></label></div></fieldset>
+<fieldset class="q" data-q="classsleep"><legend>Does your child fall asleep in class?</legend><div class="opts"><label class="opt"><input type="radio" name="classsleep" value="10" required> <span>Always</span></label><label class="opt"><input type="radio" name="classsleep" value="5" required> <span>Occasionally</span></label><label class="opt"><input type="radio" name="classsleep" value="0" required> <span>Never</span></label><label class="opt"><input type="radio" name="classsleep" value="na" required> <span>Not in school yet</span></label></div></fieldset>
+<fieldset class="q" data-q="games"><legend>Does your child fall asleep while playing video games?</legend><div class="opts"><label class="opt"><input type="radio" name="games" value="15" required> <span>Always</span></label><label class="opt"><input type="radio" name="games" value="10" required> <span>Occasionally</span></label><label class="opt"><input type="radio" name="games" value="0" required> <span>Never</span></label><label class="opt"><input type="radio" name="games" value="na" required> <span>Doesn't play video games</span></label></div></fieldset>
+<fieldset class="q" data-minage="5" data-q="school"><legend>How is your child doing at school?</legend><p class="q-hint">Asked only from 5 years.</p><div class="opts"><label class="opt"><input type="radio" name="school" value="3" required> <span>Poor</span></label><label class="opt"><input type="radio" name="school" value="2" required> <span>Below average</span></label><label class="opt"><input type="radio" name="school" value="0" required> <span>Average or above</span></label></div></fieldset>
+<h2>Growth</h2>
+<fieldset class="q" data-q="gain"><legend>Your child's weight</legend><div class="opts"><label class="opt"><input type="radio" name="gain" value="10" required> <span>Not gaining weight, even though they eat enough</span></label><label class="opt"><input type="radio" name="gain" value="5" required> <span>Not gaining weight, and they don't eat enough</span></label><label class="opt"><input type="radio" name="gain" value="0" required> <span>Normal weight</span></label><label class="opt"><input type="radio" name="gain" value="5h" required> <span>A little heavier than classmates or children of the same age</span></label><label class="opt"><input type="radio" name="gain" value="10h" required> <span>Clearly heavier than classmates or children of the same age</span></label></div></fieldset>
+<fieldset class="q" data-q="height"><legend>Height and weight</legend>
+<p class="q-hint">Enter them if you know them. They're checked against the WHO growth charts, and the matching answers below are chosen for you.</p>
+<div class="bmi-row">
+  <label>Height (cm) <input type="number" id="c-cm" inputmode="decimal" min="40" max="200"></label>
+  <label>Weight (kg) <input type="number" id="c-kg" inputmode="decimal" min="2" max="150"></label>
+</div>
+<p class="q-hint"><strong>Compared with other children in the class or of the same age, your child is:</strong></p>
+<div class="opts">
+  <label class="opt"><input type="radio" name="height" value="15"> <span>Very short for age (from the WHO check above)</span></label>
+  <label class="opt"><input type="radio" name="height" value="10"> <span>Among the shortest</span></label>
+  <label class="opt"><input type="radio" name="height" value="5"> <span>Shorter than average</span></label>
+  <label class="opt"><input type="radio" name="height" value="0"> <span>Height is OK</span></label>
+</div></fieldset>
+<p class="bmi-out" id="c-who" aria-live="polite"></p>
+<p class="score-missing" id="c-missing" hidden></p>
+<p><button type="submit" class="btn">See the score</button></p>
+</form>
+<section class="score-result" id="c-result" hidden aria-live="polite">
+  <h2>Your child's result</h2>
+  <p class="score-big"><span id="c-pct"></span>%</p>
+  <p id="c-detail" class="score-detail"></p>
+  <p id="c-growth" class="score-detail"></p>
+  <p id="c-band" class="score-band"></p>
+  <p>Take a screenshot of this result and show it to your doctor.</p>
+</section>
+<p>For 18 years and above, use the <a href="adult.html">MERA Sleep Apnoea Score</a>. For a child under 2 who snores, please see a doctor.</p>
+<p class="q-hint">Growth is checked against the WHO Child Growth Standards (2006) up to 5 years and the WHO Growth Reference (2007) from 5 to 19 years.</p>
+<script src="../js/who.js?v=ccf15342"></script>
+
+</main>
+<footer class="mera-foot"><div class="wrap">&copy; 2026 Dr Rejith R S. MERA Sleep Apnoea Scores. Free to use and share.</div></footer>
+<script src="../js/site.js?v=c58182ef" defer></script>
+</body>
+</html>

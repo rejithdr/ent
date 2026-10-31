@@ -406,8 +406,10 @@ CHILD_CHAT = chat([
      "Snoring only during colds is usually not a concern. Snoring on most nights, especially with mouth breathing, is worth getting checked."),
     ("Will my child need surgery?",
      "Not always. Many children improve with nasal sprays and treatment of allergy, so we usually try medicines first and review. Surgery is advised when breathing, sleep or growth don't improve."),
-    ("Won't the adenoids shrink by themselves?",
-     "Normal adenoids shrink by about 11 years. But years of mouth breathing before that can affect the face, teeth, sleep and learning, so we don't wait if a child is clearly affected."),
+    ("I've been told adenoids disappear by themselves. What happens if my child snores and breathes through the mouth, or keeps getting ear infections or fluid in the ear, and I decide to wait instead of surgery?",
+     "Normal adenoids do shrink, usually by about 11 years. But waiting has a cost when a child is clearly affected. Sleep apnoea can slow a child's growth, in both weight and height. Long-term mouth breathing affects how the face, jaw and teeth develop. And a chronic adenoid infection that doesn't settle, rather than the size of the adenoid, causes fluid behind the eardrum. That fluid reduces hearing, which can show up as poor school performance and difficulty mixing with other children. These effects build up over the years of waiting, so when they are present we don't advise waiting."),
+    ("Will the adenoids grow back after surgery?",
+     "It depends on how much adenoid tissue was removed, and that is planned according to the child's age, the type of disease and the symptoms. After a total or near-total adenoidectomy, where the tissue is removed down to the underlying layer (the fascia), regrowth is very unlikely, and it rarely causes blockage again. After a partial or subtotal adenoidectomy, where some tissue is deliberately kept to preserve its function in a young child, some regrowth can happen."),
     ("Is adenoid surgery painful?",
      "Most children have little pain after endoscopic coblation adenoidectomy and go home the same day. After tonsil surgery, recovery depends on the type: intracapsular surgery usually means less pain."),
     ("Should I send my child's sleep video on WhatsApp?",
@@ -623,14 +625,17 @@ page(
 <h2>Common adenoid problems</h2>
 <ul>
   <li><strong>Adenoid hypertrophy:</strong> enlargement that blocks breathing through the nose</li>
-  <li><strong>Adenoiditis:</strong> infection or inflammation of the adenoids</li>
+  <li><strong>Adenoiditis:</strong> chronic infection or inflammation of the adenoids</li>
 </ul>
+<p>These cause different problems. Enlarged adenoids mainly cause snoring, mouth breathing and sleep apnoea. Chronic adenoid infection, even when the adenoid is not very large, is what usually causes fluid behind the eardrum and repeated ear infections.</p>
 
-<h2>Signs your child may have enlarged adenoids</h2>
+<h2>Signs to look for</h2>
 <ul>
   <li>Snoring and mouth breathing, the most common signs</li>
-  <li>Hearing difficulty due to fluid behind the eardrum</li>
-  <li>Poor attention or hyperactivity, which can be linked with sleep apnoea</li>
+  <li>Poor weight gain or slow growth in height, which can be caused by sleep apnoea</li>
+  <li>Poor attention, hyperactivity or tiredness, also linked with sleep apnoea</li>
+  <li>Hearing difficulty from fluid behind the eardrum, often noticed as poor school performance or a child who is less social</li>
+  <li>Repeated ear infections or a constantly runny nose</li>
   <li>Teeth growing out of position</li>
 </ul>
 
@@ -642,22 +647,38 @@ page(
 
 <h2>Won't adenoids disappear by 11 years? Why not wait?</h2>
 <ul>
-  <li>Normal adenoids shrink by 11 years. Diseased adenoids may not.</li>
-  <li>Children naturally breathe through the nose. Mouth breathing is not normal.</li>
-  <li>Normal development of the face, teeth, nose and sinuses needs nasal breathing.</li>
-  <li>The longer a child mouth-breathes, the greater the effect on development.</li>
+  <li>Normal adenoids shrink by about 11 years. Diseased adenoids may not.</li>
+  <li>Sleep apnoea can slow a child's growth in both weight and height during the years of waiting.</li>
+  <li>Children naturally breathe through the nose. Normal development of the face, jaw, teeth and sinuses needs nasal breathing.</li>
+  <li>Fluid behind the eardrum from chronic adenoid infection reduces hearing, which can affect school performance and how a child mixes with others.</li>
+  <li>The longer these problems continue, the greater their effect.</li>
 </ul>
 
 <h2>How is adenoidectomy done?</h2>
-<p>The adenoid is removed under direct endoscopic view, using coblation or a microdebrider. We follow a defined, graded protocol: the amount of tissue removed is planned according to the child's age and the reason for surgery. It is usually done as <a href="daycare.html">day-care surgery</a>, and most children have little pain afterwards.</p>
+<p>The adenoid is removed through the mouth under direct endoscopic view, so the surgeon can see exactly how much tissue is removed and what is kept. It is usually done as <a href="daycare.html">day-care surgery</a>, and most children have little pain afterwards.</p>
+<p><strong>"Coblation adenoidectomy"</strong> simply means the adenoid is removed with a coblation device, which uses low-temperature plasma energy. A microdebrider (a fine shaver) can also be used, and sometimes both are used together.</p>
+
+<h2>Different degrees of adenoidectomy</h2>
+<p>Adenoid surgery is not the same for every child. We follow a defined, graded protocol, and the amount of tissue removed is planned according to the child's age, the type of disease and the symptoms:</p>
+<ul>
+  <li><strong>Partial adenoidectomy:</strong> only the bulk that blocks the airway is reduced. Used in very young children, to keep the adenoid's role in immunity.</li>
+  <li><strong>Subtotal adenoidectomy:</strong> most of the adenoid is removed, keeping a thin layer of tissue.</li>
+  <li><strong>Near-total adenoidectomy:</strong> almost all the tissue is removed, down to the underlying layer.</li>
+  <li><strong>Total adenoidectomy:</strong> all the adenoid tissue is removed down to the fascia. Used mainly for chronic adenoid infection and fluid in the ear.</li>
+</ul>
+<p>In children with a repaired or at-risk palate, tissue in a specific area is deliberately kept to protect speech and swallowing.</p>
+
+<h2>Will the adenoids grow back?</h2>
+<p>After total or near-total adenoidectomy, regrowth is very unlikely and rarely causes blockage again. After partial or subtotal adenoidectomy, where some tissue is kept on purpose, some regrowth can happen. We'll explain which approach suits your child and why.</p>
 
 <h2>Why is tonsil surgery sometimes done with adenoidectomy?</h2>
 <ul>
   <li>Enlarged tonsils can keep blocking the airway after the adenoids are removed.</li>
-  <li>Tonsils that are large enough to block the airway can be partly removed (intracapsular surgery).</li>
-  <li>Tonsils with repeated infections may need complete removal.</li>
+  <li>Tonsils large enough to block the airway can be partly removed with <strong>intracapsular tonsillectomy</strong>, which keeps the tonsil's capsule and usually means less pain, less bleeding risk and faster recovery.</li>
+  <li>Tonsils with repeated infections may need complete (extracapsular) removal.</li>
 </ul>
 <p>Read more about <a href="tonsil.html">tonsil surgery</a> and <a href="snoring.html">snoring in children</a>.</p>
+{CHILD_CHAT}
 {BOOK}
 """,
 )

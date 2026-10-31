@@ -91,3 +91,60 @@
     res.scrollIntoView({behavior: "smooth", block: "start"});
   });
 })();
+
+/* MERA Child Sleep Apnoea Score */
+(function () {
+  var form = document.getElementById("mera-child");
+  if (!form) return;
+  var MAX = {snore:10, block:20, effort:15, position:3, neck:3, mouthsleep:10, mouthawake:10, bedwet:5, restless:5, yawn:5, classsleep:10, games:15, school:3, gain:10, height:10};
+  var NAMES = {snore:"Snoring", block:"Breathing blocked", effort:"Laboured breathing", position:"Sleeping position", neck:"Head tilted back", mouthsleep:"Open mouth in sleep", mouthawake:"Mouth breathing when awake", bedwet:"Bedwetting", restless:"Restlessness", yawn:"Yawning", classsleep:"Sleeping in class", games:"Video games", school:"School", gain:"Weight gain", height:"Height compared with others"};
+  var ageIn = document.getElementById("c-age");
+  function age() { var a = parseFloat(ageIn.value); return a > 0 ? a : null; }
+  function applies(fs) {
+    var a = age();
+    if (a === null) return true;
+    var mn = fs.getAttribute("data-minage"), mx = fs.getAttribute("data-maxage");
+    return !((mn && a < parseFloat(mn)) || (mx && a > parseFloat(mx)));
+  }
+  function refresh() {
+    form.querySelectorAll("fieldset[data-minage],fieldset[data-maxage]").forEach(function (fs) { fs.hidden = !applies(fs); });
+  }
+  ageIn.addEventListener("input", refresh);
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var got = 0, max = 0, missing = [], firstMissing = null;
+    if (!age()) { missing.push("Age"); firstMissing = ageIn.closest("fieldset"); }
+    Object.keys(MAX).forEach(function (k) {
+      var fs = form.querySelector('fieldset[data-q="' + k + '"]');
+      if (fs && !applies(fs)) return;
+      var c = form.querySelector('input[name="' + k + '"]:checked');
+      if (!c) { missing.push(NAMES[k]); firstMissing = firstMissing || fs; return; }
+      if (c.value === "na") return;
+      got += parseFloat(c.value); max += MAX[k];
+    });
+    var m = document.getElementById("c-missing");
+    if (missing.length) {
+      m.textContent = "Please answer: " + missing.join(", ") + ".";
+      m.hidden = false;
+      if (firstMissing) firstMissing.scrollIntoView({behavior: "smooth", block: "center"});
+      return;
+    }
+    m.hidden = true;
+    var pct = max ? Math.round(got / max * 100) : 0;
+    document.getElementById("c-pct").textContent = pct;
+    document.getElementById("c-detail").textContent = got + " out of " + max + " points (questions that don't apply at this age are left out).";
+    var cm = parseFloat(document.getElementById("c-cm").value), kg = parseFloat(document.getElementById("c-kg").value);
+    var g = "Age " + age() + " years";
+    if (cm > 0) g += ", height " + cm + " cm";
+    if (kg > 0) g += ", weight " + kg + " kg";
+    document.getElementById("c-growth").textContent = g + ".";
+    var band = document.getElementById("c-band");
+    band.className = "score-band " + (pct > 70 ? "high" : pct >= 20 ? "mid" : "low");
+    band.textContent = pct > 70 ? "Strong possibility of sleep apnoea. Please book an ENT consultation soon."
+      : pct >= 20 ? "Sleep apnoea is likely. Please get an ENT check."
+      : "Sleep apnoea is less likely. If your child still snores regularly or breathes through the mouth, see a doctor.";
+    var res = document.getElementById("c-result");
+    res.hidden = false;
+    res.scrollIntoView({behavior: "smooth", block: "start"});
+  });
+})();

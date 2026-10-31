@@ -34,6 +34,7 @@ CONDITIONS = [
         ("snoring.html", "Snoring in children and adults", "snore snoring mouth breathing child sleep"),
         ("sleepapnoea.html", "Obstructive sleep apnoea", "osa apnea apnoea sleepy tired cpap breathing pauses"),
         ("sleep-score.html", "MERA Sleep Apnoea Score (self-check)", "score test check quiz questionnaire sleep apnoea snoring self check"),
+        ("child-sleep-score.html", "MERA Child Sleep Apnoea Score", "child children kid score test check quiz adenoid snoring mouth breathing"),
     ]),
     ("Ear and balance", [
         ("earsurgery.html", "Ear discharge, hearing loss and ear surgery", "ear discharge pus hole eardrum deaf deafness hearing loss tympanoplasty interlay wax"),
@@ -466,6 +467,8 @@ page(
 {video("s2h-rO01osY", "Is snoring and mouth breathing in children normal?")}
 <p>Children should not snore regularly. Regular snoring, especially with mouth breathing, usually means the airway is narrowed, most often by enlarged <a href="adenoids.html">adenoids</a> or <a href="tonsil.html">tonsils</a>.</p>
 
+<div class="box"><strong>Check your child:</strong> take the free <a href="child-sleep-score.html">MERA Child Sleep Apnoea Score</a>.</div>
+
 <h3>Signs parents often miss</h3>
 <ul>
   <li>Snoring most nights</li>
@@ -657,6 +660,8 @@ page(
   <li>Repeated ear infections or a constantly runny nose</li>
   <li>Teeth growing out of position</li>
 </ul>
+
+<div class="box"><strong>Check your child:</strong> take the free <a href="child-sleep-score.html">MERA Child Sleep Apnoea Score</a>.</div>
 
 <h2>How are enlarged adenoids diagnosed?</h2>
 <p>With an X-ray of the back of the nose, or a nasal endoscopy in older children.</p>
@@ -1276,6 +1281,101 @@ page(
 </section>
 
 <p>Read more about <a href="sleepapnoea.html">obstructive sleep apnoea</a> and <a href="snoring.html">snoring</a>.</p>
+""",
+)
+
+# ---------------------------------------------------------------- MERA Child Sleep Apnoea Score
+def qa(name, legend, options, hint="", minage=None, maxage=None):
+    """Like q(), but the question is hidden and not counted outside the age range."""
+    html = q(name, legend, options, hint)
+    attrs = ""
+    if minage is not None:
+        attrs += f' data-minage="{minage}"'
+    if maxage is not None:
+        attrs += f' data-maxage="{maxage}"'
+    return html.replace('<fieldset class="q"', '<fieldset class="q"' + attrs, 1)
+
+
+CHILD_FORM = "\n".join([
+    """<fieldset class="q" data-q="age"><legend>Your child's age</legend>
+<div class="bmi-row"><label>Age (years) <input type="number" id="c-age" inputmode="decimal" min="1" max="18" step="0.5"></label></div>
+<p class="q-hint">Some questions only apply to certain ages, and they'll appear or disappear when you enter the age.</p>
+</fieldset>""",
+    '<h2>Sleep and breathing</h2>',
+    qa("snore", "Does your child snore?", [
+        ("Always", 10), ("Only in certain sleeping positions", 6), ("Only when they have a cold or infection", 3), ("No snoring", 0)]),
+    qa("block", "Have you seen your child's breathing stop or get blocked during sleep?", [
+        ("Yes, many times", 20), ("Yes, a few times", 10), ("Not seen", 0)]),
+    qa("effort", "Have you seen your child breathe with effort (laboured breathing) during sleep?", [
+        ("Yes, even with the mouth open and without a cold", 15), ("Yes, with the mouth closed, without a cold", 10),
+        ("Yes, only during a cold", 5), ("Not seen", 0)]),
+    qa("position", "Does your child change position during sleep?", [
+        ("Frequently", 3), ("Occasionally", 2), ("No change in position", 0)]),
+    qa("neck", "Does your child sleep with the head tilted back (as if looking up)?", [
+        ("Always", 3), ("Only during a cold", 2), ("Occasionally", 1), ("Never noticed", 0)]),
+    qa("mouthsleep", "Does your child sleep with the mouth open?", [
+        ("Yes, always", 10), ("Only during a cold", 5), ("No", 0)]),
+    qa("mouthawake", "Does your child breathe through the mouth while awake?", [
+        ("Yes, always", 10), ("Only during a cold", 5), ("No", 0)]),
+    qa("bedwet", "Does your child wet the bed during sleep?", [
+        ("Yes", 5), ("No", 0)], hint="Asked only from 5 years, as bedwetting is normal in younger children.", minage=5),
+    '<h2>During the day</h2>',
+    qa("restless", "Is your child restless?", [
+        ("Always running around, won't sit still for long (except for a favourite programme)", 5),
+        ("Hard to get them to sit and listen or study", 3), ("No such problems", 0)],
+        hint="Asked only for children aged 4 to 12.", minage=4, maxage=12),
+    qa("yawn", "Does your child yawn repeatedly?", [
+        ("Always", 5), ("Occasionally", 2), ("Never", 0)]),
+    qa("classsleep", "Does your child fall asleep in class?", [
+        ("Always", 10), ("Occasionally", 5), ("Never", 0), ("Not in school yet", "na")]),
+    qa("games", "Does your child fall asleep while playing video games?", [
+        ("Always", 15), ("Occasionally", 10), ("Never", 0), ("Doesn't play video games", "na")]),
+    qa("school", "How is your child doing at school?", [
+        ("Poor", 3), ("Below average", 2), ("Average or above", 0)], hint="Asked only from 5 years.", minage=5),
+    '<h2>Growth</h2>',
+    qa("gain", "Is your child not gaining weight?", [
+        ("Not gaining, even though they eat enough", 10), ("Not gaining, and they don't eat enough", 5),
+        ("Gaining weight normally", 0)]),
+    """<fieldset class="q" data-q="height"><legend>Height and weight</legend>
+<p class="q-hint">Enter them if you know them. They'll be shown on the result for your doctor to plot on the growth chart.</p>
+<div class="bmi-row">
+  <label>Height (cm) <input type="number" id="c-cm" inputmode="decimal" min="40" max="200"></label>
+  <label>Weight (kg) <input type="number" id="c-kg" inputmode="decimal" min="2" max="150"></label>
+</div>
+<p class="q-hint"><strong>Compared with other children in the class or of the same age, your child is:</strong></p>
+<div class="opts">
+  <label class="opt"><input type="radio" name="height" value="10"> <span>Among the shortest</span></label>
+  <label class="opt"><input type="radio" name="height" value="5"> <span>Shorter than average</span></label>
+  <label class="opt"><input type="radio" name="height" value="0"> <span>Height is OK</span></label>
+</div></fieldset>""",
+])
+
+page(
+    "child-sleep-score.html",
+    "MERA Child Sleep Apnoea Score: Free Check for Parents | Dr Rejith ENT, Thrissur",
+    "A free check for parents of children who snore or breathe through the mouth: see how likely sleep apnoea is. Nothing you enter is stored.",
+    f"""
+<h1>MERA Child Sleep Apnoea Score</h1>
+<p class="lead">A check for parents of children who snore or breathe through the mouth. Answer each question, and you'll see how likely obstructive sleep apnoea is.</p>
+<div class="box">This is a check, not a diagnosis. Your answers stay on your phone or computer and are not stored or sent anywhere. For adults, use the <a href="sleep-score.html">adult MERA Sleep Apnoea Score</a>.</div>
+
+<form id="mera-child" class="score-form" novalidate>
+{CHILD_FORM}
+<p class="score-missing" id="c-missing" hidden></p>
+<p><button type="submit" class="btn">See the score</button></p>
+</form>
+
+<section class="score-result" id="c-result" hidden aria-live="polite">
+  <h2>Your child's result</h2>
+  <p class="score-big"><span id="c-pct"></span>%</p>
+  <p id="c-detail" class="score-detail"></p>
+  <p id="c-growth" class="score-detail"></p>
+  <p id="c-band" class="score-band"></p>
+  <p>Take a screenshot of this result and show it at your consultation.</p>
+  <p class="intro-actions"><a class="btn" href="tel:{PHONE_TEL}">Call {PHONE_SHOW}</a> <a class="btn quiet" href="{WHATSAPP}">WhatsApp</a></p>
+</section>
+
+<p>Read more about <a href="snoring.html#children">snoring in children</a> and <a href="adenoids.html">adenoids</a>.</p>
 """,
 )
 

@@ -599,6 +599,7 @@ page(
   <li>Lifestyle changes</li>
   <li>Medicines for nasal blockage and acid reflux</li>
   <li>Custom-made mandibular advancement devices</li>
+  <li>Myofunctional therapy (exercises for the mouth, tongue and throat muscles), through a dentist we refer you to</li>
   <li>Surgery to relieve the obstruction:
     <ul>
       <li>Correcting fixed blockages, such as nasal blockage and enlarged adenoids and tonsils</li>
@@ -611,9 +612,6 @@ page(
   <li>Bariatric surgery for some patients with a BMI over 40</li>
   <li>In children, <a href="adenoids.html">adenoidectomy</a> and <a href="tonsil.html">tonsil surgery</a></li>
 </ul>
-{video("mw-TR7gF-jU", "Exercises for snoring and sleep apnoea")}
-<p>Exercises can help some people with snoring and mild sleep apnoea. They work best alongside the treatment your doctor advises, not instead of it.</p>
-
 {SLEEP_CHAT}
 {SLEEP_AI}
 

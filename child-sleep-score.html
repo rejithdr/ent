@@ -58,12 +58,13 @@
 
 <main id="content" class="wrap">
 <h1>MERA Child Sleep Apnoea Score</h1>
-<p class="lead">A check for parents of children who snore or breathe through the mouth. Answer each question, and you'll see how likely obstructive sleep apnoea is.</p>
-<div class="box">This is a check, not a diagnosis. Your answers stay on your phone or computer and are not stored or sent anywhere. For adults, use the <a href="sleep-score.html">adult MERA Sleep Apnoea Score</a>.</div>
+<p class="lead">A check for parents of children aged 2 to 17 who snore or breathe through the mouth. Answer each question, and you'll see how likely obstructive sleep apnoea is.</p>
+<div class="box">This is a check, not a diagnosis. Your answers stay on your phone or computer and are not stored or sent anywhere. For 18 years and above, use the <a href="sleep-score.html">adult MERA Sleep Apnoea Score</a>. For a child under 2 who snores, please see a doctor directly.</div>
 
 <form id="mera-child" class="score-form" novalidate>
 <fieldset class="q" data-q="age"><legend>Your child's age</legend>
-<div class="bmi-row"><label>Age (years) <input type="number" id="c-age" inputmode="decimal" min="1" max="18" step="0.5"></label></div>
+<div class="bmi-row"><label>Age (years) <input type="number" id="c-age" inputmode="decimal" min="2" max="17" step="0.5"></label></div>
+<p class="score-missing" id="c-agemsg" hidden></p>
 <p class="q-hint">Some questions only apply to certain ages, and they'll appear or disappear when you enter the age.</p>
 </fieldset>
 <h2>Sleep and breathing</h2>
@@ -82,7 +83,7 @@
 <fieldset class="q" data-q="games"><legend>Does your child fall asleep while playing video games?</legend><div class="opts"><label class="opt"><input type="radio" name="games" value="15" required> <span>Always</span></label><label class="opt"><input type="radio" name="games" value="10" required> <span>Occasionally</span></label><label class="opt"><input type="radio" name="games" value="0" required> <span>Never</span></label><label class="opt"><input type="radio" name="games" value="na" required> <span>Doesn't play video games</span></label></div></fieldset>
 <fieldset class="q" data-minage="5" data-q="school"><legend>How is your child doing at school?</legend><p class="q-hint">Asked only from 5 years.</p><div class="opts"><label class="opt"><input type="radio" name="school" value="3" required> <span>Poor</span></label><label class="opt"><input type="radio" name="school" value="2" required> <span>Below average</span></label><label class="opt"><input type="radio" name="school" value="0" required> <span>Average or above</span></label></div></fieldset>
 <h2>Growth</h2>
-<fieldset class="q" data-q="gain"><legend>Is your child not gaining weight?</legend><div class="opts"><label class="opt"><input type="radio" name="gain" value="10" required> <span>Not gaining, even though they eat enough</span></label><label class="opt"><input type="radio" name="gain" value="5" required> <span>Not gaining, and they don't eat enough</span></label><label class="opt"><input type="radio" name="gain" value="0" required> <span>Gaining weight normally</span></label></div></fieldset>
+<fieldset class="q" data-q="gain"><legend>Your child's weight</legend><div class="opts"><label class="opt"><input type="radio" name="gain" value="10" required> <span>Not gaining weight, even though they eat enough</span></label><label class="opt"><input type="radio" name="gain" value="5" required> <span>Not gaining weight, and they don't eat enough</span></label><label class="opt"><input type="radio" name="gain" value="0" required> <span>Normal weight</span></label><label class="opt"><input type="radio" name="gain" value="5" required> <span>A little heavier than classmates or children of the same age</span></label><label class="opt"><input type="radio" name="gain" value="10" required> <span>Clearly heavier than classmates or children of the same age</span></label></div></fieldset>
 <fieldset class="q" data-q="height"><legend>Height and weight</legend>
 <p class="q-hint">Enter them if you know them. They'll be shown on the result for your doctor to plot on the growth chart.</p>
 <div class="bmi-row">
@@ -130,7 +131,7 @@
   </div>
 </footer>
 
-<script src="js/site.js?v=5cdad25f" defer></script>
+<script src="js/site.js?v=3ce0fae9" defer></script>
 
 <div class="dock" aria-label="Book a consultation">
   <a href="tel:+918139005150">Call</a>

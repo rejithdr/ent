@@ -52,8 +52,8 @@
   function bmi() {
     var hc = parseFloat(h.value), wk = parseFloat(w.value);
     if (!(hc > 100 && wk > 25)) { out.textContent = ""; return; }
-    var b = wk / Math.pow(hc / 100, 2), v = b > 30 ? "10" : (b >= 25 ? "5" : "0");
-    out.textContent = "Your BMI is " + b.toFixed(1) + (b > 30 ? " (obese)" : b >= 25 ? " (overweight)" : " (normal)");
+    var b = wk / Math.pow(hc / 100, 2), v = b > 30 ? "10" : b >= 25 ? "6" : b >= 23 ? "3" : "0";
+    out.textContent = "Your BMI is " + b.toFixed(1) + (b > 30 ? " (obese)" : b >= 25 ? " (overweight)" : b >= 23 ? " (a little overweight)" : " (normal)");
     var r = form.querySelector('input[name="weight"][value="' + v + '"]');
     if (r) r.checked = true;
   }
@@ -97,9 +97,10 @@
   var form = document.getElementById("mera-child");
   if (!form) return;
   var MAX = {snore:10, block:20, effort:15, position:3, neck:3, mouthsleep:10, mouthawake:10, bedwet:5, restless:5, yawn:5, classsleep:10, games:15, school:3, gain:10, height:10};
-  var NAMES = {snore:"Snoring", block:"Breathing blocked", effort:"Laboured breathing", position:"Sleeping position", neck:"Head tilted back", mouthsleep:"Open mouth in sleep", mouthawake:"Mouth breathing when awake", bedwet:"Bedwetting", restless:"Restlessness", yawn:"Yawning", classsleep:"Sleeping in class", games:"Video games", school:"School", gain:"Weight gain", height:"Height compared with others"};
+  var NAMES = {snore:"Snoring", block:"Breathing blocked", effort:"Laboured breathing", position:"Sleeping position", neck:"Head tilted back", mouthsleep:"Open mouth in sleep", mouthawake:"Mouth breathing when awake", bedwet:"Bedwetting", restless:"Restlessness", yawn:"Yawning", classsleep:"Sleeping in class", games:"Video games", school:"School", gain:"Weight", height:"Height compared with others"};
   var ageIn = document.getElementById("c-age");
-  function age() { var a = parseFloat(ageIn.value); return a > 0 ? a : null; }
+  var ageMsg = document.getElementById("c-agemsg");
+  function age() { var a = parseFloat(ageIn.value); return a >= 2 && a < 18 ? a : null; }
   function applies(fs) {
     var a = age();
     if (a === null) return true;
@@ -107,13 +108,16 @@
     return !((mn && a < parseFloat(mn)) || (mx && a > parseFloat(mx)));
   }
   function refresh() {
+    var a = parseFloat(ageIn.value);
+    ageMsg.hidden = !(a > 0 && (a < 2 || a >= 18));
+    ageMsg.innerHTML = a >= 18 ? 'From 18 years, please use the <a href="sleep-score.html">adult MERA Sleep Apnoea Score</a>.' : "For a child under 2 who snores, please see a doctor directly.";
     form.querySelectorAll("fieldset[data-minage],fieldset[data-maxage]").forEach(function (fs) { fs.hidden = !applies(fs); });
   }
   ageIn.addEventListener("input", refresh);
   form.addEventListener("submit", function (e) {
     e.preventDefault();
     var got = 0, max = 0, missing = [], firstMissing = null;
-    if (!age()) { missing.push("Age"); firstMissing = ageIn.closest("fieldset"); }
+    if (!age()) { missing.push("Age (2 to 17 years)"); firstMissing = ageIn.closest("fieldset"); }
     Object.keys(MAX).forEach(function (k) {
       var fs = form.querySelector('fieldset[data-q="' + k + '"]');
       if (fs && !applies(fs)) return;

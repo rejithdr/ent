@@ -1249,8 +1249,9 @@ SCORE_FORM = "\n".join([
 </div>
 <p class="bmi-out" id="bmi-out" aria-live="polite"></p>
 <div class="opts">
-  <label class="opt"><input type="radio" name="weight" value="10"> <span>I'm clearly overweight</span></label>
-  <label class="opt"><input type="radio" name="weight" value="5"> <span>I'm a little overweight</span></label>
+  <label class="opt"><input type="radio" name="weight" value="10"> <span>I'm clearly obese</span></label>
+  <label class="opt"><input type="radio" name="weight" value="6"> <span>I'm overweight</span></label>
+  <label class="opt"><input type="radio" name="weight" value="3"> <span>I'm a little overweight</span></label>
   <label class="opt"><input type="radio" name="weight" value="0"> <span>My weight is normal</span></label>
 </div></fieldset>""",
 ])
@@ -1261,8 +1262,8 @@ page(
     "A free self-check for adults who snore: answer a few questions to see how likely obstructive sleep apnoea is. Nothing you enter is stored.",
     f"""
 <h1>MERA Sleep Apnoea Score</h1>
-<p class="lead">A self-check for adults who snore or feel sleepy during the day. Answer each question, and you'll see how likely obstructive sleep apnoea is.</p>
-<div class="box">This is a self-check, not a diagnosis. Only a sleep study can confirm sleep apnoea. Your answers stay on your phone or computer and are not stored or sent anywhere. For children, see <a href="snoring.html#children">snoring in children</a>.</div>
+<p class="lead">A self-check for adults (18 years and above) who snore or feel sleepy during the day. Answer each question, and you'll see how likely obstructive sleep apnoea is.</p>
+<div class="box">This is a self-check, not a diagnosis. Only a sleep study can confirm sleep apnoea. Your answers stay on your phone or computer and are not stored or sent anywhere. For children under 18, use the <a href="child-sleep-score.html">MERA Child Sleep Apnoea Score</a>.</div>
 
 <form id="mera-score" class="score-form" novalidate>
 {SCORE_FORM}
@@ -1298,7 +1299,8 @@ def qa(name, legend, options, hint="", minage=None, maxage=None):
 
 CHILD_FORM = "\n".join([
     """<fieldset class="q" data-q="age"><legend>Your child's age</legend>
-<div class="bmi-row"><label>Age (years) <input type="number" id="c-age" inputmode="decimal" min="1" max="18" step="0.5"></label></div>
+<div class="bmi-row"><label>Age (years) <input type="number" id="c-age" inputmode="decimal" min="2" max="17" step="0.5"></label></div>
+<p class="score-missing" id="c-agemsg" hidden></p>
 <p class="q-hint">Some questions only apply to certain ages, and they'll appear or disappear when you enter the age.</p>
 </fieldset>""",
     '<h2>Sleep and breathing</h2>',
@@ -1333,9 +1335,10 @@ CHILD_FORM = "\n".join([
     qa("school", "How is your child doing at school?", [
         ("Poor", 3), ("Below average", 2), ("Average or above", 0)], hint="Asked only from 5 years.", minage=5),
     '<h2>Growth</h2>',
-    qa("gain", "Is your child not gaining weight?", [
-        ("Not gaining, even though they eat enough", 10), ("Not gaining, and they don't eat enough", 5),
-        ("Gaining weight normally", 0)]),
+    qa("gain", "Your child's weight", [
+        ("Not gaining weight, even though they eat enough", 10), ("Not gaining weight, and they don't eat enough", 5),
+        ("Normal weight", 0), ("A little heavier than classmates or children of the same age", 5),
+        ("Clearly heavier than classmates or children of the same age", 10)]),
     """<fieldset class="q" data-q="height"><legend>Height and weight</legend>
 <p class="q-hint">Enter them if you know them. They'll be shown on the result for your doctor to plot on the growth chart.</p>
 <div class="bmi-row">
@@ -1356,8 +1359,8 @@ page(
     "A free check for parents of children who snore or breathe through the mouth: see how likely sleep apnoea is. Nothing you enter is stored.",
     f"""
 <h1>MERA Child Sleep Apnoea Score</h1>
-<p class="lead">A check for parents of children who snore or breathe through the mouth. Answer each question, and you'll see how likely obstructive sleep apnoea is.</p>
-<div class="box">This is a check, not a diagnosis. Your answers stay on your phone or computer and are not stored or sent anywhere. For adults, use the <a href="sleep-score.html">adult MERA Sleep Apnoea Score</a>.</div>
+<p class="lead">A check for parents of children aged 2 to 17 who snore or breathe through the mouth. Answer each question, and you'll see how likely obstructive sleep apnoea is.</p>
+<div class="box">This is a check, not a diagnosis. Your answers stay on your phone or computer and are not stored or sent anywhere. For 18 years and above, use the <a href="sleep-score.html">adult MERA Sleep Apnoea Score</a>. For a child under 2 who snores, please see a doctor directly.</div>
 
 <form id="mera-child" class="score-form" novalidate>
 {CHILD_FORM}

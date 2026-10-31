@@ -33,6 +33,7 @@ CONDITIONS = [
     ("Sleep", [
         ("snoring.html", "Snoring in children and adults", "snore snoring mouth breathing child sleep"),
         ("sleepapnoea.html", "Obstructive sleep apnoea", "osa apnea apnoea sleepy tired cpap breathing pauses"),
+        ("sleep-score.html", "MERA Sleep Apnoea Score (self-check)", "score test check quiz questionnaire sleep apnoea snoring self check"),
     ]),
     ("Ear and balance", [
         ("earsurgery.html", "Ear discharge, hearing loss and ear surgery", "ear discharge pus hole eardrum deaf deafness hearing loss tympanoplasty interlay wax"),
@@ -509,6 +510,8 @@ page(
 <h2 id="adults">Snoring and sleep apnoea in adults</h2>
 <p>In adults, loud snoring can be a sign of obstructive sleep apnoea. Many people with sleep apnoea don't know they have it, because it happens while they're asleep.</p>
 
+<div class="box"><strong>Check yourself:</strong> take the free <a href="sleep-score.html">MERA Sleep Apnoea Score</a> to see how likely sleep apnoea is.</div>
+
 <h3>Warning signs</h3>
 <ul>
   <li>Loud snoring, often noticed by a partner</li>
@@ -583,6 +586,8 @@ page(
   <li>Daytime sleepiness and tiredness</li>
   <li>Poor memory, irritability and reduced interest in sex</li>
 </ul>
+
+<div class="box"><strong>Check yourself:</strong> take the free <a href="sleep-score.html">MERA Sleep Apnoea Score</a> to see how likely sleep apnoea is.</div>
 
 <h2>Tests for sleep apnoea</h2>
 <ul>
@@ -1175,6 +1180,102 @@ page(
 <h2>Labyrinthectomy for severe vertigo</h2>
 <p>For severe, disabling vertigo that has not responded to any other treatment, the balance organ of the inner ear can be deactivated, either with gentamicin injections into the ear or by surgery. Both can cause permanent hearing loss in that ear, so this is considered only after careful discussion. <a href="vertigo.html">Read more about vertigo</a>.</p>
 {BOOK}
+""",
+)
+
+# ---------------------------------------------------------------- MERA Sleep Apnoea Score
+def q(name, legend, options, hint=""):
+    """options: list of (label, value); value 'na' means not counted."""
+    opts = "".join(
+        f'<label class="opt"><input type="radio" name="{name}" value="{v}" required> <span>{lab}</span></label>'
+        for lab, v in options
+    )
+    hint_html = f'<p class="q-hint">{hint}</p>' if hint else ""
+    return f'<fieldset class="q" data-q="{name}"><legend>{legend}</legend>{hint_html}<div class="opts">{opts}</div></fieldset>'
+
+
+SCORE_FORM = "\n".join([
+    '<h2>Snoring and breathing</h2>',
+    q("snore", "How loud is the snoring?", [
+        ("Can be heard from another room", 10), ("Can be heard in the bedroom", 5),
+        ("No snoring", 0), ("I sleep alone, or I don't know", "na")]),
+    q("pause", "Have you or anyone else noticed pauses in your breathing?", [
+        ("I wake up choking or gasping", 10), ("My partner or room-mate has seen me stop breathing", 8),
+        ("The snoring gets louder and softer without me changing position", 6),
+        ("None of these", 0), ("I sleep alone, or I don't know", "na")]),
+    '<h2>Sleepiness during the day</h2>',
+    q("drive", "Sleepiness while driving in the daytime", [
+        ("I have fallen asleep while the vehicle was moving", 15), ("I have felt sleepy while driving", 10),
+        ("I have fallen asleep while stopped at a traffic signal", 7), ("I have fallen asleep while briefly stopped", 3),
+        ("Never sleepy while driving", 0), ("I don't drive", "na")]),
+    q("talk", "While talking with someone during the day", [
+        ("I have dozed off", 3), ("I usually feel sleepy", 1), ("Never sleepy", 0)]),
+    q("meet", "In a meeting or discussion during the day", [
+        ("I have dozed off", 2), ("I usually feel sleepy", 1), ("Never sleepy", 0)]),
+    q("zoom", "On a video call (Zoom, Meet) during the day", [
+        ("I have dozed off", 2), ("I usually feel sleepy", 1), ("Never sleepy", 0), ("I don't use video calls", "na")]),
+    q("phone", "Watching your phone while sitting", [
+        ("I have dozed off while scrolling reels or shorts", 2), ("I have dozed off while watching long videos", 1),
+        ("Never dozed off", 0), ("I don't watch videos or social media on my phone", "na")]),
+    q("audience", "Sitting in an audience during the day (church, temple, programme, TV, movie, presentation)", [
+        ("I have dozed off", 1), ("I usually feel sleepy", 0.5), ("Never sleepy", 0)]),
+    q("idle", "Sitting idle during the day", [
+        ("I have dozed off", 1), ("I usually feel sleepy", 0.5), ("Never sleepy", 0)]),
+    '<h2>Mornings</h2>',
+    q("wake", "When you wake up in the morning", [
+        ("I feel I haven't slept enough and want to go back to sleep", 4), ("I feel tired but not sleepy", 1),
+        ("I feel fresh and energetic", 0)]),
+    q("headache", "Do you wake up with a headache?", [
+        ("Most mornings", 2), ("Sometimes", 1), ("No", 0)]),
+    '<h2>Health</h2>',
+    q("dm", "Diabetes", [
+        ("Not controlled, on more than 2 medicines", 3), ("Not controlled, on 1 medicine", 2),
+        ("Controlled", 1), ("I don't have diabetes", 0)]),
+    q("bp", "High blood pressure", [
+        ("Not controlled, on more than 2 medicines", 5), ("Not controlled, on 1 medicine", 2),
+        ("Controlled", 1), ("I don't have high blood pressure", 0)]),
+    q("libido", "Interest in sex (optional)", [
+        ("Not interested", 3), ("Reduced", 2), ("Normal", 0), ("Prefer not to say", "na")]),
+    """<fieldset class="q" data-q="weight"><legend>Weight</legend>
+<p class="q-hint">Enter your height and weight, or choose a description if you don't know them.</p>
+<div class="bmi-row">
+  <label>Height (cm) <input type="number" id="h-cm" inputmode="decimal" min="100" max="230"></label>
+  <label>Weight (kg) <input type="number" id="w-kg" inputmode="decimal" min="25" max="300"></label>
+</div>
+<p class="bmi-out" id="bmi-out" aria-live="polite"></p>
+<div class="opts">
+  <label class="opt"><input type="radio" name="weight" value="10"> <span>I'm clearly overweight</span></label>
+  <label class="opt"><input type="radio" name="weight" value="5"> <span>I'm a little overweight</span></label>
+  <label class="opt"><input type="radio" name="weight" value="0"> <span>My weight is normal</span></label>
+</div></fieldset>""",
+])
+
+page(
+    "sleep-score.html",
+    "MERA Sleep Apnoea Score: Free Self-Check | Dr Rejith ENT, Thrissur",
+    "A free self-check for adults who snore: answer a few questions to see how likely obstructive sleep apnoea is. Nothing you enter is stored.",
+    f"""
+<h1>MERA Sleep Apnoea Score</h1>
+<p class="lead">A self-check for adults who snore or feel sleepy during the day. Answer each question, and you'll see how likely obstructive sleep apnoea is.</p>
+<div class="box">This is a self-check, not a diagnosis. Only a sleep study can confirm sleep apnoea. Your answers stay on your phone or computer and are not stored or sent anywhere. For children, see <a href="snoring.html#children">snoring in children</a>.</div>
+
+<form id="mera-score" class="score-form" novalidate>
+{SCORE_FORM}
+<p class="score-missing" id="score-missing" hidden></p>
+<p><button type="submit" class="btn">See my score</button></p>
+</form>
+
+<section class="score-result" id="score-result" hidden aria-live="polite">
+  <h2>Your result</h2>
+  <div class="urgent" id="drive-warning" hidden><strong>Please avoid driving until you've been assessed.</strong> Sleepiness at the wheel is a serious risk to you and others, whatever your score.</div>
+  <p class="score-big"><span id="score-pct"></span>%</p>
+  <p id="score-detail" class="score-detail"></p>
+  <p id="score-band" class="score-band"></p>
+  <p>Take a screenshot of this result and show it at your consultation.</p>
+  <p class="intro-actions"><a class="btn" href="tel:{PHONE_TEL}">Call {PHONE_SHOW}</a> <a class="btn quiet" href="{WHATSAPP}">WhatsApp</a></p>
+</section>
+
+<p>Read more about <a href="sleepapnoea.html">obstructive sleep apnoea</a> and <a href="snoring.html">snoring</a>.</p>
 """,
 )
 

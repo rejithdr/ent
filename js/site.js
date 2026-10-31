@@ -128,8 +128,8 @@
     if (!a || !s || !(cm > 50)) { if (cm > 0 || kg > 0) whoOut.textContent = "Enter the age and choose boy or girl to check growth."; return; }
     var months = a * 12, parts = [];
     var hz = zs(cm, lms(s.value + "h", months));
-    parts.push("Height: " + ord(pctl(hz)) + " percentile" + (hz < -2 ? " (short for age)" : hz < -1 ? " (below average)" : ""));
-    setRadio("height", hz < -2 ? "10" : hz < -1 ? "5" : "0");
+    parts.push("Height: " + ord(pctl(hz)) + " percentile" + (hz < -3 ? " (very short for age)" : hz < -2 ? " (short for age)" : hz < -1 ? " (below average)" : ""));
+    setRadio("height", hz < -3 ? "15" : hz < -2 ? "10" : hz < -1 ? "5" : "0");
     if (kg > 2) {
       var bmi = kg / Math.pow(cm / 100, 2), bz = zs(bmi, lms(s.value + "b", months)), u5 = a < 5;
       var obese = u5 ? bz > 3 : bz > 2, over = u5 ? bz > 2 : bz > 1;
@@ -167,7 +167,8 @@
       var c = form.querySelector('input[name="' + k + '"]:checked');
       if (!c) { missing.push(NAMES[k]); firstMissing = firstMissing || fs; return; }
       if (c.value === "na") return;
-      got += parseFloat(c.value); max += MAX[k];
+      got += parseFloat(c.value);
+      max += (k === "height" && (parseFloat(cmIn.value) > 0 || c.value === "15")) ? 15 : MAX[k];
     });
     var m = document.getElementById("c-missing");
     if (missing.length) {

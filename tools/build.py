@@ -1349,6 +1349,7 @@ CHILD_FORM = "\n".join([
 </div>
 <p class="q-hint"><strong>Compared with other children in the class or of the same age, your child is:</strong></p>
 <div class="opts">
+  <label class="opt"><input type="radio" name="height" value="15"> <span>Very short for age (from the WHO check above)</span></label>
   <label class="opt"><input type="radio" name="height" value="10"> <span>Among the shortest</span></label>
   <label class="opt"><input type="radio" name="height" value="5"> <span>Shorter than average</span></label>
   <label class="opt"><input type="radio" name="height" value="0"> <span>Height is OK</span></label>

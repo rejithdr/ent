@@ -63,10 +63,12 @@
 
 <form id="mera-child" class="score-form" novalidate>
 <fieldset class="q" data-q="age"><legend>Your child's age</legend>
-<div class="bmi-row"><label>Age (years) <input type="number" id="c-age" inputmode="decimal" min="2" max="17" step="0.5"></label></div>
+<div class="bmi-row"><label>Years <input type="number" id="c-age" inputmode="numeric" min="2" max="17" step="1"></label>
+<label>Months <input type="number" id="c-mon" inputmode="numeric" min="0" max="11" step="1" placeholder="0"></label></div>
 <p class="score-missing" id="c-agemsg" hidden></p>
 <p class="q-hint">Some questions only apply to certain ages, and they'll appear or disappear when you enter the age.</p>
 </fieldset>
+<fieldset class="q" data-q="sex"><legend>Your child is a</legend><div class="opts"><label class="opt"><input type="radio" name="sex" value="b" required> <span>Boy</span></label><label class="opt"><input type="radio" name="sex" value="g" required> <span>Girl</span></label></div></fieldset>
 <h2>Sleep and breathing</h2>
 <fieldset class="q" data-q="snore"><legend>Does your child snore?</legend><div class="opts"><label class="opt"><input type="radio" name="snore" value="10" required> <span>Always</span></label><label class="opt"><input type="radio" name="snore" value="6" required> <span>Only in certain sleeping positions</span></label><label class="opt"><input type="radio" name="snore" value="3" required> <span>Only when they have a cold or infection</span></label><label class="opt"><input type="radio" name="snore" value="0" required> <span>No snoring</span></label></div></fieldset>
 <fieldset class="q" data-q="block"><legend>Have you seen your child's breathing stop or get blocked during sleep?</legend><div class="opts"><label class="opt"><input type="radio" name="block" value="20" required> <span>Yes, many times</span></label><label class="opt"><input type="radio" name="block" value="10" required> <span>Yes, a few times</span></label><label class="opt"><input type="radio" name="block" value="0" required> <span>Not seen</span></label></div></fieldset>
@@ -83,9 +85,9 @@
 <fieldset class="q" data-q="games"><legend>Does your child fall asleep while playing video games?</legend><div class="opts"><label class="opt"><input type="radio" name="games" value="15" required> <span>Always</span></label><label class="opt"><input type="radio" name="games" value="10" required> <span>Occasionally</span></label><label class="opt"><input type="radio" name="games" value="0" required> <span>Never</span></label><label class="opt"><input type="radio" name="games" value="na" required> <span>Doesn't play video games</span></label></div></fieldset>
 <fieldset class="q" data-minage="5" data-q="school"><legend>How is your child doing at school?</legend><p class="q-hint">Asked only from 5 years.</p><div class="opts"><label class="opt"><input type="radio" name="school" value="3" required> <span>Poor</span></label><label class="opt"><input type="radio" name="school" value="2" required> <span>Below average</span></label><label class="opt"><input type="radio" name="school" value="0" required> <span>Average or above</span></label></div></fieldset>
 <h2>Growth</h2>
-<fieldset class="q" data-q="gain"><legend>Your child's weight</legend><div class="opts"><label class="opt"><input type="radio" name="gain" value="10" required> <span>Not gaining weight, even though they eat enough</span></label><label class="opt"><input type="radio" name="gain" value="5" required> <span>Not gaining weight, and they don't eat enough</span></label><label class="opt"><input type="radio" name="gain" value="0" required> <span>Normal weight</span></label><label class="opt"><input type="radio" name="gain" value="5" required> <span>A little heavier than classmates or children of the same age</span></label><label class="opt"><input type="radio" name="gain" value="10" required> <span>Clearly heavier than classmates or children of the same age</span></label></div></fieldset>
+<fieldset class="q" data-q="gain"><legend>Your child's weight</legend><div class="opts"><label class="opt"><input type="radio" name="gain" value="10" required> <span>Not gaining weight, even though they eat enough</span></label><label class="opt"><input type="radio" name="gain" value="5" required> <span>Not gaining weight, and they don't eat enough</span></label><label class="opt"><input type="radio" name="gain" value="0" required> <span>Normal weight</span></label><label class="opt"><input type="radio" name="gain" value="5h" required> <span>A little heavier than classmates or children of the same age</span></label><label class="opt"><input type="radio" name="gain" value="10h" required> <span>Clearly heavier than classmates or children of the same age</span></label></div></fieldset>
 <fieldset class="q" data-q="height"><legend>Height and weight</legend>
-<p class="q-hint">Enter them if you know them. They'll be shown on the result for your doctor to plot on the growth chart.</p>
+<p class="q-hint">Enter them if you know them. They're checked against the WHO growth charts, and the matching answers below are chosen for you.</p>
 <div class="bmi-row">
   <label>Height (cm) <input type="number" id="c-cm" inputmode="decimal" min="40" max="200"></label>
   <label>Weight (kg) <input type="number" id="c-kg" inputmode="decimal" min="2" max="150"></label>
@@ -96,6 +98,7 @@
   <label class="opt"><input type="radio" name="height" value="5"> <span>Shorter than average</span></label>
   <label class="opt"><input type="radio" name="height" value="0"> <span>Height is OK</span></label>
 </div></fieldset>
+<p class="bmi-out" id="c-who" aria-live="polite"></p>
 <p class="score-missing" id="c-missing" hidden></p>
 <p><button type="submit" class="btn">See the score</button></p>
 </form>
@@ -111,6 +114,8 @@
 </section>
 
 <p>Read more about <a href="snoring.html#children">snoring in children</a> and <a href="adenoids.html">adenoids</a>.</p>
+<p class="q-hint">Growth is checked against the WHO Child Growth Standards (2006) up to 5 years and the WHO Growth Reference (2007) from 5 to 19 years.</p>
+<script src="js/who.js?v=ccf15342"></script>
 </main>
 
 <footer class="site">
@@ -131,7 +136,7 @@
   </div>
 </footer>
 
-<script src="js/site.js?v=3ce0fae9" defer></script>
+<script src="js/site.js?v=564541df" defer></script>
 
 <div class="dock" aria-label="Book a consultation">
   <a href="tel:+918139005150">Call</a>

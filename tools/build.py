@@ -1299,10 +1299,12 @@ def qa(name, legend, options, hint="", minage=None, maxage=None):
 
 CHILD_FORM = "\n".join([
     """<fieldset class="q" data-q="age"><legend>Your child's age</legend>
-<div class="bmi-row"><label>Age (years) <input type="number" id="c-age" inputmode="decimal" min="2" max="17" step="0.5"></label></div>
+<div class="bmi-row"><label>Years <input type="number" id="c-age" inputmode="numeric" min="2" max="17" step="1"></label>
+<label>Months <input type="number" id="c-mon" inputmode="numeric" min="0" max="11" step="1" placeholder="0"></label></div>
 <p class="score-missing" id="c-agemsg" hidden></p>
 <p class="q-hint">Some questions only apply to certain ages, and they'll appear or disappear when you enter the age.</p>
 </fieldset>""",
+    q("sex", "Your child is a", [("Boy", "b"), ("Girl", "g")]),
     '<h2>Sleep and breathing</h2>',
     qa("snore", "Does your child snore?", [
         ("Always", 10), ("Only in certain sleeping positions", 6), ("Only when they have a cold or infection", 3), ("No snoring", 0)]),
@@ -1337,10 +1339,10 @@ CHILD_FORM = "\n".join([
     '<h2>Growth</h2>',
     qa("gain", "Your child's weight", [
         ("Not gaining weight, even though they eat enough", 10), ("Not gaining weight, and they don't eat enough", 5),
-        ("Normal weight", 0), ("A little heavier than classmates or children of the same age", 5),
-        ("Clearly heavier than classmates or children of the same age", 10)]),
+        ("Normal weight", 0), ("A little heavier than classmates or children of the same age", "5h"),
+        ("Clearly heavier than classmates or children of the same age", "10h")]),
     """<fieldset class="q" data-q="height"><legend>Height and weight</legend>
-<p class="q-hint">Enter them if you know them. They'll be shown on the result for your doctor to plot on the growth chart.</p>
+<p class="q-hint">Enter them if you know them. They're checked against the WHO growth charts, and the matching answers below are chosen for you.</p>
 <div class="bmi-row">
   <label>Height (cm) <input type="number" id="c-cm" inputmode="decimal" min="40" max="200"></label>
   <label>Weight (kg) <input type="number" id="c-kg" inputmode="decimal" min="2" max="150"></label>
@@ -1364,6 +1366,7 @@ page(
 
 <form id="mera-child" class="score-form" novalidate>
 {CHILD_FORM}
+<p class="bmi-out" id="c-who" aria-live="polite"></p>
 <p class="score-missing" id="c-missing" hidden></p>
 <p><button type="submit" class="btn">See the score</button></p>
 </form>
@@ -1379,6 +1382,8 @@ page(
 </section>
 
 <p>Read more about <a href="snoring.html#children">snoring in children</a> and <a href="adenoids.html">adenoids</a>.</p>
+<p class="q-hint">Growth is checked against the WHO Child Growth Standards (2006) up to 5 years and the WHO Growth Reference (2007) from 5 to 19 years.</p>
+<script src="{asset('js/who.js')}"></script>
 """,
 )
 

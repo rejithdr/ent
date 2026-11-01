@@ -26,6 +26,7 @@ NAV = [
     ("about.html", "About Dr Rejith"),
     ("hospitals.html", "Clinics & timings"),
     ("snoring.html", "Snoring & sleep apnoea"),
+    ("self-checks.html", "Self-checks"),
 ]
 
 # All condition pages, grouped. Keywords help the search box find a page
@@ -41,9 +42,12 @@ CONDITIONS = [
         ("earsurgery.html", "Ear discharge, hearing loss and ear surgery", "ear discharge pus hole eardrum deaf deafness hearing loss tympanoplasty interlay wax"),
         ("balloon-et.html", "Blocked ear and balloon Eustachian tube dilation", "blocked ear ear block fullness popping eustachian tube balloon dilation tuboplasty pressure flying"),
         ("vertigo.html", "Vertigo, dizziness and imbalance", "vertigo giddiness dizziness dizzy spinning balance bppv ear balance"),
+        ("hearing-check.html", "Hearing Check (self-check)", "hearing loss deaf sudden hum test check quiz self check ear block"),
+        ("dizziness-check.html", "Dizziness Check (self-check)", "vertigo giddiness dizziness dizzy spinning check quiz self check"),
     ]),
     ("Nose and sinus", [
         ("septum.html", "Blocked nose and deviated septum", "nose block blocked septum deviated septoplasty nosebleed"),
+        ("nose-check.html", "Blocked Nose Check (self-check)", "nose block blocked turbinate septum nose score check quiz self check"),
         ("polyp.html", "Nasal polyps and sinus surgery", "polyp polyps sinus sinusitis smell"),
         ("balloon-sinus.html", "Balloon sinus surgery", "balloon sinus sinusitis sinuplasty sinus headache"),
         ("migraine.html", "Headache and migraine", "headache migraine head pain"),
@@ -765,6 +769,7 @@ page(
     f"""
 <img class="hero" src="vertigoclinic.jpg" alt="Vertigo and balance clinic">
 <h1>Vertigo and Balance Clinic in Thrissur</h1>
+<div class="box"><strong>Check yourself:</strong> take the free <a href="dizziness-check.html">Dizziness Check</a> to see what your dizziness may be and how soon to be seen.</div>
 
 {video("E-4NMVUT89k", "Which specialist to consult for thalakarakam (vertigo, dizziness, fainting)?")}
 
@@ -828,6 +833,7 @@ page(
     "Ear discharge, hearing loss and endoscopic ear surgery through the ear canal: tympanoplasty, myringotomy, ossiculoplasty and limited cholesteatoma, in Thrissur.",
     f"""
 <h1>Ear Problems and Endoscopic Ear Surgery</h1>
+<div class="box"><strong>Hearing less?</strong> Take the free <a href="hearing-check.html">Hearing Check</a>, with a simple hum test, to see how urgently to be seen. Sudden hearing loss is best treated within 72 hours.</div>
 
 <h2>What ear discharge can tell us</h2>
 <ul>
@@ -934,6 +940,7 @@ page(
     f"""
 <img class="hero" src="endoscopy.jpg" alt="Nasal endoscopy examination">
 <h1>Nasal Septum Surgery</h1>
+<div class="box"><strong>Blocked nose?</strong> Take the free <a href="nose-check.html">Blocked Nose Check</a> to measure how much it affects you and what may be causing it.</div>
 
 <h2>When is septal surgery needed?</h2>
 <p>When a deviated nasal septum causes persistent nasal blockage, headache, repeated sinusitis, nosebleeds or <a href="sleepapnoea.html">sleep apnoea</a>.</p>
@@ -1226,6 +1233,59 @@ page(
 <p class="q-hint">Growth is checked against the WHO Child Growth Standards (2006) up to 5 years and the WHO Growth Reference (2007) from 5 to 19 years.</p>
 """,
 )
+
+# ---------------------------------------------------------------- MIDAS ENT self-checks (nose, hearing, dizziness)
+def check_page(slug, tool, title, description, h1, lead, extra_attrs="", after=""):
+    page(slug, title, description, f"""
+<h1>{h1}</h1>
+<p class="lead">{lead}</p>
+<div class="box">This is a check, not a diagnosis, and it gives no treatment advice. Your answers stay on your phone or computer and are not stored or sent anywhere.</div>
+<div id="ent-check" class="flow" data-tool="{tool}" data-tel="{PHONE_TEL}" data-tel-show="{PHONE_SHOW}" data-wa="{WHATSAPP}"{extra_attrs}></div>
+<noscript><p class="urgent">This check needs JavaScript. Please turn it on, or call to book a consultation.</p></noscript>
+<script src="{asset('js/ent-checks.js')}"></script>
+{after}
+""")
+
+
+check_page("nose-check.html", "nose",
+    "Blocked Nose Check: Free Self-Check | Dr Rejith ENT, Thrissur",
+    "A free check for a blocked nose: measure how much it affects you (NOSE score) and learn what may be causing it. Nothing you enter is stored.",
+    "Blocked Nose Check",
+    "For adults with a blocked or stuffy nose. Questions come one at a time, including the NOSE score, a standard measure of how much nasal blockage affects you.",
+    ' data-mera="sleep-score.html"',
+    '<p>Read more about <a href="septum.html">a bent nasal septum</a> and <a href="polyp.html">nasal polyps</a>.</p>')
+
+check_page("hearing-check.html", "hearing",
+    "Hearing Check with Hum Test: Free Self-Check | Dr Rejith ENT, Thrissur",
+    "A free hearing check with a simple hum test: see how urgently hearing loss needs to be seen. Sudden hearing loss is best treated within 72 hours.",
+    "Hearing Check",
+    "For adults and children with hearing loss in one or both ears. For sudden hearing loss, a simple hum test you do at home helps show how urgently you need to be seen.",
+    ' data-mera-child="child-sleep-score.html"',
+    '<div class="urgent"><strong>Sudden hearing loss is an emergency.</strong> The chance of recovery is best when treatment starts within 72 hours.</div>\n<p>Read more about <a href="earsurgery.html">ear problems and hearing loss</a>.</p>')
+
+check_page("dizziness-check.html", "dizzy",
+    "Dizziness and Vertigo Check: Free Self-Check | Dr Rejith ENT, Thrissur",
+    "A free check for dizziness and vertigo: see what may be causing it and how soon to be seen. Nothing you enter is stored.",
+    "Dizziness Check",
+    "For adults with spinning, light-headedness or unsteadiness. Questions come one at a time, starting with warning signs that need emergency care.",
+    ' data-hearing="hearing-check.html"',
+    '<p>Read more about <a href="vertigo.html">vertigo and the vertigo clinic</a>.</p>')
+
+page("self-checks.html",
+    "ENT Self-Checks: Free Online Checks | Dr Rejith ENT, Thrissur",
+    "Free ENT self-checks: sleep apnoea for adults and children, blocked nose, hearing loss and dizziness. One question at a time; nothing you enter is stored.",
+    """
+<h1>ENT Self-Checks</h1>
+<p class="lead">Free checks that ask one question at a time and tell you what your symptoms may mean and how soon to be seen. They give no treatment advice, and nothing you enter is stored.</p>
+<ul class="paths">
+  <li><a href="sleep-score.html"><strong>Snoring and sleep apnoea</strong><span>MERA Sleep Apnoea Check, for adults</span></a></li>
+  <li><a href="child-sleep-score.html"><strong>Child who snores or mouth-breathes</strong><span>MERA Child Sleep Apnoea Check: adenoids, complications, tonsils</span></a></li>
+  <li><a href="nose-check.html"><strong>Blocked nose</strong><span>Blocked Nose Check, with the NOSE score</span></a></li>
+  <li><a href="hearing-check.html"><strong>Hearing loss</strong><span>Hearing Check, with a simple hum test</span></a></li>
+  <li><a href="dizziness-check.html"><strong>Dizziness or vertigo</strong><span>Dizziness Check</span></a></li>
+</ul>
+<p class="q-hint">These checks follow the MIDAS ENT protocols. They are not a diagnosis; only an examination by a doctor can confirm the cause.</p>
+""")
 
 # ---------------------------------------------------------------- Balloon Eustachian tube
 page(

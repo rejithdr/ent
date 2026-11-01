@@ -299,6 +299,9 @@
     if (mod.ears) {
       if (!A.q18) return "q18";
       if (cApplies("q23") && !A.q23) return "q23";
+    } else if (!A.q18) {
+      var pre = childResult();
+      if (pre.adenoid.lvl === "high" || pre.osaKey === "HIGH") return "q18";
     }
     if (inSet(A.q17, "abd") && !A.q24) return "q24";
     return null;
@@ -341,7 +344,7 @@
     var gt = g.flags.length ? g.flags.join(", ") : (g.measured ? "within the normal range" : "no problems reported");
     if (!g.abnormal) gt = gt.charAt(0).toUpperCase() + gt.slice(1);
     comp.push({name: "Growth", lvl: g.thrive ? "high" : g.abnormal ? "mid" : "low", t: (g.thrive ? "Growth may be affected: " : g.abnormal ? "Weight needs attention: " : "") + gt, why: g.text});
-    if (mod.ears) {
+    if (mod.ears || A.q18) {
       var aom = inSet(A.q18, "ab"), glue = (Array.isArray(A.q19) && A.q19.some(function (x) { return x !== "d"; })) || inSet(A.q23, "ab");
       comp.push({name: "Ear infections", lvl: aom ? "mid" : "low", t: aom ? "Recurrent ear infections" : "Not recurrent"});
       comp.push({name: "Hearing", lvl: glue ? "mid" : "low", t: glue ? "Possible fluid behind the eardrums (glue ear): a hearing test and ear check are advised" : "No hearing concerns"});
@@ -351,14 +354,15 @@
     var face = Array.isArray(A.q16) && A.q16.some(function (x) { return "bcd".indexOf(x) !== -1; });
     if (face) comp.push({name: "Face and teeth", lvl: "mid", t: "Changes in the face or teeth: an orthodontic assessment may help"});
     R.comp = comp;
+    R.osaKey = osa.key;
 
     /* 3. Tonsils for age */
     var to;
-    if (A.q24 === "a") to = {lvl: "high", t: "Large (doctor's assessment)"};
-    else if (A.q24 === "b") to = {lvl: "low", t: "Appropriate for age (doctor's assessment)"};
+    if (A.q24 === "a") to = {lvl: "high", t: "Large, as told by a doctor earlier (to be confirmed at examination)"};
+    else if (A.q24 === "b") to = {lvl: "low", t: "Normal size, as told by a doctor earlier (to be confirmed at examination)"};
     else if (A.q17 === "a") to = {lvl: "high", t: "Very large (parent's impression, to be confirmed at examination)"};
-    else if (A.q17 === "b") to = a < 8 ? {lvl: "mid", t: "Large, which is common at this age (parent's impression)"} : {lvl: "mid", t: "Large for age (parent's impression, to be confirmed at examination)"};
-    else if (A.q17 === "c") to = {lvl: "low", t: "Appropriate for age (parent's impression)"};
+    else if (A.q17 === "b") to = a < 8 ? {lvl: "mid", t: "Large, which is common at this age (parent's impression, to be confirmed at examination)"} : {lvl: "mid", t: "Large for age (parent's impression, to be confirmed at examination)"};
+    else if (A.q17 === "c") to = {lvl: "low", t: "Appropriate for age (parent's impression, to be confirmed at examination)"};
     else to = {lvl: "low", t: "Not assessed"};
     R.tonsil = to;
 

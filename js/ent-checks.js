@@ -110,11 +110,12 @@
       var sudden = A.onset === "a" || (A.onset === "c" && A.who === "a");
       if (sudden) {
         if (A.rf === "a") return {level: "high", urgent: true, title: "Go to the emergency department now", text: "Hearing loss with weakness, numbness or slurred speech can be a sign of a stroke.", adds: []};
-        var blockage = A.ear !== "c" && A.h1 === "a" && A.h2 === "a" && A.ring === "b";
+        /* NOT framework: conductive loss lateralises to the poorer ear, and centralises or stays there on closing both ears */
+        var blockage = A.ear !== "c" && A.h1 === "a" && inSet(A.h2, "ac") && A.ring === "b";
         if (blockage) {
           r.level = "mid"; r.title = "Likely a blockage-type hearing loss";
           r.text = "See an ENT doctor within the next couple of days at least. It is best to be seen and have a hearing test within 72 hours of when it started.";
-          r.adds.push("The hum moving to the ear that hears less suggests something in the ear canal or middle ear is stopping sound, such as wax, fluid behind the eardrum, a hole in the eardrum or a problem with the tiny ear bones.");
+          r.adds.push("The hum going to the ear that hears less, and not moving to the better ear when both ears are closed, suggests something in the ear canal or middle ear is stopping sound, such as wax, fluid behind the eardrum, a hole in the eardrum or a problem with the tiny ear bones.");
           r.adds.push("Only an examination and a hearing test can confirm this. If the nerve turns out to be involved, recovery is much less likely after 72 hours.");
         } else {
           r.title = "Possible nerve hearing loss";

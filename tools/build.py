@@ -1190,202 +1190,40 @@ page(
 )
 
 # ---------------------------------------------------------------- MERA Sleep Apnoea Score
-def q(name, legend, options, hint=""):
-    """options: list of (label, value); value 'na' means not counted."""
-    opts = "".join(
-        f'<label class="opt"><input type="radio" name="{name}" value="{v}" required> <span>{lab}</span></label>'
-        for lab, v in options
-    )
-    hint_html = f'<p class="q-hint">{hint}</p>' if hint else ""
-    return f'<fieldset class="q" data-q="{name}"><legend>{legend}</legend>{hint_html}<div class="opts">{opts}</div></fieldset>'
-
-
-SCORE_FORM = "\n".join([
-    '<h2>Snoring and breathing</h2>',
-    q("snore", "How loud is the snoring?", [
-        ("Can be heard from another room", 10), ("Can be heard in the bedroom", 5),
-        ("No snoring", 0), ("I sleep alone, or I don't know", "na")]),
-    q("pause", "Have you or anyone else noticed pauses in your breathing?", [
-        ("I wake up choking or gasping", 10), ("My partner or room-mate has seen me stop breathing", 8),
-        ("The snoring gets louder and softer without me changing position", 6),
-        ("None of these", 0), ("I sleep alone, or I don't know", "na")]),
-    '<h2>Sleepiness during the day</h2>',
-    q("drive", "Sleepiness while driving in the daytime", [
-        ("I have fallen asleep while the vehicle was moving", 15), ("I have felt sleepy while driving", 10),
-        ("I have fallen asleep while stopped at a traffic signal", 7), ("I have fallen asleep while briefly stopped", 3),
-        ("Never sleepy while driving", 0), ("I don't drive", "na")]),
-    q("talk", "While talking with someone during the day", [
-        ("I have dozed off", 3), ("I usually feel sleepy", 1), ("Never sleepy", 0)]),
-    q("meet", "In a meeting or discussion during the day", [
-        ("I have dozed off", 2), ("I usually feel sleepy", 1), ("Never sleepy", 0)]),
-    q("zoom", "On a video call (Zoom, Meet) during the day", [
-        ("I have dozed off", 2), ("I usually feel sleepy", 1), ("Never sleepy", 0), ("I don't use video calls", "na")]),
-    q("phone", "Watching your phone while sitting", [
-        ("I have dozed off while scrolling reels or shorts", 2), ("I have dozed off while watching long videos", 1),
-        ("Never dozed off", 0), ("I don't watch videos or social media on my phone", "na")]),
-    q("audience", "Sitting in an audience during the day (church, temple, programme, TV, movie, presentation)", [
-        ("I have dozed off", 1), ("I usually feel sleepy", 0.5), ("Never sleepy", 0)]),
-    q("idle", "Sitting idle during the day", [
-        ("I have dozed off", 1), ("I usually feel sleepy", 0.5), ("Never sleepy", 0)]),
-    '<h2>Mornings</h2>',
-    q("wake", "When you wake up in the morning", [
-        ("I feel I haven't slept enough and want to go back to sleep", 4), ("I feel tired but not sleepy", 1),
-        ("I feel fresh and energetic", 0)]),
-    q("headache", "Do you wake up with a headache?", [
-        ("Most mornings", 2), ("Sometimes", 1), ("No", 0)]),
-    '<h2>Health</h2>',
-    q("dm", "Diabetes", [
-        ("Not controlled, on more than 2 medicines", 3), ("Not controlled, on 1 medicine", 2),
-        ("Controlled", 1), ("I don't have diabetes", 0)]),
-    q("bp", "High blood pressure", [
-        ("Not controlled, on more than 2 medicines", 5), ("Not controlled, on 1 medicine", 2),
-        ("Controlled", 1), ("I don't have high blood pressure", 0)]),
-    q("libido", "Interest in sex (optional)", [
-        ("Not interested", 3), ("Reduced", 2), ("Normal", 0), ("Prefer not to say", "na")]),
-    """<fieldset class="q" data-q="weight"><legend>Weight</legend>
-<p class="q-hint">Enter your height and weight, or choose a description if you don't know them.</p>
-<div class="bmi-row">
-  <label>Height (cm) <input type="number" id="h-cm" inputmode="decimal" min="100" max="230"></label>
-  <label>Weight (kg) <input type="number" id="w-kg" inputmode="decimal" min="25" max="300"></label>
-</div>
-<p class="bmi-out" id="bmi-out" aria-live="polite"></p>
-<div class="opts">
-  <label class="opt"><input type="radio" name="weight" value="10"> <span>I'm clearly obese</span></label>
-  <label class="opt"><input type="radio" name="weight" value="6"> <span>I'm overweight</span></label>
-  <label class="opt"><input type="radio" name="weight" value="3"> <span>I'm a little overweight</span></label>
-  <label class="opt"><input type="radio" name="weight" value="0"> <span>My weight is normal</span></label>
-</div></fieldset>""",
-])
-
 page(
     "sleep-score.html",
     "MERA Sleep Apnoea Score: Free Self-Check | Dr Rejith ENT, Thrissur",
     "A free self-check for adults who snore: answer a few questions to see how likely obstructive sleep apnoea is. Nothing you enter is stored.",
     f"""
 <h1>MERA Sleep Apnoea Score</h1>
-<p class="lead">A self-check for adults (18 years and above) who snore or feel sleepy during the day. Answer each question, and you'll see how likely obstructive sleep apnoea is.</p>
+<p class="lead">A self-check for adults (18 years and above) who snore or feel sleepy during the day. Questions come one at a time, and the check asks only what your answers need, usually 5 to 10 questions.</p>
 <div class="box">This is a self-check, not a diagnosis. Only a sleep study can confirm sleep apnoea. Your answers stay on your phone or computer and are not stored or sent anywhere. For children under 18, use the <a href="child-sleep-score.html">MERA Child Sleep Apnoea Score</a>.</div>
 
-<form id="mera-score" class="score-form" autocomplete="off" novalidate>
-{SCORE_FORM}
-<p class="score-missing" id="score-missing" hidden></p>
-<p><button type="submit" class="btn">See my score</button></p>
-</form>
-
-<section class="score-result" id="score-result" hidden aria-live="polite">
-  <h2>Your result</h2>
-  <div class="urgent" id="drive-warning" hidden><strong>Please avoid driving until you've been assessed.</strong> Sleepiness at the wheel is a serious risk to you and others, whatever your score.</div>
-  <p class="score-big"><span id="score-pct"></span>%</p>
-  <p id="score-detail" class="score-detail"></p>
-  <p id="score-band" class="score-band"></p>
-  <p>Take a screenshot of this result and show it at your consultation.</p>
-  <p class="intro-actions"><a class="btn" href="tel:{PHONE_TEL}">Call {PHONE_SHOW}</a> <a class="btn quiet" href="{WHATSAPP}">WhatsApp</a></p>
-</section>
+<div id="mera-flow" class="flow" data-tool="adult" data-child-url="child-sleep-score.html" data-tel="{PHONE_TEL}" data-tel-show="{PHONE_SHOW}" data-wa="{WHATSAPP}"></div>
+<noscript><p class="urgent">This check needs JavaScript. Please turn it on, or call to book a consultation.</p></noscript>
+<script src="{asset('js/mera.js')}"></script>
 
 <p>Read more about <a href="sleepapnoea.html">obstructive sleep apnoea</a> and <a href="snoring.html">snoring</a>.</p>
 """,
 )
 
 # ---------------------------------------------------------------- MERA Child Sleep Apnoea Score
-def qa(name, legend, options, hint="", minage=None, maxage=None):
-    """Like q(), but the question is hidden and not counted outside the age range."""
-    html = q(name, legend, options, hint)
-    attrs = ""
-    if minage is not None:
-        attrs += f' data-minage="{minage}"'
-    if maxage is not None:
-        attrs += f' data-maxage="{maxage}"'
-    return html.replace('<fieldset class="q"', '<fieldset class="q"' + attrs, 1)
-
-
-CHILD_FORM = "\n".join([
-    """<fieldset class="q" data-q="age"><legend>Your child's age</legend>
-<div class="bmi-row"><label>Years <input type="number" id="c-age" inputmode="numeric" min="2" max="17" step="1"></label>
-<label>Months <input type="number" id="c-mon" inputmode="numeric" min="0" max="11" step="1" placeholder="0"></label></div>
-<p class="score-missing" id="c-agemsg" hidden></p>
-<p class="q-hint">Some questions only apply to certain ages, and they'll appear or disappear when you enter the age.</p>
-</fieldset>""",
-    q("sex", "Your child is a", [("Boy", "b"), ("Girl", "g")]),
-    '<h2>Sleep and breathing</h2>',
-    qa("snore", "Does your child snore?", [
-        ("Always", 10), ("Only in certain sleeping positions", 6), ("Only when they have a cold or infection", 3), ("No snoring", 0)]),
-    qa("block", "Have you seen your child's breathing stop or get blocked during sleep?", [
-        ("Yes, many times", 20), ("Yes, a few times", 10), ("Not seen", 0)]),
-    qa("effort", "Have you seen your child breathe with effort (laboured breathing) during sleep?", [
-        ("Yes, even with the mouth open and without a cold", 15), ("Yes, with the mouth closed, without a cold", 10),
-        ("Yes, only during a cold", 5), ("Not seen", 0)]),
-    qa("position", "Does your child change position during sleep?", [
-        ("Frequently", 3), ("Occasionally", 2), ("No change in position", 0)]),
-    qa("neck", "Does your child sleep with the head tilted back (as if looking up)?", [
-        ("Always", 3), ("Only during a cold", 2), ("Occasionally", 1), ("Never noticed", 0)]),
-    qa("mouthsleep", "Does your child sleep with the mouth open?", [
-        ("Yes, always", 10), ("Only during a cold", 5), ("No", 0)]),
-    qa("mouthawake", "Does your child breathe through the mouth while awake?", [
-        ("Yes, always", 10), ("Only during a cold", 5), ("No", 0)]),
-    qa("bedwet", "Does your child wet the bed during sleep?", [
-        ("Yes", 5), ("No", 0)], hint="Asked only from 5 years, as bedwetting is normal in younger children.", minage=5),
-    '<h2>During the day</h2>',
-    qa("restless", "Is your child restless?", [
-        ("Always running around, won't sit still for long (except for a favourite programme)", 5),
-        ("Hard to get them to sit and listen or study", 3), ("No such problems", 0)],
-        hint="Asked only for children aged 4 to 12.", minage=4, maxage=12),
-    qa("yawn", "Does your child yawn repeatedly?", [
-        ("Always", 5), ("Occasionally", 2), ("Never", 0)]),
-    qa("classsleep", "Does your child fall asleep in class?", [
-        ("Always", 10), ("Occasionally", 5), ("Never", 0), ("Not in school yet", "na")]),
-    qa("games", "Does your child fall asleep while playing video games?", [
-        ("Always", 15), ("Occasionally", 10), ("Never", 0), ("Doesn't play video games", "na")]),
-    qa("school", "How is your child doing at school?", [
-        ("Poor", 3), ("Below average", 2), ("Average or above", 0)], hint="Asked only from 5 years.", minage=5),
-    '<h2>Growth</h2>',
-    qa("gain", "Your child's weight", [
-        ("Not gaining weight, even though they eat enough", 10), ("Not gaining weight, and they don't eat enough", 5),
-        ("Normal weight", 0), ("A little heavier than classmates or children of the same age", "5h"),
-        ("Clearly heavier than classmates or children of the same age", "10h")]),
-    """<fieldset class="q" data-q="height"><legend>Height and weight</legend>
-<p class="q-hint">Enter them if you know them. They're checked against the WHO growth charts, and the matching answers below are chosen for you.</p>
-<div class="bmi-row">
-  <label>Height (cm) <input type="number" id="c-cm" inputmode="decimal" min="40" max="200"></label>
-  <label>Weight (kg) <input type="number" id="c-kg" inputmode="decimal" min="2" max="150"></label>
-</div>
-<p class="q-hint"><strong>Compared with other children in the class or of the same age, your child is:</strong></p>
-<div class="opts">
-  <label class="opt"><input type="radio" name="height" value="15"> <span>Very short for age (from the WHO check above)</span></label>
-  <label class="opt"><input type="radio" name="height" value="10"> <span>Among the shortest</span></label>
-  <label class="opt"><input type="radio" name="height" value="5"> <span>Shorter than average</span></label>
-  <label class="opt"><input type="radio" name="height" value="0"> <span>Height is OK</span></label>
-</div></fieldset>""",
-])
-
 page(
     "child-sleep-score.html",
     "MERA Child Sleep Apnoea Score: Free Check for Parents | Dr Rejith ENT, Thrissur",
     "A free check for parents of children who snore or breathe through the mouth: see how likely sleep apnoea is. Nothing you enter is stored.",
     f"""
 <h1>MERA Child Sleep Apnoea Score</h1>
-<p class="lead">A check for parents of children aged 2 to 17 who snore or breathe through the mouth. Answer each question, and you'll see how likely obstructive sleep apnoea is.</p>
+<p class="lead">A check for parents of children aged 2 to 17 who snore, breathe through the mouth, or have frequent colds or ear problems. Questions come one at a time, and you'll get a short report on the adenoids, any complications, and tonsil size, to show your doctor.</p>
 <div class="box">This is a check, not a diagnosis. Your answers stay on your phone or computer and are not stored or sent anywhere. For 18 years and above, use the <a href="sleep-score.html">adult MERA Sleep Apnoea Score</a>. For a child under 2 who snores, please see a doctor directly.</div>
 
-<form id="mera-child" class="score-form" autocomplete="off" novalidate>
-{CHILD_FORM}
-<p class="bmi-out" id="c-who" aria-live="polite"></p>
-<p class="score-missing" id="c-missing" hidden></p>
-<p><button type="submit" class="btn">See the score</button></p>
-</form>
-
-<section class="score-result" id="c-result" hidden aria-live="polite">
-  <h2>Your child's result</h2>
-  <p class="score-big"><span id="c-pct"></span>%</p>
-  <p id="c-detail" class="score-detail"></p>
-  <p id="c-growth" class="score-detail"></p>
-  <p id="c-band" class="score-band"></p>
-  <p>Take a screenshot of this result and show it at your consultation.</p>
-  <p class="intro-actions"><a class="btn" href="tel:{PHONE_TEL}">Call {PHONE_SHOW}</a> <a class="btn quiet" href="{WHATSAPP}">WhatsApp</a></p>
-</section>
+<div id="mera-flow" class="flow" data-tool="child" data-tel="{PHONE_TEL}" data-tel-show="{PHONE_SHOW}" data-wa="{WHATSAPP}" data-adult-url="sleep-score.html"></div>
+<noscript><p class="urgent">This check needs JavaScript. Please turn it on, or call to book a consultation.</p></noscript>
+<script src="{asset('js/who.js')}"></script>
+<script src="{asset('js/mera.js')}"></script>
 
 <p>Read more about <a href="snoring.html#children">snoring in children</a> and <a href="adenoids.html">adenoids</a>.</p>
 <p class="q-hint">Growth is checked against the WHO Child Growth Standards (2006) up to 5 years and the WHO Growth Reference (2007) from 5 to 19 years.</p>
-<script src="{asset('js/who.js')}"></script>
 """,
 )
 
@@ -1571,20 +1409,11 @@ mera("adult.html", "MERA Sleep Apnoea Score: Free Self-Check for Adults",
      "A free self-check for adults who snore or feel sleepy: see how likely obstructive sleep apnoea is. Nothing you enter is stored.",
      f"""
 <h1>MERA Sleep Apnoea Score</h1>
-<p class="lead">A self-check for adults (18 years and above) who snore or feel sleepy during the day.</p>
+<p class="lead">A self-check for adults (18 years and above) who snore or feel sleepy during the day. Questions come one at a time, and the check asks only what your answers need.</p>
 {MERA_NOTE}
-<form id="mera-score" class="score-form" autocomplete="off" novalidate>
-{SCORE_FORM}
-<p class="score-missing" id="score-missing" hidden></p>
-<p><button type="submit" class="btn">See my score</button></p>
-</form>
-<section class="score-result" id="score-result" hidden aria-live="polite">
-  <h2>Your result</h2>
-  <div class="urgent" id="drive-warning" hidden><strong>Please avoid driving until you've been assessed.</strong> Sleepiness at the wheel is a serious risk to you and others, whatever your score.</div>
-  <p class="score-big"><span id="score-pct"></span>%</p>
-  <p id="score-detail" class="score-detail"></p>
-  <p id="score-band" class="score-band"></p>
-  {MERA_RESULT_END}
+<div id="mera-flow" class="flow" data-tool="adult" data-child-url="child.html"></div>
+<noscript><p class="urgent">This check needs JavaScript. Please turn it on, or call to book a consultation.</p></noscript>
+<script src="../{asset('js/mera.js')}"></script>
 <p>For children under 18, use the <a href="child.html">MERA Child Sleep Apnoea Score</a>.</p>
 """)
 
@@ -1592,24 +1421,14 @@ mera("child.html", "MERA Child Sleep Apnoea Score: Free Check for Parents",
      "A free check for parents of children who snore or breathe through the mouth, with a WHO growth check. Nothing you enter is stored.",
      f"""
 <h1>MERA Child Sleep Apnoea Score</h1>
-<p class="lead">A check for parents of children aged 2 to 17 who snore or breathe through the mouth.</p>
+<p class="lead">A check for parents of children aged 2 to 17 who snore, breathe through the mouth, or have frequent colds or ear problems. You'll get a short report on the adenoids, any complications, and tonsil size.</p>
 {MERA_NOTE}
-<form id="mera-child" class="score-form" data-adult="adult.html" autocomplete="off" novalidate>
-{CHILD_FORM}
-<p class="bmi-out" id="c-who" aria-live="polite"></p>
-<p class="score-missing" id="c-missing" hidden></p>
-<p><button type="submit" class="btn">See the score</button></p>
-</form>
-<section class="score-result" id="c-result" hidden aria-live="polite">
-  <h2>Your child's result</h2>
-  <p class="score-big"><span id="c-pct"></span>%</p>
-  <p id="c-detail" class="score-detail"></p>
-  <p id="c-growth" class="score-detail"></p>
-  <p id="c-band" class="score-band"></p>
-  {MERA_RESULT_END}
+<div id="mera-flow" class="flow" data-tool="child" data-adult-url="adult.html"></div>
+<noscript><p class="urgent">This check needs JavaScript. Please turn it on, or call to book a consultation.</p></noscript>
+<script src="../{asset('js/who.js')}"></script>
+<script src="../{asset('js/mera.js')}"></script>
 <p>For 18 years and above, use the <a href="adult.html">MERA Sleep Apnoea Score</a>. For a child under 2 who snores, please see a doctor.</p>
 <p class="q-hint">Growth is checked against the WHO Child Growth Standards (2006) up to 5 years and the WHO Growth Reference (2007) from 5 to 19 years.</p>
-<script src="../{asset('js/who.js')}"></script>
 """)
 
 (OUT / "mera").mkdir(exist_ok=True)

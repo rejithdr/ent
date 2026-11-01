@@ -268,3 +268,33 @@ body.mera { padding-bottom: 0; }
 .mera-head a { color: #fff; font-weight: 800; font-size: 1.4rem; letter-spacing: .08em; text-decoration: none; }
 .mera-head span { color: #e8dcae; font-size: .95rem; }
 .mera-foot { margin-top: 3rem; padding: 1.2rem 0 1.6rem; border-top: 1px solid #d9e3de; color: #555; font-size: .9rem; }
+
+/* MERA adaptive flow */
+.flow { margin: 1.5rem 0 2rem; scroll-margin-top: 1rem; }
+.flow-card { border: 1px solid var(--line); border-radius: 12px; padding: 1.1rem 1.2rem 1.2rem; background: #fff; }
+.flow-step { margin: 0 0 .3rem; font-size: .9rem; color: var(--muted); letter-spacing: .02em; }
+.flow-q { margin: 0 0 .8rem; font-size: 1.25rem; line-height: 1.35; color: var(--ink); }
+.flow-q:focus { outline: none; }
+.opt-btn { width: 100%; text-align: left; font: inherit; color: inherit; background: #fff; min-height: 48px; }
+.opt-btn:hover, .opt-btn:focus-visible { border-color: #0f4c3a; background: #eef6f2; outline: none; }
+.flow-nav { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1rem; }
+.flow-nav .btn { border: 0; cursor: pointer; font: inherit; font-weight: 600; }
+.btn.quiet { background: #fff; color: #0f4c3a; border: 1px solid #0f4c3a; }
+.flow-or { margin-top: 1.2rem; }
+.flow-result h3 { margin: 1.4rem 0 .4rem; font-size: 1.05rem; }
+.flow-add { padding: .6rem .8rem; background: #f5f7f6; border-radius: 8px; }
+.rc { list-style: none; padding: 0; margin: 0; }
+.rc-row { display: grid; grid-template-columns: 9.5rem 1fr; gap: .2rem .8rem; padding: .55rem 0; border-top: 1px solid #e3e8e5; }
+.rc-name { font-weight: 600; }
+.rc-val { padding-left: .6rem; border-left: 4px solid #9db8ad; }
+.rc-val.mid { border-left-color: #c9a227; }
+.rc-val.high { border-left-color: #a3261b; font-weight: 600; }
+.rc-why { grid-column: 2; font-size: .9rem; color: #555; padding-left: .85rem; }
+.flow-answers { margin: 1.2rem 0 .4rem; }
+.flow-answers summary { cursor: pointer; font-weight: 600; color: #0f4c3a; }
+.flow-answers ul { margin: .5rem 0 0; padding-left: 1.1rem; font-size: .95rem; }
+@media (max-width: 600px) {
+  .flow-card { padding: .9rem .9rem 1rem; }
+  .rc-row { grid-template-columns: 1fr; }
+  .rc-why { grid-column: 1; }
+}

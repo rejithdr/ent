@@ -298,3 +298,6 @@ body.mera { padding-bottom: 0; }
   .rc-row { grid-template-columns: 1fr; }
   .rc-why { grid-column: 1; }
 }
+.flow-fig { margin: .2rem 0 1rem; }
+.flow-fig svg { display: block; width: 100%; max-width: 460px; height: auto; }
+.flow-fig figcaption { font-size: .9rem; color: var(--muted); margin-top: .3rem; }

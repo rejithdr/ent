@@ -34,8 +34,8 @@ CONDITIONS = [
     ("Sleep", [
         ("snoring.html", "Snoring in children and adults", "snore snoring mouth breathing child sleep"),
         ("sleepapnoea.html", "Obstructive sleep apnoea", "osa apnea apnoea sleepy tired cpap breathing pauses"),
-        ("sleep-score.html", "MERA Sleep Apnoea Score (self-check)", "score test check quiz questionnaire sleep apnoea snoring self check"),
-        ("child-sleep-score.html", "MERA Child Sleep Apnoea Score", "child children kid score test check quiz adenoid snoring mouth breathing"),
+        ("sleep-score.html", "MERA Sleep Apnoea Check (self-check)", "score test check quiz questionnaire sleep apnoea snoring self check"),
+        ("child-sleep-score.html", "MERA Child Sleep Apnoea Check", "child children kid score test check quiz adenoid snoring mouth breathing"),
     ]),
     ("Ear and balance", [
         ("earsurgery.html", "Ear discharge, hearing loss and ear surgery", "ear discharge pus hole eardrum deaf deafness hearing loss tympanoplasty interlay wax"),
@@ -468,7 +468,7 @@ page(
 {video("s2h-rO01osY", "Is snoring and mouth breathing in children normal?")}
 <p>Children should not snore regularly. Regular snoring, especially with mouth breathing, usually means the airway is narrowed, most often by enlarged <a href="adenoids.html">adenoids</a> or <a href="tonsil.html">tonsils</a>.</p>
 
-<div class="box"><strong>Check your child:</strong> take the free <a href="child-sleep-score.html">MERA Child Sleep Apnoea Score</a>.</div>
+<div class="box"><strong>Check your child:</strong> take the free <a href="child-sleep-score.html">MERA Child Sleep Apnoea Check</a>.</div>
 
 <h3>Signs parents often miss</h3>
 <ul>
@@ -514,7 +514,7 @@ page(
 <h2 id="adults">Snoring and sleep apnoea in adults</h2>
 <p>In adults, loud snoring can be a sign of obstructive sleep apnoea. Many people with sleep apnoea don't know they have it, because it happens while they're asleep.</p>
 
-<div class="box"><strong>Check yourself:</strong> take the free <a href="sleep-score.html">MERA Sleep Apnoea Score</a> to see how likely sleep apnoea is.</div>
+<div class="box"><strong>Check yourself:</strong> take the free <a href="sleep-score.html">MERA Sleep Apnoea Check</a> to see how likely sleep apnoea is.</div>
 
 <h3>Warning signs</h3>
 <ul>
@@ -591,7 +591,7 @@ page(
   <li>Poor memory, irritability and reduced interest in sex</li>
 </ul>
 
-<div class="box"><strong>Check yourself:</strong> take the free <a href="sleep-score.html">MERA Sleep Apnoea Score</a> to see how likely sleep apnoea is.</div>
+<div class="box"><strong>Check yourself:</strong> take the free <a href="sleep-score.html">MERA Sleep Apnoea Check</a> to see how likely sleep apnoea is.</div>
 
 <h2>Tests for sleep apnoea</h2>
 <ul>
@@ -662,7 +662,7 @@ page(
   <li>Teeth growing out of position</li>
 </ul>
 
-<div class="box"><strong>Check your child:</strong> take the free <a href="child-sleep-score.html">MERA Child Sleep Apnoea Score</a>.</div>
+<div class="box"><strong>Check your child:</strong> take the free <a href="child-sleep-score.html">MERA Child Sleep Apnoea Check</a>.</div>
 
 <h2>How are enlarged adenoids diagnosed?</h2>
 <p>With an X-ray of the back of the nose, or a nasal endoscopy in older children.</p>
@@ -1189,15 +1189,15 @@ page(
 """,
 )
 
-# ---------------------------------------------------------------- MERA Sleep Apnoea Score
+# ---------------------------------------------------------------- MERA Sleep Apnoea Check
 page(
     "sleep-score.html",
-    "MERA Sleep Apnoea Score: Free Self-Check | Dr Rejith ENT, Thrissur",
+    "MERA Sleep Apnoea Check: Free Self-Check | Dr Rejith ENT, Thrissur",
     "A free self-check for adults who snore: answer a few questions to see how likely obstructive sleep apnoea is. Nothing you enter is stored.",
     f"""
-<h1>MERA Sleep Apnoea Score</h1>
+<h1>MERA Sleep Apnoea Check</h1>
 <p class="lead">A self-check for adults (18 years and above) who snore or feel sleepy during the day. Questions come one at a time, and the check asks only what your answers need, usually 5 to 10 questions.</p>
-<div class="box">This is a self-check, not a diagnosis. Only a sleep study can confirm sleep apnoea. Your answers stay on your phone or computer and are not stored or sent anywhere. For children under 18, use the <a href="child-sleep-score.html">MERA Child Sleep Apnoea Score</a>.</div>
+<div class="box">This is a self-check, not a diagnosis. Only a sleep study can confirm sleep apnoea. Your answers stay on your phone or computer and are not stored or sent anywhere. For children under 18, use the <a href="child-sleep-score.html">MERA Child Sleep Apnoea Check</a>.</div>
 
 <div id="mera-flow" class="flow" data-tool="adult" data-child-url="child-sleep-score.html" data-tel="{PHONE_TEL}" data-tel-show="{PHONE_SHOW}" data-wa="{WHATSAPP}"></div>
 <noscript><p class="urgent">This check needs JavaScript. Please turn it on, or call to book a consultation.</p></noscript>
@@ -1207,15 +1207,15 @@ page(
 """,
 )
 
-# ---------------------------------------------------------------- MERA Child Sleep Apnoea Score
+# ---------------------------------------------------------------- MERA Child Sleep Apnoea Check
 page(
     "child-sleep-score.html",
-    "MERA Child Sleep Apnoea Score: Free Check for Parents | Dr Rejith ENT, Thrissur",
+    "MERA Child Sleep Apnoea Check: Free Check for Parents | Dr Rejith ENT, Thrissur",
     "A free check for parents of children who snore or breathe through the mouth: see how likely sleep apnoea is. Nothing you enter is stored.",
     f"""
-<h1>MERA Child Sleep Apnoea Score</h1>
+<h1>MERA Child Sleep Apnoea Check</h1>
 <p class="lead">A check for parents of children aged 2 to 17 who snore, breathe through the mouth, or have frequent colds or ear problems. Questions come one at a time, and you'll get a short report on the adenoids, any complications, and tonsil size, to show your doctor.</p>
-<div class="box">This is a check, not a diagnosis. Your answers stay on your phone or computer and are not stored or sent anywhere. For 18 years and above, use the <a href="sleep-score.html">adult MERA Sleep Apnoea Score</a>. For a child under 2 who snores, please see a doctor directly.</div>
+<div class="box">This is a check, not a diagnosis. Your answers stay on your phone or computer and are not stored or sent anywhere. For 18 years and above, use the <a href="sleep-score.html">adult MERA Sleep Apnoea Check</a>. For a child under 2 who snores, please see a doctor directly.</div>
 
 <div id="mera-flow" class="flow" data-tool="child" data-tel="{PHONE_TEL}" data-tel-show="{PHONE_SHOW}" data-wa="{WHATSAPP}" data-adult-url="sleep-score.html"></div>
 <noscript><p class="urgent">This check needs JavaScript. Please turn it on, or call to book a consultation.</p></noscript>
@@ -1379,11 +1379,11 @@ def mera(slug, title, description, body):
 <link rel="stylesheet" href="../{asset('css/site.css')}">
 </head>
 <body class="mera">
-<header class="mera-head"><div class="wrap"><a href="index.html">MERA</a> <span>sleep apnoea scores</span></div></header>
+<header class="mera-head"><div class="wrap"><a href="index.html">MERA</a> <span>sleep apnoea checks</span></div></header>
 <main id="content" class="wrap">
 {body}
 </main>
-<footer class="mera-foot"><div class="wrap">&copy; {datetime.date.today().year} Dr Rejith R S. MERA Sleep Apnoea Scores. Free to use and share.</div></footer>
+<footer class="mera-foot"><div class="wrap">&copy; {datetime.date.today().year} Dr Rejith R S. MERA Sleep Apnoea Checks. Free to use and share.</div></footer>
 <script src="../{asset('js/site.js')}" defer></script>
 </body>
 </html>
@@ -1393,41 +1393,41 @@ def mera(slug, title, description, body):
 MERA_NOTE = '<div class="box">This is a self-check, not a diagnosis. Your answers stay on your phone or computer and are not stored or sent anywhere.</div>'
 MERA_RESULT_END = '<p>Take a screenshot of this result and show it to your doctor.</p>\n</section>'
 
-mera("index.html", "MERA Sleep Apnoea Scores: Free Self-Check for Adults and Children",
-     "Free MERA Sleep Apnoea Scores for adults and children. Answer a few questions to see how likely obstructive sleep apnoea is. Nothing you enter is stored.",
+mera("index.html", "MERA Sleep Apnoea Checks: Free Self-Check for Adults and Children",
+     "Free MERA Sleep Apnoea Checks for adults and children. Answer a few questions to see how likely obstructive sleep apnoea is. Nothing you enter is stored.",
      f"""
-<h1>MERA Sleep Apnoea Scores</h1>
+<h1>MERA Sleep Apnoea Checks</h1>
 <p class="lead">Free checks for snoring and sleep apnoea. Answer a few questions and see how likely obstructive sleep apnoea is.</p>
 {MERA_NOTE}
 <ul class="paths">
-  <li><a href="adult.html"><strong>Adults (18 years and above)</strong><span>MERA Sleep Apnoea Score</span></a></li>
-  <li><a href="child.html"><strong>Children (2 to 17 years)</strong><span>MERA Child Sleep Apnoea Score, with a WHO growth check</span></a></li>
+  <li><a href="adult.html"><strong>Adults (18 years and above)</strong><span>MERA Sleep Apnoea Check</span></a></li>
+  <li><a href="child.html"><strong>Children (2 to 17 years)</strong><span>MERA Child Sleep Apnoea Check, with a WHO growth check</span></a></li>
 </ul>
 """)
 
-mera("adult.html", "MERA Sleep Apnoea Score: Free Self-Check for Adults",
+mera("adult.html", "MERA Sleep Apnoea Check: Free Self-Check for Adults",
      "A free self-check for adults who snore or feel sleepy: see how likely obstructive sleep apnoea is. Nothing you enter is stored.",
      f"""
-<h1>MERA Sleep Apnoea Score</h1>
+<h1>MERA Sleep Apnoea Check</h1>
 <p class="lead">A self-check for adults (18 years and above) who snore or feel sleepy during the day. Questions come one at a time, and the check asks only what your answers need.</p>
 {MERA_NOTE}
 <div id="mera-flow" class="flow" data-tool="adult" data-child-url="child.html"></div>
 <noscript><p class="urgent">This check needs JavaScript. Please turn it on, or call to book a consultation.</p></noscript>
 <script src="../{asset('js/mera.js')}"></script>
-<p>For children under 18, use the <a href="child.html">MERA Child Sleep Apnoea Score</a>.</p>
+<p>For children under 18, use the <a href="child.html">MERA Child Sleep Apnoea Check</a>.</p>
 """)
 
-mera("child.html", "MERA Child Sleep Apnoea Score: Free Check for Parents",
+mera("child.html", "MERA Child Sleep Apnoea Check: Free Check for Parents",
      "A free check for parents of children who snore or breathe through the mouth, with a WHO growth check. Nothing you enter is stored.",
      f"""
-<h1>MERA Child Sleep Apnoea Score</h1>
+<h1>MERA Child Sleep Apnoea Check</h1>
 <p class="lead">A check for parents of children aged 2 to 17 who snore, breathe through the mouth, or have frequent colds or ear problems. You'll get a short report on the adenoids, any complications, and tonsil size.</p>
 {MERA_NOTE}
 <div id="mera-flow" class="flow" data-tool="child" data-adult-url="adult.html"></div>
 <noscript><p class="urgent">This check needs JavaScript. Please turn it on, or call to book a consultation.</p></noscript>
 <script src="../{asset('js/who.js')}"></script>
 <script src="../{asset('js/mera.js')}"></script>
-<p>For 18 years and above, use the <a href="adult.html">MERA Sleep Apnoea Score</a>. For a child under 2 who snores, please see a doctor.</p>
+<p>For 18 years and above, use the <a href="adult.html">MERA Sleep Apnoea Check</a>. For a child under 2 who snores, please see a doctor.</p>
 <p class="q-hint">Growth is checked against the WHO Child Growth Standards (2006) up to 5 years and the WHO Growth Reference (2007) from 5 to 19 years.</p>
 """)
 

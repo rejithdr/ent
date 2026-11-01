@@ -165,7 +165,7 @@
     q15: {label: "Height", q: "Compared with other children of the same age, your child is", opts: ["(very short, from the WHO check)", "Among the shortest", "Shorter than average", "Height is OK"], from: 1},
     q16: {type: "multi", label: "Face", q: "Look at your child's face. Do you notice any of these?", hint: "Tick all that apply.",
       opts: ["Mouth usually hangs open, lips apart", "Upper front teeth stick out, or teeth are crowded", "Long, narrow face with a tired look", "Small chin, or chin set back", "None of these"], none: "e"},
-    q17: {label: "Tonsils (torch check)", q: "Shine a torch into your child's open mouth while they say \"aah\". The tonsils (the lumps on either side at the back) are:", opts: ["So big they touch or nearly touch in the middle", "Clearly large, filling half the space", "Small or hard to see", "Removed earlier, or I couldn't see"]},
+    q17: {fig: true, label: "Tonsils (torch check)", q: "Shine a torch into your child's open mouth while they say \"aah\". The tonsils (the lumps on either side at the back) are:", opts: ["So big they touch or nearly touch in the middle", "Clearly large, filling half the space", "Small or hard to see", "Removed earlier, or I couldn't see"]},
     q18: {label: "Ear infections", q: "Ear infections (ear pain with fever, or pus from the ear):", opts: ["3 or more in the last 6 months", "4 or more in the last year", "2 or 3 in the last year", "0 or 1 in the last year"]},
     q19: {type: "multi", label: "Hearing", q: "Hearing: have you or a teacher noticed any of these?", hint: "Tick all that apply.",
       opts: ["Often asks \"what?\" or needs things repeated", "Keeps the TV or phone volume high", "Doesn't respond when called from another room", "None of these"], none: "d"},
@@ -177,6 +177,33 @@
     q23: {label: "Speech", q: "Is your child's speech behind other children of the same age?", opts: ["Clearly behind", "A little behind", "No"]},
     q24: {label: "Tonsil size (doctor)", q: "Has a doctor told you the size of the tonsils?", opts: ["Large (grade 3 or 4), or touching", "Normal size (grade 1 or 2)", "Not told"]}
   };
+
+
+  /* Tonsil size drawing for Q17: three mouth views, largest first, matching the answer order */
+  function tonsilFigure() {
+    function panel(x, rx, cx, label) {
+      var lx = x + cx, rxx = x + 120 - cx;
+      return '<g transform="translate(' + x + ',0)">' +
+        '<ellipse cx="60" cy="62" rx="52" ry="48" fill="#f4c2b5" stroke="#b5524a" stroke-width="4"/>' +
+        '<path d="M22 100 Q22 26 60 22 Q98 26 98 100 Z" fill="#f7d0c6"/>' +
+        '<ellipse cx="60" cy="70" rx="24" ry="34" fill="#6b1e24"/>' +
+        '<path d="M36 100 Q34 44 40 34" fill="none" stroke="#d9867c" stroke-width="3"/>' +
+        '<path d="M84 100 Q86 44 80 34" fill="none" stroke="#d9867c" stroke-width="3"/>' +
+        '</g>' +
+        '<ellipse cx="' + lx + '" cy="70" rx="' + rx + '" ry="19" fill="#e8908a" stroke="#b5524a" stroke-width="1.5"/>' +
+        '<ellipse cx="' + rxx + '" cy="70" rx="' + rx + '" ry="19" fill="#e8908a" stroke="#b5524a" stroke-width="1.5"/>' +
+        '<g transform="translate(' + x + ',0)">' +
+        '<path d="M54 30 Q53 48 60 54 Q67 48 66 30 Z" fill="#e58f86" stroke="#b5524a" stroke-width="1.2"/>' +
+        '<ellipse cx="60" cy="104" rx="46" ry="16" fill="#e07a7a"/>' +
+        '<path d="M60 92 L60 112" stroke="#c45f5f" stroke-width="1.5"/>' +
+        '<text x="60" y="134" text-anchor="middle" font-size="13" font-weight="600" fill="#18261f">' + label + '</text>' +
+        '</g>';
+    }
+    return '<figure class="flow-fig" aria-label="Drawing of tonsil sizes: very large tonsils touching in the middle, large tonsils filling half the space, and small tonsils">' +
+      '<svg viewBox="0 0 380 142" role="img" xmlns="http://www.w3.org/2000/svg">' +
+      panel(0, 22, 39, "Touching") + panel(130, 14, 37, "Half the space") + panel(260, 7, 37, "Small") +
+      '</svg><figcaption>What you might see when your child says "aah". The tonsils are the pink lumps on each side of the dark throat.</figcaption></figure>';
+  }
 
   function cAge() { var a = A.age; return a ? a.y + (a.m || 0) / 12 : null; }
   function cGrowth() {
@@ -390,6 +417,7 @@
     card.appendChild(el("p", "flow-step", "Question " + (path.length + 1)));
     var h = el("h2", "flow-q"); h.textContent = q.q; h.tabIndex = -1; card.appendChild(h);
     if (q.hint) card.appendChild(el("p", "q-hint", esc(q.hint)));
+    if (q.fig) card.insertAdjacentHTML("beforeend", tonsilFigure());
     var err = el("p", "score-missing"); err.hidden = true;
 
     if (!q.type) {

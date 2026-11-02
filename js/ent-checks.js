@@ -74,7 +74,7 @@
       h3: {label: "Hum test, left ear closed", step: "Hum test: left ear closed",
         q: "Now open the right ear and close only your left ear, and hum again. Where do you hear it more now?", opts: HUM},
       h4: {label: "Hum test, both ears closed", step: "Hum test: both ears closed",
-        q: "Close both ears by pressing the small flaps in front of them with your fingers, and hum again. Where do you hear it more now?", opts: HUM},
+        q: "Close both ears by pressing the small flaps in front of them with your fingers, and hum a steady \"hmm\" with your mouth closed. Where do you hear the hum more?", opts: HUM},
       side: {label: "Which ear", q: "Is the hearing loss in one ear or both?", opts: ["One ear", "Both ears"]},
       one: {multi: true, none: "f", label: "With it", q: "Do you have any of these as well?", hint: "Tick all that apply.",
         opts: ["Ringing or buzzing in that ear", "Dizziness", "Numbness or weakness of the face", "A blocked or full feeling in that ear", "Blocked nose, nosebleeds or a lump in the neck", "None of these"]},
@@ -96,7 +96,8 @@
         var s = ["when", "ear", "ring", "spin"];
         for (var i = 0; i < s.length; i++) if (!A[s[i]]) return s[i];
         /* NOT hum variant: one ear, steps 1 and 4; both ears, steps 1 to 4 */
-        var hs = A.ear === "c" ? ["h1", "h2", "h3", "h4"] : ["h1", "h4"];
+        /* both ears: start with both closed (step 4), then 1, 2, 3, which helps show inconsistent answers */
+        var hs = A.ear === "c" ? ["h4", "h1", "h2", "h3"] : ["h1", "h4"];
         for (var j = 0; j < hs.length; j++) if (!A[hs[j]]) return hs[j];
         return null;
       }
@@ -132,8 +133,11 @@
           else { r.level = "high"; r.text = "See an ENT doctor this week. Some recovery may still be possible."; }
           if (A.ear === "c") {
             r.adds.push("Sudden hearing loss in both ears needs to be seen with the same urgency.");
-            if (inSet(A.h4, "cd"))
-              r.adds.push("With both ears closed, the hum was in both ears or hard to place, which may suggest nerve hearing loss in both ears.");
+            if (A.h4 === "c") r.adds.push("With both ears closed you heard the hum in both ears, which is the expected response. A hearing test is still needed to find the cause.");
+            else if (A.h4 === "d") {
+              r.adds.push("Not being able to place the hum with both ears closed may come from nerve hearing loss in both ears, or from stress. A hearing test will clarify.");
+              if (A.h2 === "b" || A.h3 === "a") r.adds.push("Your answers when closing one ear at a time were not the usual pattern, so the hearing test is especially important.");
+            }
             else r.adds.push("The hum test does not give a clear answer when both ears are affected; a hearing test is needed.");
           }
           else if (A.ring === "a") r.adds.push("Ringing with sudden hearing loss suggests the inner ear or hearing nerve may be involved. The hum test can miss high-pitched hearing loss, which often comes with ringing.");

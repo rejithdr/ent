@@ -835,7 +835,7 @@ page(
     "Ear discharge, hearing loss and endoscopic ear surgery through the ear canal: tympanoplasty, myringotomy, ossiculoplasty and limited cholesteatoma, in Thrissur.",
     f"""
 <h1>Ear Problems and Endoscopic Ear Surgery</h1>
-<div class="box"><strong>Hearing less?</strong> Take the free <a href="hearing-check.html">Hearing Check</a>, with a simple hum test, to see how urgently to be seen. Sudden hearing loss is best treated within 72 hours.</div>
+<div class="box"><strong>Hearing less?</strong> Take the free <a href="hearing-check.html">Hearing Check</a>, with a simple hum test, to see how urgently to be seen. Sudden nerve hearing loss has the best result when treatment starts within 3 days.</div>
 
 <h2>What ear discharge can tell us</h2>
 <ul>
@@ -1259,7 +1259,7 @@ check_page("nose-check.html", "nose",
 
 check_page("hearing-check.html", "hearing",
     "Hearing Check with Hum Test: Free Self-Check | Dr Rejith ENT, Thrissur",
-    "A free hearing check with a simple hum test: see how urgently hearing loss needs to be seen. Sudden hearing loss is best treated within 72 hours.",
+    "A free hearing check with a simple hum test: see how urgently hearing loss needs to be seen. Sudden nerve hearing loss has the best result when treatment starts within 3 days.",
     "Hearing Check",
     "For adults and children with hearing loss in one or both ears. For sudden hearing loss, a simple hum test you do at home helps show how urgently you need to be seen.",
     ' data-mera-child="child-sleep-score.html"',

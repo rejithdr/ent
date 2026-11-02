@@ -57,7 +57,7 @@
   for (var ni = 0; ni < 5; ni++) nose.Q["n" + (ni + 1)] = {label: NOSE_ITEMS[ni], step: "NOSE score, " + (ni + 1) + " of 5", q: "Over the past month, how much of a problem was this for you: " + NOSE_ITEMS[ni].toLowerCase() + "?", opts: NOSE_OPTS};
 
   /* ================= HEARING ================= */
-  var HUM = ["In the ear that hears less", "In the better ear", "In the middle, or equally in both ears", "Not sure"];
+  var HUM = ["Right ear", "Left ear", "Both ears, or in the middle", "Can't say"];
   var hearing = {
     Q: {
       who: {label: "Who", q: "Who is this check for?", opts: ["Me (adult)", "My child"]},
@@ -67,10 +67,14 @@
       ear: {label: "Which ear", q: "Which ear hears less?", opts: ["Right ear", "Left ear", "Both ears"]},
       ring: {label: "Ringing", q: "Do you have ringing, buzzing or hissing in that ear?", opts: YN},
       spin: {label: "Spinning", q: "Do you have any spinning or imbalance?", opts: YN},
-      h1: {label: "Hum test, ears open", step: "Hum test, step 1 of 2",
-        q: "Keep both ears open and hum a steady \"hmm\" with your mouth closed. Where do you hear the hum?", opts: HUM},
-      h2: {label: "Hum test, ears closed", step: "Hum test, step 2 of 2",
-        q: "Now close both ears by pressing the small flaps in front of them with your fingers, and hum again. Where do you hear it now?", opts: HUM},
+      h1: {label: "Hum test, ears open", step: "Hum test: both ears open",
+        q: "Keep both ears open and hum a steady \"hmm\" with your mouth closed. Where do you hear the hum more?", opts: HUM},
+      h2: {label: "Hum test, right ear closed", step: "Hum test: right ear closed",
+        q: "Close only your right ear by pressing the small flap in front of it with a finger, and hum again. Where do you hear it more now?", opts: HUM},
+      h3: {label: "Hum test, left ear closed", step: "Hum test: left ear closed",
+        q: "Now open the right ear and close only your left ear, and hum again. Where do you hear it more now?", opts: HUM},
+      h4: {label: "Hum test, both ears closed", step: "Hum test: both ears closed",
+        q: "Close both ears by pressing the small flaps in front of them with your fingers, and hum again. Where do you hear it more now?", opts: HUM},
       side: {label: "Which ear", q: "Is the hearing loss in one ear or both?", opts: ["One ear", "Both ears"]},
       one: {multi: true, none: "f", label: "With it", q: "Do you have any of these as well?", hint: "Tick all that apply.",
         opts: ["Ringing or buzzing in that ear", "Dizziness", "Numbness or weakness of the face", "A blocked or full feeling in that ear", "Blocked nose, nosebleeds or a lump in the neck", "None of these"]},
@@ -81,7 +85,7 @@
       cold: {label: "Recent infection", q: "Has your child had an ear infection or a cold in the last 3 months?", opts: YN},
       csnore: {label: "Snoring", q: "Does your child snore or breathe through the mouth?", opts: YN}
     },
-    order: ["who", "onset", "rf", "when", "ear", "ring", "spin", "h1", "h2", "side", "one", "both", "csign", "cold", "csnore"],
+    order: ["who", "onset", "rf", "when", "ear", "ring", "spin", "h1", "h2", "h3", "h4", "side", "one", "both", "csign", "cold", "csnore"],
     next: function (A) {
       if (!A.who) return "who";
       if (!A.onset) return "onset";
@@ -91,7 +95,9 @@
         if (A.rf === "a") return null;
         var s = ["when", "ear", "ring", "spin"];
         for (var i = 0; i < s.length; i++) if (!A[s[i]]) return s[i];
-        if (A.ear !== "c") { if (!A.h1) return "h1"; if (!A.h2) return "h2"; }
+        /* NOT hum variant: one ear, steps 1 and 4; both ears, steps 1 to 4 */
+        var hs = A.ear === "c" ? ["h1", "h2", "h3", "h4"] : ["h1", "h4"];
+        for (var j = 0; j < hs.length; j++) if (!A[hs[j]]) return hs[j];
         return null;
       }
       if (A.who === "b") {
@@ -109,20 +115,27 @@
       var r = {adds: []};
       var sudden = A.onset === "a" || (A.onset === "c" && A.who === "a");
       if (sudden) {
-        if (A.rf === "a") return {level: "high", urgent: true, title: "Go to the emergency department now", text: "Hearing loss with weakness, numbness or slurred speech can be a sign of a stroke.", adds: []};
+        if (A.rf === "a") return {level: "high", urgent: true, emergency: true, title: "Go to the emergency department now", text: "Hearing loss with weakness, numbness or slurred speech can be a sign of a stroke.", adds: []};
         /* NOT framework: conductive loss lateralises to the poorer ear, and centralises or stays there on closing both ears */
-        var blockage = A.ear !== "c" && A.h1 === "a" && inSet(A.h2, "ac") && A.ring === "b";
+        /* answers are right/left/both/can't say; "both" and "can't say" count the same */
+        var poor = A.ear === "a" ? "a" : "b";
+        var blockage = A.ear !== "c" && A.h1 === poor && inSet(A.h4, poor + "cd") && A.ring === "b";
         if (blockage) {
           r.level = "mid"; r.title = "Likely a blockage-type hearing loss";
-          r.text = "See an ENT doctor within the next couple of days at least. It is best to be seen and have a hearing test within 72 hours of when it started.";
+          r.text = "See an ENT doctor within the next couple of days at least. It is best to be seen and have a hearing test within 3 days of when it started: if it turns out to be nerve hearing loss, treatment started within 3 days has the best result.";
           r.adds.push("The hum going to the ear that hears less, and not moving to the better ear when both ears are closed, suggests something in the ear canal or middle ear is stopping sound, such as wax, fluid behind the eardrum, a hole in the eardrum or a problem with the tiny ear bones.");
-          r.adds.push("Only an examination and a hearing test can confirm this. If the nerve turns out to be involved, recovery is much less likely after 72 hours.");
+          r.adds.push("Only an examination and a hearing test can confirm this.");
         } else {
           r.title = "Possible nerve hearing loss";
-          if (A.when === "a") { r.level = "high"; r.urgent = true; r.text = "Emergency: see an ENT doctor today. Sudden nerve hearing loss has the best chance of recovery when treated within the first 72 hours. Don't wait for it to clear by itself."; }
-          else if (A.when === "b") { r.level = "high"; r.text = "Urgent: see an ENT doctor within 24 hours. Recovery is less likely after 72 hours, but still possible."; }
+          if (A.when === "a") { r.level = "high"; r.urgent = true; r.text = "Emergency: see an ENT doctor today. Sudden nerve hearing loss has the best result when treatment is started within 3 days. Don't wait for it to clear by itself."; }
+          else if (A.when === "b") { r.level = "high"; r.text = "Urgent: see an ENT doctor within 24 hours. Sudden nerve hearing loss has the best result when treatment is started within 3 days; recovery is less likely after that, but still possible."; }
           else { r.level = "high"; r.text = "See an ENT doctor this week. Some recovery may still be possible."; }
-          if (A.ear === "c") r.adds.push("Sudden hearing loss in both ears needs to be seen with the same urgency.");
+          if (A.ear === "c") {
+            r.adds.push("Sudden hearing loss in both ears needs to be seen with the same urgency.");
+            if (["h1", "h2", "h3", "h4"].every(function (k) { return inSet(A[k], "cd"); }))
+              r.adds.push("The hum stayed in both ears or was hard to place at every step, which points more towards nerve hearing loss in both ears.");
+            else r.adds.push("The hum test does not give a clear answer when both ears are affected; a hearing test is needed.");
+          }
           else if (A.ring === "a") r.adds.push("Ringing with sudden hearing loss suggests the inner ear or hearing nerve may be involved. The hum test can miss high-pitched hearing loss, which often comes with ringing.");
           else r.adds.push("The hum test could not show a blockage-type cause, so the hearing nerve may be involved.");
         }
@@ -176,7 +189,7 @@
     },
     result: function (A) {
       var r = {adds: []};
-      if (any(A.rf, "abcde")) return {level: "high", urgent: true, title: "Emergency: go to hospital now", text: "These can be signs of a stroke.", adds: []};
+      if (any(A.rf, "abcde")) return {level: "high", urgent: true, emergency: true, title: "Emergency: go to hospital now", text: "These can be signs of a stroke.", adds: []};
       if (any(A.rf, "f")) return {level: "high", urgent: true, title: "See an ENT doctor today", text: "Sudden hearing loss with dizziness needs urgent examination; recovery is best when it is treated early.", adds: [], link: {href: box.getAttribute("data-hearing") || "hearing-check.html", text: "Take the Hearing Check."}};
       if (A.when === "a") {
         if (A.dur === "b") { r.level = "mid"; r.title = "See an ENT doctor"; r.text = "The pattern is less typical of positional vertigo, so other causes need to be checked."; }
@@ -261,7 +274,7 @@
       .forEach(function (id) { ul.appendChild(el("li", null, "<strong>" + esc(TOOL.Q[id].label) + ":</strong> " + esc(ansText(id)))); });
     d.appendChild(ul); card.appendChild(d);
     var tel = box.getAttribute("data-tel");
-    if (tel && r.urgent) {
+    if (tel && r.emergency) {
       card.appendChild(el("p", "intro-actions", '<a class="btn" href="tel:' + esc(tel) + '">Call ' + esc(box.getAttribute("data-tel-show")) + '</a>'));
     } else if (tel) {
       var names = {nose: "Blocked Nose Check", hearing: "Hearing Check", dizzy: "Dizziness Check"};

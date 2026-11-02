@@ -67,23 +67,98 @@ CONDITIONS = [
 
 PAGES = {}
 
+# ---------------------------------------------------------------- Languages
+# Translated pages live in a folder per language (ml/, hi/, ar/). A language stays a
+# draft (noindex, out of the sitemap, no switcher link from English pages) until it is
+# listed in LIVE_LANGS after Dr Rejith has reviewed it.
+LIVE_LANGS = set()
+LANG_NAMES = {"en": "English", "ml": "മലയാളം", "hi": "हिन्दी", "ar": "العربية"}
+CHROME = {
+    "en": dict(skip="Skip to content", role="ENT Surgeon, Thrissur", call="Call", wa="WhatsApp",
+               all_cond="All conditions", search_label="Search conditions",
+               search_ph="For example: tonsils, giddiness, ear discharge",
+               none="No matching page. Please call", none_end="and we'll help.",
+               foot_quals="MBBS, DLO, Consultant ENT Surgeon, Thrissur", msg_wa="Message on WhatsApp",
+               videos="Videos on YouTube", clinics="MIDAS ENT clinics", midas="MIDAS Hospital, Ollur",
+               metro="MIDAS ENT at Metropolitan Hospital, Thrissur", timings="All timings",
+               fine="This website provides general information and is not a substitute for medical advice. Please consult a doctor about your own symptoms. Written and reviewed by Dr Rejith R S. Last updated {UPDATED}.",
+               dock="Book a consultation", draft="", nav={}),
+}
+
+
+def lang_of(slug):
+    head = slug.split("/")[0] if "/" in slug else "en"
+    return head if head in LANG_NAMES else "en"
+
+
+def en_slug(slug):
+    return slug.split("/", 1)[1] if lang_of(slug) != "en" else slug
+
+
+def is_draft(slug):
+    lang = lang_of(slug)
+    return lang != "en" and lang not in LIVE_LANGS
+
+
+def link_for(target, lang):
+    """A link from a page in `lang` to the English page `target`: the translation if one exists."""
+    if lang == "en":
+        return target
+    return target if f"{lang}/{target}" in PAGES else "../" + target
+
+
+def localise_links(body, lang):
+    if lang == "en":
+        return body
+    def fix(m):
+        attr, url = m.group(1), m.group(2)
+        if re.match(r"(https?:|tel:|mailto:|#|\.\./|/|data:)", url):
+            return m.group(0)
+        if attr == "href" and url.split("#")[0].endswith(".html"):
+            page_, _, frag = url.partition("#")
+            return f'{attr}="{link_for(page_, lang)}{"#" + frag if frag else ""}"'
+        return f'{attr}="../{url}"'
+    return re.sub(r'(href|src)="([^"]+)"', fix, body)
+
 
 def page(slug, title, description, body, h1=None, schema=None):
     PAGES[slug] = dict(title=title, description=description, body=body, schema=schema)
 
 
 def render(slug, p):
-    url = SITE + "/" + ("" if slug == "index.html" else slug)
+    lang = lang_of(slug)
+    C = CHROME[lang]
+    base = "" if lang == "en" else "../"
+    eslug = en_slug(slug)
+    url = SITE + "/" + (slug[:-len("index.html")] if slug.endswith("index.html") else slug)
     nav = "\n      ".join(
-        f'<a href="{href}"{" aria-current=\"page\"" if href == slug else ""}>{label}</a>'
+        f'<a href="{link_for(href, lang)}"{" aria-current=\"page\"" if href == eslug else ""}>{C["nav"].get(href, label)}</a>'
         for href, label in NAV
     )
-    in_conditions = any(href == slug for _, items in CONDITIONS for href, _, _ in items)
+    # language switcher: English pages link only to live translations; a translation links back to English
+    others = [l for l in LANG_NAMES if l != lang and (l == "en" or f"{l}/{eslug}" in PAGES)]
+    if lang == "en":
+        others = [l for l in others if l in LIVE_LANGS]
+    switch = "".join(
+        f'\n      <a class="lang-link" lang="{l}" hreflang="{l}" href="{("../" if lang != "en" else "") + ("" if l == "en" else l + "/") + eslug}">{LANG_NAMES[l]}</a>'
+        for l in others
+    )
+    alts = ""
+    versions = ["en"] + [l for l in LIVE_LANGS if f"{l}/{eslug}" in PAGES]
+    if len(versions) > 1 and not is_draft(slug):
+        alts = "".join(
+            f'\n<link rel="alternate" hreflang="{l}" href="{SITE}/{"" if l == "en" else l + "/"}{"" if eslug == "index.html" else eslug}">'
+            for l in versions
+        )
+    robots = '<meta name="robots" content="noindex">\n' if is_draft(slug) else ""
+    draft = f'<div class="urgent draft-note">{C["draft"]}</div>\n' if is_draft(slug) else ""
+    body = localise_links(p["body"].strip(), lang)
+    in_conditions = any(href == eslug for _, items in CONDITIONS for href, _, _ in items)
     cond_html = "\n".join(
         '              <div class="cond-group"><h3>' + group + '</h3><ul>'
         + "".join(
-            f'<li data-k="{label.lower()} {kw}"><a href="{href}"'
-            + (' aria-current="page"' if href == slug else "")
+            f'<li data-k="{label.lower()} {kw}"><a href="{link_for(href, lang)}"'
+            + (' aria-current="page"' if href == eslug else "")
             + f'>{label}</a></li>'
             for href, label, kw in items
         )
@@ -98,51 +173,51 @@ def render(slug, p):
             + "\n</script>\n"
         )
     return f"""<!DOCTYPE html>
-<html lang="en">
+<html lang="{lang}"{' dir="rtl"' if lang == "ar" else ""}>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{p["title"]}</title>
 <meta name="description" content="{p["description"]}">
-<link rel="canonical" href="{url}">
+{robots}<link rel="canonical" href="{url}">{alts}
 <meta property="og:title" content="{p["title"]}">
 <meta property="og:description" content="{p["description"]}">
 <meta property="og:url" content="{url}">
 <meta property="og:type" content="website">
-<link rel="icon" href="favicon.ico">
-<link rel="preload" href="fonts/manjari-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="{asset('css/site.css')}">
+<link rel="icon" href="{base}favicon.ico">
+<link rel="preload" href="{base}fonts/manjari-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="{base}{asset('css/site.css')}">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-HMXYK8FQZQ"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}gtag('js',new Date());gtag('config','G-HMXYK8FQZQ');</script>
 {schema}</head>
 <body>
 
-<a class="skip" href="#content">Skip to content</a>
+<a class="skip" href="#content">{C["skip"]}</a>
 
 <header class="site">
   <div class="wrap bar">
-    <a class="brand" href="index.html">
+    <a class="brand" href="{link_for("index.html", lang)}">
       <span class="name">Dr Rejith R S</span>
-      <span class="role">ENT Surgeon, Thrissur</span>
+      <span class="role">{C["role"]}</span>
     </a>
     <div class="actions">
-      <a class="btn" href="tel:{PHONE_TEL}">Call {PHONE_SHOW}</a>
-      <a class="btn quiet" href="{WHATSAPP}">WhatsApp</a>
+      <a class="btn" href="tel:{PHONE_TEL}">{C["call"]} {PHONE_SHOW}</a>
+      <a class="btn quiet" href="{WHATSAPP}">{C["wa"]}</a>
     </div>
   </div>
   <nav class="main" aria-label="Main">
     <div class="wrap">
-      {nav}
+      {nav}{switch}
       <details class="conditions"{" data-current=\"1\"" if in_conditions else ""}>
-        <summary>All conditions</summary>
+        <summary>{C["all_cond"]}</summary>
         <div class="cond-panel">
           <div class="wrap">
-            <label class="cond-search-label" for="cond-search">Search conditions</label>
-            <input id="cond-search" class="cond-search" type="search" placeholder="For example: tonsils, giddiness, ear discharge" autocomplete="off">
+            <label class="cond-search-label" for="cond-search">{C["search_label"]}</label>
+            <input id="cond-search" class="cond-search" type="search" placeholder="{C["search_ph"]}" autocomplete="off">
             <div class="cond-groups">
 {cond_html}
             </div>
-            <p class="cond-none" hidden>No matching page. Please call <a href="tel:{PHONE_TEL}">{PHONE_SHOW}</a> and we'll help.</p>
+            <p class="cond-none" hidden>{C["none"]} <a href="tel:{PHONE_TEL}">{PHONE_SHOW}</a> {C["none_end"]}</p>
           </div>
         </div>
       </details>
@@ -151,7 +226,7 @@ def render(slug, p):
 </header>
 
 <main id="content" class="wrap">
-{p["body"].strip()}
+{draft}{body}
 </main>
 
 <footer class="site">
@@ -159,24 +234,24 @@ def render(slug, p):
     <div class="foot-grid">
       <div>
         <p class="foot-name">Dr Rejith R S</p>
-        <p>MBBS, DLO, Consultant ENT Surgeon, Thrissur</p>
-        <p><a href="tel:{PHONE_TEL}">Call {PHONE_SHOW}</a><br><a href="{WHATSAPP}">Message on WhatsApp</a><br><a href="https://www.youtube.com/@Entdoctormidas">Videos on YouTube</a></p>
+        <p>{C["foot_quals"]}</p>
+        <p><a href="tel:{PHONE_TEL}">{C["call"]} {PHONE_SHOW}</a><br><a href="{WHATSAPP}">{C["msg_wa"]}</a><br><a href="https://www.youtube.com/@Entdoctormidas">{C["videos"]}</a></p>
       </div>
       <div>
-        <p class="foot-name">MIDAS ENT clinics</p>
-        <p><a href="midas.html">MIDAS Hospital, Ollur</a><br><a href="metropolitan.html">MIDAS ENT at Metropolitan Hospital, Thrissur</a></p>
-        <p><a href="hospitals.html">All timings</a></p>
+        <p class="foot-name">{C["clinics"]}</p>
+        <p><a href="{link_for("midas.html", lang)}">{C["midas"]}</a><br><a href="{link_for("metropolitan.html", lang)}">{C["metro"]}</a></p>
+        <p><a href="{link_for("hospitals.html", lang)}">{C["timings"]}</a></p>
       </div>
     </div>
-    <p class="fine">This website provides general information and is not a substitute for medical advice. Please consult a doctor about your own symptoms. Written and reviewed by Dr Rejith R S. Last updated {UPDATED}.</p>
+    <p class="fine">{C["fine"].replace("{UPDATED}", UPDATED)}</p>
   </div>
 </footer>
 
-<script src="{asset('js/site.js')}" defer></script>
+<script src="{base}{asset('js/site.js')}" defer></script>
 
-<div class="dock" aria-label="Book a consultation">
-  <a href="tel:{PHONE_TEL}">Call</a>
-  <a href="{WHATSAPP}">WhatsApp</a>
+<div class="dock" aria-label="{C["dock"]}">
+  <a href="tel:{PHONE_TEL}">{C["call"]}</a>
+  <a href="{WHATSAPP}">{C["wa"]}</a>
 </div>
 
 </body>
@@ -1391,8 +1466,16 @@ page(
 """,
 )
 
+# ---------------------------------------------------------------- translations
+# Each tools/lang_<code>.py adds CHROME[code] and its translated pages with page("<code>/<slug>", ...).
+for _lang in ("ml", "hi", "ar"):
+    _f = Path(__file__).parent / f"lang_{_lang}.py"
+    if _f.exists():
+        exec(_f.read_text(encoding="utf-8"))
+
 # ---------------------------------------------------------------- write
 for slug, p in PAGES.items():
+    (OUT / slug).parent.mkdir(parents=True, exist_ok=True)
     (OUT / slug).write_text(render(slug, p), encoding="utf-8")
 
 # Old URLs kept as redirects so links and search results keep working.
@@ -1500,7 +1583,7 @@ for slug, html in MERA_PAGES.items():
     (OUT / "mera" / slug).write_text(html, encoding="utf-8")
 
 urls = "\n".join(
-    f"  <url><loc>{SITE}/{'' if s == 'index.html' else s}</loc></url>" for s in PAGES
+    f"  <url><loc>{SITE}/{s[:-len('index.html')] if s.endswith('index.html') else s}</loc></url>" for s in PAGES if not is_draft(s)
 ) + "\n" + "\n".join(
     f"  <url><loc>{SITE}/mera/{'' if s == 'index.html' else s}</loc></url>" for s in MERA_PAGES
 )

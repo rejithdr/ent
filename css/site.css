@@ -301,3 +301,8 @@ body.mera { padding-bottom: 0; }
 .flow-fig { margin: .2rem 0 1rem; }
 .flow-fig svg { display: block; width: 100%; max-width: 460px; height: auto; }
 .flow-fig figcaption { font-size: .9rem; color: var(--muted); margin-top: .3rem; }
+
+/* language switcher and draft notice */
+nav.main .lang-link { margin-left: auto; font-weight: 600; }
+.draft-note { margin-top: 1rem; }
+:lang(ml) body, html[lang="ml"] body { line-height: 1.75; }

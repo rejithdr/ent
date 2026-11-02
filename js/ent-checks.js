@@ -38,12 +38,12 @@
     },
     result: function (A) {
       var r = {adds: []};
-      if (any(A.rf, "abc")) return {level: "high", title: "See an ENT doctor within a few days", text: "These signs need a nasal endoscopy, a simple look inside the nose with a thin camera, to find the cause.", adds: []};
+      if (any(A.rf, "abc")) return {level: "high", title: "See an ENT doctor within a few days", text: "These signs need an examination of the nose by an ENT doctor to find the cause. This may be a look inside the nose with a light (anterior rhinoscopy) and, if needed, a nasal endoscopy, a simple look with a thin camera.", adds: []};
       if (A.dur === "a") return {level: "low", title: "Likely a cold", text: "A blocked nose with a cold usually settles in 1 to 2 weeks. See an ENT doctor if it lasts longer.", adds: []};
       var sum = 0; for (var i = 1; i <= 5; i++) sum += L.indexOf(A["n" + i]);
       var s = sum * 5;
       r.score = "NOSE score " + s + " out of 100";
-      if (s >= 55 && A.tx === "a") { r.level = "high"; r.title = "Severe blockage that hasn't settled with treatment"; r.text = "See an ENT doctor. A nasal endoscopy, a simple look inside the nose with a thin camera, will show which structure is causing it. Surgery is considered only if the endoscopy confirms a structural blockage."; }
+      if (s >= 55 && A.tx === "a") { r.level = "high"; r.title = "Severe blockage that hasn't settled with treatment"; r.text = "See an ENT doctor. An examination of the nose (anterior rhinoscopy) and, if needed, a nasal endoscopy, a simple look with a thin camera, will show which structure is causing it. Surgery is considered only if the examination confirms a structural blockage."; }
       else if (s >= 55) { r.level = "high"; r.title = "Severe blockage"; r.text = "See an ENT doctor to find the cause. Most people improve without surgery once the cause is treated."; }
       else if (s >= 30) { r.level = "mid"; r.title = "Moderate blockage"; r.text = "See an ENT doctor if it is affecting your sleep or daily life."; }
       else { r.level = "low"; r.title = "Mild blockage"; r.text = "See an ENT doctor if it gets worse or lasts."; }

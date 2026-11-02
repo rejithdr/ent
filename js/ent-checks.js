@@ -58,6 +58,27 @@
 
   /* ================= HEARING ================= */
   var HUM = ["Right ear", "Left ear", "Both ears, or in the middle", "Can't say"];
+  /* NOT hum variant: one ear, steps 1 and 4; both ears, steps 4, 1, 2, 3 (both closed first helps show inconsistent answers) */
+  function humNext(A) {
+    var hs = A.ear === "c" ? ["h4", "h1", "h2", "h3"] : ["h1", "h4"];
+    for (var j = 0; j < hs.length; j++) if (!A[hs[j]]) return hs[j];
+    return null;
+  }
+  /* NOT framework: conductive loss lateralises to the poorer ear, and stays there or centralises on closing both ears.
+     Answers are right / left / both / can't say; at step 4 of a one-ear test both and can't say count the same */
+  function humBlockage(A, noRinging) {
+    var poor = A.ear === "a" ? "a" : "b";
+    return A.ear !== "c" && A.h1 === poor && inSet(A.h4, poor + "cd") && noRinging;
+  }
+  function bothHum(A, r) {
+    if (A.h4 === "c") r.adds.push("With both ears closed you heard the hum in both ears, which is the expected response. A hearing test is still needed to find the cause.");
+    else if (A.h4 === "d") {
+      r.adds.push("Not being able to place the hum with both ears closed may come from nerve hearing loss in both ears, or from stress. A hearing test will clarify.");
+      if (A.h2 === "b" || A.h3 === "a") r.adds.push("Your answers when closing one ear at a time were not the usual pattern, so the hearing test is especially important.");
+    }
+    else r.adds.push("The hum test does not give a clear answer when both ears are affected; a hearing test is needed.");
+  }
+
   var hearing = {
     Q: {
       who: {label: "Who", q: "Who is this check for?", opts: ["Me (adult)", "My child"]},
@@ -75,7 +96,6 @@
         q: "Now open the right ear and close only your left ear, and hum again. Where do you hear it more now?", opts: HUM},
       h4: {label: "Hum test, both ears closed", step: "Hum test: both ears closed",
         q: "Close both ears by pressing the small flaps in front of them with your fingers, and hum a steady \"hmm\" with your mouth closed. Where do you hear the hum more?", opts: HUM},
-      side: {label: "Which ear", q: "Is the hearing loss in one ear or both?", opts: ["One ear", "Both ears"]},
       one: {multi: true, none: "f", label: "With it", q: "Do you have any of these as well?", hint: "Tick all that apply.",
         opts: ["Ringing or buzzing in that ear", "Dizziness", "Numbness or weakness of the face", "A blocked or full feeling in that ear", "Blocked nose, nosebleeds or a lump in the neck", "None of these"]},
       both: {multi: true, none: "e", label: "About you", q: "Do any of these apply?", hint: "Tick all that apply.",
@@ -85,7 +105,7 @@
       cold: {label: "Recent infection", q: "Has your child had an ear infection or a cold in the last 3 months?", opts: YN},
       csnore: {label: "Snoring", q: "Does your child snore or breathe through the mouth?", opts: YN}
     },
-    order: ["who", "onset", "rf", "when", "ear", "ring", "spin", "h1", "h2", "h3", "h4", "side", "one", "both", "csign", "cold", "csnore"],
+    order: ["who", "onset", "rf", "when", "ear", "ring", "spin", "h1", "h2", "h3", "h4", "one", "both", "csign", "cold", "csnore"],
     next: function (A) {
       if (!A.who) return "who";
       if (!A.onset) return "onset";
@@ -95,11 +115,7 @@
         if (A.rf === "a") return null;
         var s = ["when", "ear", "ring", "spin"];
         for (var i = 0; i < s.length; i++) if (!A[s[i]]) return s[i];
-        /* NOT hum variant: one ear, steps 1 and 4; both ears, steps 1 to 4 */
-        /* both ears: start with both closed (step 4), then 1, 2, 3, which helps show inconsistent answers */
-        var hs = A.ear === "c" ? ["h4", "h1", "h2", "h3"] : ["h1", "h4"];
-        for (var j = 0; j < hs.length; j++) if (!A[hs[j]]) return hs[j];
-        return null;
+        return humNext(A);
       }
       if (A.who === "b") {
         if (!A.csign) return "csign";
@@ -107,9 +123,10 @@
         if (!A.csnore) return "csnore";
         return null;
       }
-      if (!A.side) return "side";
-      if (A.side === "a" && !A.one) return "one";
-      if (A.side === "b" && !A.both) return "both";
+      if (!A.ear) return "ear";
+      var h = humNext(A); if (h) return h;
+      if (A.ear !== "c" && !A.one) return "one";
+      if (A.ear === "c" && !A.both) return "both";
       return null;
     },
     result: function (A) {
@@ -119,8 +136,7 @@
         if (A.rf === "a") return {level: "high", urgent: true, emergency: true, title: "Go to the emergency department now", text: "Hearing loss with weakness, numbness or slurred speech can be a sign of a stroke.", adds: []};
         /* NOT framework: conductive loss lateralises to the poorer ear, and centralises or stays there on closing both ears */
         /* answers are right/left/both/can't say; "both" and "can't say" count the same */
-        var poor = A.ear === "a" ? "a" : "b";
-        var blockage = A.ear !== "c" && A.h1 === poor && inSet(A.h4, poor + "cd") && A.ring === "b";
+        var blockage = humBlockage(A, A.ring === "b");
         if (blockage) {
           r.level = "mid"; r.title = "Likely a blockage-type hearing loss";
           r.text = "See an ENT doctor within the next couple of days at least. It is best to be seen and have a hearing test within 3 days of when it started: if it turns out to be nerve hearing loss, treatment started within 3 days has the best result.";
@@ -133,12 +149,7 @@
           else { r.level = "high"; r.text = "See an ENT doctor this week. Some recovery may still be possible."; }
           if (A.ear === "c") {
             r.adds.push("Sudden hearing loss in both ears needs to be seen with the same urgency.");
-            if (A.h4 === "c") r.adds.push("With both ears closed you heard the hum in both ears, which is the expected response. A hearing test is still needed to find the cause.");
-            else if (A.h4 === "d") {
-              r.adds.push("Not being able to place the hum with both ears closed may come from nerve hearing loss in both ears, or from stress. A hearing test will clarify.");
-              if (A.h2 === "b" || A.h3 === "a") r.adds.push("Your answers when closing one ear at a time were not the usual pattern, so the hearing test is especially important.");
-            }
-            else r.adds.push("The hum test does not give a clear answer when both ears are affected; a hearing test is needed.");
+            bothHum(A, r);
           }
           else if (A.ring === "a") r.adds.push("Ringing with sudden hearing loss suggests the inner ear or hearing nerve may be involved. The hum test can miss high-pitched hearing loss, which often comes with ringing.");
           else r.adds.push("The hum test could not show a blockage-type cause, so the hearing nerve may be involved.");
@@ -154,15 +165,19 @@
         } else { r.level = "low"; r.title = "No clear hearing signs"; r.text = "If you are still worried, a hearing test is simple and can be done at any age."; }
         return r;
       }
-      if (A.side === "a") {
+      if (A.ear !== "c") {
+        var gBlock = humBlockage(A, !any(A.one, "a"));
         if (any(A.one, "e")) { r.level = "high"; r.title = "See an ENT doctor within a week"; r.text = "In adults, fluid behind one eardrum can come from a blockage at the back of the nose, which needs a nasal endoscopy to look at."; }
         else {
           r.level = "mid"; r.title = "See an ENT doctor for an ear check and hearing test";
           r.text = "Slowly worsening hearing in one ear can come from wax or fluid, but it can also come from a growth on the hearing nerve, even without other symptoms. An MRI scan may be needed.";
           if (any(A.one, "abc")) r.adds.push("Ringing, dizziness or face symptoms make it more likely that an MRI scan will be needed.");
         }
+        r.adds.push(gBlock ? "The hum test suggests a blockage-type cause, such as wax or fluid behind the eardrum. An ear examination will confirm it."
+          : "The hum test did not show a blockage-type cause, so a hearing nerve cause is more likely. A hearing test is needed, and an MRI scan may be advised.");
         return r;
       }
+      bothHum(A, r);
       if (any(A.both, "d")) { r.level = "mid"; r.title = "See an ENT doctor"; r.text = "Discharge with hearing loss usually means a middle ear problem that needs examination."; }
       else { r.level = "low"; r.title = "Book a hearing test"; r.text = any(A.both, "ab") ? "Hearing slowly weakens with age and with long noise exposure. A hearing test shows how much, and what will help." : "A hearing test shows how much hearing has changed and what will help."; }
       return r;

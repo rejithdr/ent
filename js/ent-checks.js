@@ -58,9 +58,15 @@
 
   /* ================= HEARING ================= */
   var HUM = ["Right ear", "Left ear", "Both ears, or in the middle", "Can't say"];
-  /* NOT hum variant: one ear, steps 1 and 4; both ears, steps 4, 1, 2, 3 (both closed first helps show inconsistent answers) */
+  /* NOT hum variant, asked in the order 4, 1, then 2, 3 when needed (both closed first helps show inconsistent answers) */
+  /* one ear: an unusual pair is "can't say" at either step, or the hum on opposite sides at steps 4 and 1 */
+  function humUnusual(A) {
+    return A.ear !== "c" && (A.h1 === "d" || A.h4 === "d" || (inSet(A.h1, "ab") && inSet(A.h4, "ab") && A.h1 !== A.h4));
+  }
   function humNext(A) {
-    var hs = A.ear === "c" ? ["h4", "h1", "h2", "h3"] : ["h1", "h4"];
+    /* steps 4 and 1 first for everyone; both ears, or an unusual one-ear pair, go on to steps 2 and 3 */
+    var hs = ["h4", "h1"];
+    if (A.ear === "c" || (A.h4 && A.h1 && humUnusual(A))) hs = hs.concat(["h2", "h3"]);
     for (var j = 0; j < hs.length; j++) if (!A[hs[j]]) return hs[j];
     return null;
   }
@@ -68,7 +74,8 @@
      Answers are right / left / both / can't say; at step 4 of a one-ear test both and can't say count the same */
   function humBlockage(A, noRinging) {
     var poor = A.ear === "a" ? "a" : "b";
-    return A.ear !== "c" && A.h1 === poor && inSet(A.h4, poor + "cd") && noRinging;
+    /* an unusual pair is never called blockage-type, so urgency is not lowered on unclear answers */
+    return A.ear !== "c" && A.h1 === poor && inSet(A.h4, poor + "cd") && noRinging && !humUnusual(A);
   }
   function bothHum(A, r) {
     if (A.h4 === "c") r.adds.push("With both ears closed you heard the hum in both ears, which is the expected response. A hearing test is still needed to find the cause.");
@@ -154,6 +161,7 @@
           else if (A.ring === "a") r.adds.push("Ringing with sudden hearing loss suggests the inner ear or hearing nerve may be involved. The hum test can miss high-pitched hearing loss, which often comes with ringing.");
           else r.adds.push("The hum test could not show a blockage-type cause, so the hearing nerve may be involved.");
         }
+        if (humUnusual(A)) r.adds.push("Your hum test answers were not the usual pattern, so the hearing test is especially important.");
         if (A.spin === "a") r.adds.push("Spinning or imbalance suggests the balance part of the inner ear may also be affected. A scan of the hearing nerve may be needed.");
         return r;
       }
@@ -175,6 +183,7 @@
         }
         r.adds.push(gBlock ? "The hum test suggests a blockage-type cause, such as wax or fluid behind the eardrum. An ear examination will confirm it."
           : "The hum test did not show a blockage-type cause, so a hearing nerve cause is more likely. A hearing test is needed, and an MRI scan may be advised.");
+        if (humUnusual(A)) r.adds.push("Your hum test answers were not the usual pattern, so the hearing test is especially important.");
         return r;
       }
       bothHum(A, r);

@@ -132,8 +132,8 @@
           else { r.level = "high"; r.text = "See an ENT doctor this week. Some recovery may still be possible."; }
           if (A.ear === "c") {
             r.adds.push("Sudden hearing loss in both ears needs to be seen with the same urgency.");
-            if (["h1", "h2", "h3", "h4"].every(function (k) { return inSet(A[k], "cd"); }))
-              r.adds.push("The hum stayed in both ears or was hard to place at every step, which points more towards nerve hearing loss in both ears.");
+            if (inSet(A.h4, "cd"))
+              r.adds.push("With both ears closed, the hum was in both ears or hard to place, which may suggest nerve hearing loss in both ears.");
             else r.adds.push("The hum test does not give a clear answer when both ears are affected; a hearing test is needed.");
           }
           else if (A.ring === "a") r.adds.push("Ringing with sudden hearing loss suggests the inner ear or hearing nerve may be involved. The hum test can miss high-pitched hearing loss, which often comes with ringing.");

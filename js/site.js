@@ -41,3 +41,12 @@
     });
   });
 })();
+
+/* analytics: count Call and WhatsApp taps, and which page they came from */
+document.addEventListener("click", function (e) {
+  var a = e.target.closest && e.target.closest("a[href]");
+  if (!a || !window.gtag) return;
+  var h = a.getAttribute("href");
+  if (h.indexOf("tel:") === 0) gtag("event", "call_click", {page_path: location.pathname});
+  else if (h.indexOf("wa.me") !== -1) gtag("event", "whatsapp_click", {page_path: location.pathname});
+});

@@ -577,6 +577,7 @@
     return card;
   }
 
+  var sent = false; /* analytics: records only that a check was completed, never answers or result */
   function show() {
     box.innerHTML = "";
     var id = current(), node;
@@ -587,6 +588,7 @@
     } else if (id) node = renderQuestion(id);
     else if (extra) { extra = null; node = renderAdultResult(); }
     else node = TOOL === "child" ? renderChildResult() : renderAdultResult();
+    if (!id && !sent && window.gtag) { sent = true; gtag("event", "check_complete", {check_name: "mera_" + TOOL}); }
     box.appendChild(node);
     var f = node.querySelector(".flow-q, h2");
     if (f && path.length) { f.tabIndex = -1; f.focus({preventScroll: true}); box.scrollIntoView({behavior: "smooth", block: "start"}); }

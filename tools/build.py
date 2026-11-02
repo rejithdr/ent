@@ -112,6 +112,8 @@ def render(slug, p):
 <link rel="icon" href="favicon.ico">
 <link rel="preload" href="fonts/manjari-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="{asset('css/site.css')}">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HMXYK8FQZQ"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}gtag('js',new Date());gtag('config','G-HMXYK8FQZQ');</script>
 {schema}</head>
 <body>
 
@@ -1437,6 +1439,8 @@ def mera(slug, title, description, body):
 <meta property="og:url" content="{url}">
 <meta property="og:type" content="website">
 <link rel="stylesheet" href="../{asset('css/site.css')}">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HMXYK8FQZQ"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}gtag('js',new Date());gtag('config','G-HMXYK8FQZQ');</script>
 </head>
 <body class="mera">
 <header class="mera-head"><div class="wrap"><a href="index.html">MERA</a> <span>sleep apnoea checks</span></div></header>

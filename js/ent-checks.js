@@ -269,9 +269,11 @@
     card.appendChild(n);
     return card;
   }
+  var sent = false; /* analytics: records only that a check was completed, never answers or result */
   function show() {
     box.innerHTML = "";
     var id = TOOL.next(A), node = id ? question(id) : result();
+    if (!id && !sent && window.gtag) { sent = true; gtag("event", "check_complete", {check_name: box.getAttribute("data-tool")}); }
     box.appendChild(node);
     var f = node.querySelector(".flow-q, h2");
     if (f && path.length) { f.tabIndex = -1; f.focus({preventScroll: true}); box.scrollIntoView({behavior: "smooth", block: "start"}); }

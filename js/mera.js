@@ -513,14 +513,17 @@
     wrap.appendChild(ol);
     return wrap;
   }
-  function contact(card) {
+  function waText(result) {
+    var name = TOOL === "child" ? "MERA Child Sleep Apnoea Check" : "MERA Sleep Apnoea Check";
+    return "Hello, I did the " + name + " on entmidas.com.\nResult: " + result + "\nI would like to book a consultation.";
+  }
+  function contact(card, result) {
     var tel = box.getAttribute("data-tel");
-    card.appendChild(el("p", null, "Take a screenshot of this result and show it " + (tel ? "at your consultation." : "to your doctor.")));
-    if (tel) {
-      var p = el("p", "intro-actions");
-      p.innerHTML = '<a class="btn" href="tel:' + esc(tel) + '">Call ' + esc(box.getAttribute("data-tel-show")) + '</a> <a class="btn quiet" href="' + esc(box.getAttribute("data-wa")) + '">WhatsApp</a>';
-      card.appendChild(p);
-    }
+    if (!tel) { card.appendChild(el("p", null, "Take a screenshot of this result and show it to your doctor.")); return; }
+    card.appendChild(el("p", null, "Send your result on WhatsApp to book, or take a screenshot and show it at your consultation."));
+    var p = el("p", "intro-actions");
+    p.innerHTML = '<a class="btn" href="' + esc(box.getAttribute("data-wa")) + "?text=" + encodeURIComponent(waText(result)) + '">Send my result on WhatsApp</a> <a class="btn quiet" href="tel:' + esc(tel) + '">Call ' + esc(box.getAttribute("data-tel-show")) + '</a>';
+    card.appendChild(p);
   }
   function tail(card) {
     var nav = el("div", "flow-nav");
@@ -547,7 +550,7 @@
       card.appendChild(el("p")).appendChild(more);
     }
     card.appendChild(summary());
-    contact(card); tail(card);
+    contact(card, r.title); tail(card);
     return card;
   }
   function row(name, x) {
@@ -573,7 +576,7 @@
     var u3 = el("ul", "rc"); u3.appendChild(row("Tonsils", R.tonsil)); card.appendChild(u3);
     card.appendChild(el("p", "q-hint", "This is a check, not a diagnosis. Every child has adenoids; the question is whether they are enlarged enough to cause problems."));
     card.appendChild(summary());
-    contact(card); tail(card);
+    contact(card, R.action.t.split(". ")[0].replace(/\.$/, "")); tail(card);
     return card;
   }
 

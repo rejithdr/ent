@@ -261,8 +261,14 @@
       .forEach(function (id) { ul.appendChild(el("li", null, "<strong>" + esc(TOOL.Q[id].label) + ":</strong> " + esc(ansText(id)))); });
     d.appendChild(ul); card.appendChild(d);
     var tel = box.getAttribute("data-tel");
-    card.appendChild(el("p", null, "Take a screenshot of this result and show it " + (tel ? "at your consultation." : "to your doctor.")));
-    if (tel) card.appendChild(el("p", "intro-actions", '<a class="btn" href="tel:' + esc(tel) + '">Call ' + esc(box.getAttribute("data-tel-show")) + '</a> <a class="btn quiet" href="' + esc(box.getAttribute("data-wa")) + '">WhatsApp</a>'));
+    if (tel && r.urgent) {
+      card.appendChild(el("p", "intro-actions", '<a class="btn" href="tel:' + esc(tel) + '">Call ' + esc(box.getAttribute("data-tel-show")) + '</a>'));
+    } else if (tel) {
+      var names = {nose: "Blocked Nose Check", hearing: "Hearing Check", dizzy: "Dizziness Check"};
+      var msg = "Hello, I did the " + (names[box.getAttribute("data-tool")] || "self-check") + " on entmidas.com.\nResult: " + r.title + "\nI would like to book a consultation.";
+      card.appendChild(el("p", null, "Send your result on WhatsApp to book, or take a screenshot and show it at your consultation."));
+      card.appendChild(el("p", "intro-actions", '<a class="btn" href="' + esc(box.getAttribute("data-wa")) + "?text=" + encodeURIComponent(msg) + '">Send my result on WhatsApp</a> <a class="btn quiet" href="tel:' + esc(tel) + '">Call ' + esc(box.getAttribute("data-tel-show")) + '</a>'));
+    } else card.appendChild(el("p", null, "Take a screenshot of this result and show it to your doctor."));
     var n = el("div", "flow-nav");
     var b = el("button", "btn quiet", "Back"); b.type = "button"; b.onclick = back; n.appendChild(b);
     var s = el("button", "btn quiet", "Start again"); s.type = "button"; s.onclick = restart; n.appendChild(s);

@@ -517,6 +517,17 @@
     var name = TOOL === "child" ? "MERA Child Sleep Apnoea Check" : "MERA Sleep Apnoea Check";
     return "Hello, I did the " + name + " on entmidas.com.\nResult: " + result + "\nI would like to book a consultation.";
   }
+  function childFindings(R) {
+    /* red and yellow findings from the report card, red first */
+    var rows = [{name: "Adenoids", lvl: R.adenoid.lvl, t: R.adenoid.t}].concat(R.comp, [{name: "Tonsils", lvl: R.tonsil.lvl, t: R.tonsil.t}]);
+    var out = [];
+    ["high", "mid"].forEach(function (lv) {
+      rows.forEach(function (x) {
+        if (x.lvl === lv) out.push((lv === "high" ? "\uD83D\uDD34 " : "\uD83D\uDFE1 ") + x.name + ": " + x.t.replace(/ \(.*\)$/, "").split(": ")[0]);
+      });
+    });
+    return out.length ? "\n" + out.join("\n") : "";
+  }
   function contact(card, result) {
     var tel = box.getAttribute("data-tel");
     if (!tel) { card.appendChild(el("p", null, "Take a screenshot of this result and show it to your doctor.")); return; }
@@ -576,7 +587,7 @@
     var u3 = el("ul", "rc"); u3.appendChild(row("Tonsils", R.tonsil)); card.appendChild(u3);
     card.appendChild(el("p", "q-hint", "This is a check, not a diagnosis. Every child has adenoids; the question is whether they are enlarged enough to cause problems."));
     card.appendChild(summary());
-    contact(card, R.action.t.split(". ")[0].replace(/\.$/, "")); tail(card);
+    contact(card, R.action.t.split(". ")[0].replace(/\.$/, "") + childFindings(R)); tail(card);
     return card;
   }
 

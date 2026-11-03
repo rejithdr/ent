@@ -313,3 +313,19 @@ nav.main .lang-link { margin-left: auto; font-weight: 600; }
 .doc-card h3 { margin-top: 0; }
 .doc-card .doc-role { color: var(--muted); font-weight: 600; margin-top: -.4rem; }
 @media (max-width: 480px) { .doc-card { flex-direction: column; } }
+
+/* home: hero, condition cards, why list */
+.home-hero { padding: 1.2rem 0 .4rem; }
+.home-hero .intro-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 1rem 0 1.4rem; }
+.home-hero .intro-actions .btn { margin: 0; }
+.home-hero h1 { margin-bottom: .4rem; }
+.hero-cards { list-style: none; padding: 0; margin: 1.2rem 0; display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.hero-cards li { background: var(--green-soft); border-radius: var(--radius); padding: 16px 18px; display: flex; flex-direction: column; }
+.hero-cards h2 { font-size: 20px; margin: 0 0 .4rem; }
+.hero-cards p { margin: 0 0 .6rem; }
+.hero-cards .hc-links { margin-top: auto; display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+.why { list-style: none; padding: 0; }
+.why li { padding: 10px 0 10px 16px; border-left: 4px solid var(--gold); margin: 8px 0; background: #fbfaf6; }
+.lead-doc { display: flex; gap: 14px; align-items: center; border: 1px solid var(--line); border-radius: var(--radius); padding: 12px; margin: 1.2rem 0; }
+.lead-doc img { width: 96px; height: auto; border-radius: 8px; flex: none; }
+.lead-doc p { margin: 0; }

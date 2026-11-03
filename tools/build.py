@@ -46,7 +46,8 @@ CONDITIONS = [
         ("dizziness-check.html", "Dizziness Check (self-check)", "vertigo giddiness dizziness dizzy spinning check quiz self check"),
     ]),
     ("Nose and sinus", [
-        ("septum.html", "Blocked nose and deviated septum", "nose block blocked septum deviated septoplasty nosebleed"),
+        ("septum.html", "Blocked nose and deviated septum", "nose block blocked septum deviated septoplasty nosebleed turbinate"),
+        ("allergy.html", "Nasal allergy (allergic rhinitis)", "allergy allergic rhinitis sneezing sneeze runny nose dust itching vasomotor"),
         ("nose-check.html", "Blocked Nose Check (self-check)", "nose block blocked turbinate septum nose score check quiz self check"),
         ("polyp.html", "Nasal polyps and sinus surgery", "polyp polyps sinus sinusitis smell"),
         ("balloon-sinus.html", "Balloon sinus surgery", "balloon sinus sinusitis sinuplasty sinus headache"),
@@ -408,7 +409,8 @@ page(
 <h2>Other problems we treat</h2>
 <ul class="paths">
   <li><a href="earsurgery.html"><strong>Ear discharge or hearing loss</strong><span>Hole in the eardrum, blocked ear, sudden deafness</span></a></li>
-  <li><a href="septum.html"><strong>Blocked nose or sinus trouble</strong><span>Deviated septum, polyps, sinusitis, allergy</span></a></li>
+  <li><a href="septum.html"><strong>Blocked nose or sinus trouble</strong><span>Deviated septum, turbinates, polyps, sinusitis</span></a></li>
+  <li><a href="allergy.html"><strong>Sneezing and nasal allergy</strong><span>Allergic rhinitis, runny nose, morning sneezing</span></a></li>
   <li><a href="tonsil.html"><strong>Tonsils and adenoids</strong><span>Repeated throat infections, large tonsils</span></a></li>
   <li><a href="voice.html"><strong>Voice change</strong><span>Hoarseness that doesn't settle</span></a></li>
   <li><a href="thyroid.html"><strong>Thyroid and neck swellings</strong><span>Thyroid surgery, salivary glands</span></a></li>
@@ -882,9 +884,9 @@ page(
   <li>Surgery to relieve the obstruction:
     <ul>
       <li>Correcting fixed blockages, such as nasal blockage and enlarged adenoids and tonsils</li>
-      <li>Palatal surgery, such as expansion pharyngoplasty or Z-palatoplasty</li>
-      <li>Tongue base reduction using coblation</li>
-      <li>Epiglottopexy, which moves the epiglottis forward to relieve obstruction</li>
+      <li>Palate surgery: usually barbed palatopharyngoplasty, which repositions the palate with dissolving stitches, or lateral expansion pharyngoplasty, chosen according to how your airway collapses on sleep endoscopy; other techniques, such as Z-palatoplasty, in selected cases</li>
+      <li>Tongue base: lingual tonsil removal, or coblation reduction of the tongue base</li>
+      <li>Epiglottis: epiglottopexy, which moves the epiglottis forward, or supraglottoplasty</li>
       <li>Maxillomandibular advancement (MMA)</li>
     </ul>
   </li>
@@ -966,6 +968,9 @@ page(
 <h2>Will the adenoids grow back?</h2>
 <p>After total or near-total adenoidectomy, regrowth is very unlikely and rarely causes blockage again. After partial or subtotal adenoidectomy, where some tissue is kept on purpose, some regrowth can happen. We'll explain which approach suits your child and why.</p>
 
+<h2>What about fluid in the ears?</h2>
+<p>If fluid behind the eardrum doesn't clear, a small ventilation tube (grommet) may be placed at the same operation.</p>
+
 <h2>Why is tonsil surgery sometimes done with adenoidectomy?</h2>
 <ul>
   <li>Enlarged tonsils can keep blocking the airway after the adenoids are removed.</li>
@@ -1010,6 +1015,9 @@ page(
   <li>For <a href="snoring.html">snoring</a> and <a href="sleepapnoea.html">sleep apnoea</a>, intracapsular surgery is usually preferred.</li>
   <li>With <a href="adenoids.html">adenoidectomy</a>, tonsils may be reduced to prevent them blocking the airway later.</li>
 </ul>
+
+<h2>Throat pain from a long styloid bone</h2>
+<p>Throat pain from a long styloid bone (Eagle syndrome) can be treated by removing the extra length (styloidectomy).</p>
 
 <h2>Recovery and risks</h2>
 <div class="table-scroll">
@@ -1138,6 +1146,15 @@ page(
   <li>Removing limited bone-eroding disease (cholesteatoma)</li>
 </ul>
 
+<h2>Other ear operations we perform</h2>
+<ul>
+  <li><strong>Hole in the eardrum:</strong> usually closed by endoscopic tympanoplasty (interlay or underlay), using a graft from the covering of a muscle or from cartilage. Small holes can be closed with a fat graft. Holes with a weak or pulled-in eardrum may need a cartilage graft, which is stronger.</li>
+  <li><strong>Otosclerosis</strong> (hearing loss from a stiff ear bone, often in young adults): <strong>stapedotomy</strong>, a fine operation to restore sound transmission.</li>
+  <li><strong>Fluid behind the eardrum (glue ear):</strong> a tiny ventilation tube (grommet) when fluid doesn't clear with treatment.</li>
+  <li><strong>Bone-eroding disease (cholesteatoma):</strong> <strong>mastoidectomy</strong>, planned to remove all disease while keeping as much of the ear's structure as possible.</li>
+  <li><strong>Damaged ear bones:</strong> ossicular reconstruction, sometimes in two stages.</li>
+</ul>
+
 <h2 id="interlay">Endoscopic interlay tympanoplasty</h2>
 <p>The eardrum has three thin layers. In the usual method (underlay), the graft that closes the hole is placed underneath the whole eardrum. In the <strong>interlay</strong> method, the graft is slipped between the outer skin layer and the middle layer of the eardrum, where it sits very securely.</p>
 <ul>
@@ -1214,14 +1231,52 @@ page(
 <h2>How is a deviated septum diagnosed?</h2>
 <p>A clinical examination is usually enough, with nasal endoscopy for more detail. A CT scan of the sinuses is taken if there is sinusitis.</p>
 
-<h2>How is it treated?</h2>
-<p>Only when it causes significant symptoms. Treatment is surgical: septoplasty or submucous resection.</p>
+<h2>Most blockage comes from the turbinates, not the septum</h2>
+<p>The turbinates are normal swellings on the side walls of the nose, present in everyone. They swell and shrink through the day, and they can stay enlarged, often because of <a href="allergy.html">allergy</a>. A bent septum is often a bystander, so we treat the turbinates first, and correct the septum only if it still blocks the nose.</p>
 
-<h2>Is there a minimum age?</h2>
-<p>Submucous resection is done only after about 17 years of age. Septoplasty has no strict age limit.</p>
+<h2>How is it treated?</h2>
+<p><strong>Medicines first.</strong> A nasal steroid spray for at least 6 weeks. Surgery is considered only if the blockage still troubles you, especially at night.</p>
+<p><strong>Turbinate treatment, step by step:</strong></p>
+<ul>
+  <li><strong>Coblation channelling:</strong> the turbinate is shrunk from inside, keeping its lining, which warms and moistens the air you breathe.</li>
+  <li><strong>Laser channelling</strong>, if needed.</li>
+  <li><strong>Partial turbinectomy:</strong> a measured part of the turbinate's bone and tissue is removed, keeping enough for it to keep working. We never remove the whole turbinate.</li>
+</ul>
+<p><strong>Septum surgery (septoplasty):</strong> we straighten the septum by scoring and repositioning the cartilage rather than removing it, keeping the nose's support. A small spur is removed on its own. Septoplasty can be done in teenagers when it's needed. We don't do submucous resection (SMR), the older operation that removes septal cartilage.</p>
 
 <h2>Recovery</h2>
 <p>Septoplasty can be done as <a href="daycare.html">day-care surgery</a>, usually without nasal packing. Avoid heavy physical strain for 2 weeks.</p>
+{BOOK}
+""",
+)
+
+# ---------------------------------------------------------------- Allergy
+page(
+    "allergy.html",
+    "Nasal Allergy (Allergic Rhinitis) Treatment in Thrissur | MIDAS ENT Thrissur",
+    "Sneezing, runny or blocked nose and itching: allergic rhinitis. Simple steps that help, treatment, allergy testing and immunotherapy, and when surgery helps. MIDAS ENT, Thrissur.",
+    f"""
+<h1>Nasal Allergy (Allergic Rhinitis)</h1>
+<p class="lead">Sneezing, a runny or blocked nose, and an itchy nose and eyes, often worse in the morning or with dust. This is allergic rhinitis. It's very common, and in most people it is controlled well with the right routine and medicines.</p>
+
+<div class="box"><strong>Blocked nose?</strong> Take the free <a href="nose-check.html">Blocked Nose Check</a>.</div>
+
+<h2>Simple steps that help</h2>
+<ul>
+  <li>Wash bedsheets and pillow covers every third day; a hot wash or drying in strong sun is best.</li>
+  <li>Don't keep worn clothes in the bedroom for more than 3 days.</li>
+  <li>Sneezing on getting up? Step into rubber slippers when you get out of bed, and use lukewarm water to wash your face and brush.</li>
+  <li>Sneezing as soon as you wake? Keep a clean handkerchief by the bed. On waking, cover your nose and mouth with it and breathe through it for 10 minutes, so you breathe warm, moist air while your nose adjusts.</li>
+</ul>
+
+<h2>Treatment</h2>
+<p>Nasal sprays and allergy tablets, chosen for your age, symptoms and other health conditions. Some sprays are needed for months to keep allergy controlled.</p>
+
+<h2>If medicines don't control it</h2>
+<p>Allergy testing (skin prick test), and allergy treatment that trains the body over about a year (sublingual immunotherapy, drops under the tongue). Other options are discussed with you.</p>
+
+<h2>Can surgery cure allergy?</h2>
+<p>No. Turbinate surgery helps only if a blocked nose persists despite treatment (see <a href="septum.html">blocked nose</a>). For sneezing and a runny nose that don't respond to any treatment, an operation called <strong>posterior nasal neurectomy</strong>, which is also done for non-allergic (vasomotor) rhinitis, may help. It works in only about half of patients, and the effect may wear off after a few years.</p>
 {BOOK}
 """,
 )
@@ -1455,6 +1510,7 @@ page(
   <li><strong>Tests:</strong> HRCT of the temporal bone to look for bone pressing on the nerve; nerve studies (EMG) to judge the extent of injury and timing of surgery</li>
   <li><strong>Treatment:</strong> steroids and physiotherapy; surgery when bone is pressing on the nerve, the nerve is cut, or there is no recovery with medical treatment</li>
 </ul>
+<p>When the facial nerve can't recover, facial reanimation surgery can restore movement and symmetry to the face.</p>
 
 <h2>Labyrinthectomy for severe vertigo</h2>
 <p>For severe, disabling vertigo that has not responded to any other treatment, the balance organ of the inner ear can be deactivated, either with gentamicin injections into the ear or by surgery. Both can cause permanent hearing loss in that ear, so this is considered only after careful discussion. <a href="vertigo.html">Read more about vertigo</a>.</p>

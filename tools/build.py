@@ -125,6 +125,31 @@ def page(slug, title, description, body, h1=None, schema=None):
     PAGES[slug] = dict(title=title, description=description, body=body, schema=schema)
 
 
+# One-line experience notes shown under the heading of English condition pages
+EXPERIENCE = {
+    "sleepapnoea.html": "Our lead surgeon has performed drug-induced sleep endoscopy (DISE) since 2011 and multilevel sleep apnoea surgery since 2018.",
+    "earsurgery.html": "Our lead surgeon has performed endoscopic ear surgery since 2010, and endoscopic interlay tympanoplasty since 2023.",
+    "tonsil.html": "Our lead surgeon has performed intracapsular tonsil surgery since 2017, with coblation since 2018.",
+    "adenoids.html": "Our lead surgeon has performed coblation adenoidectomy since 2018, and the MIDAS graded total and near-total technique since 2024.",
+    "septum.html": "Our lead surgeon has performed endoscopic and structural septoplasty since 2013, and coblation turbinate surgery since 2019.",
+    "polyp.html": "Our lead surgeon has performed endoscopic sinus surgery since 2010.",
+    "balloon-et.html": "Our lead surgeon performed his first balloon Eustachian tube dilation in 2023.",
+    "balloon-sinus.html": "Balloon sinus surgery at MIDAS Hospital since 2025.",
+    "vertigo.html": "Our lead surgeon has treated vertigo with repositioning manoeuvres since 2010.",
+    "sial.html": "Sialendoscopy at MIDAS Hospital since 2024.",
+    "skullbase.html": "Our lead surgeon has performed endoscopic skull base surgery (pituitary, CSF leak) since 2017.",
+}
+
+
+def add_experience(slug, body):
+    note = EXPERIENCE.get(slug)
+    if not note:
+        return body
+    box = f'<p class="exp-note">{note} <a href="about.html#experience">Experience</a></p>'
+    m = re.search(r"</h1>\s*(<p[^>]*>.*?</p>)?", body, flags=re.S)
+    return body[:m.end()] + "\n" + box + body[m.end():] if m else body
+
+
 def render(slug, p):
     lang = lang_of(slug)
     C = {**CHROME["en"], **CHROME[lang]}
@@ -152,7 +177,7 @@ def render(slug, p):
         )
     robots = '<meta name="robots" content="noindex">\n' if is_draft(slug) else ""
     draft = f'<div class="urgent draft-note">{C["draft"]}</div>\n' if is_draft(slug) else ""
-    body = localise_links(p["body"].strip(), lang)
+    body = localise_links(p["body"].strip() if lang != "en" else add_experience(slug, p["body"].strip()), lang)
     in_conditions = any(href == eslug for _, items in CONDITIONS for href, _, _ in items)
     cond_html = "\n".join(
         '              <div class="cond-group"><h3>' + group + '</h3><ul>'
@@ -359,7 +384,7 @@ page(
 <ul class="why">
   <li><strong>Home the same day.</strong> Most operations are done as day-care surgery at <a href="midas.html">MIDAS Hospital, Ollur</a>.</li>
   <li><strong>Surgery only when it's the better option for you.</strong> We try medicines and simple treatments first whenever they can work. When surgery is needed, we plan the operation that best suits your problem and your age.</li>
-  <li><strong>Advanced, tissue-friendly techniques.</strong> Endoscopic surgery, even for the ear and the salivary glands, and the latest-generation coblation system, which allows function-preserving adenoid and tonsil surgery. MIDAS Hospital was among the first in Thrissur to offer advanced coblation and sialendoscopy (2024), and balloon Eustachian tube and balloon sinus surgery (2025).</li>
+  <li><strong>Advanced, tissue-friendly techniques.</strong> Endoscopic surgery, even for the ear and the salivary glands, and the latest-generation coblation system, which allows function-preserving adenoid and tonsil surgery. MIDAS Hospital was among the first in Thrissur to offer latest-generation coblation and sialendoscopy (2024), and balloon Eustachian tube and balloon sinus surgery (2025).</li>
   <li><strong>One team, written protocols.</strong> Every MIDAS ENT doctor follows the same written protocols, so the standard of care is the same whoever you see. <a href="doctors.html">Meet our doctors</a>.</li>
   <li><strong>Sleep apnoea surgery planned on evidence.</strong> Sleep endoscopy (DISE) shows exactly where your airway closes before any operation is planned.</li>
   <li><strong>Your child's privacy.</strong> We never ask you to send your child's sleep video by WhatsApp. Show it to us in the clinic.</li>
@@ -452,9 +477,66 @@ page(
 <h2>Milestones</h2>
 <ul>
   <li>Performed the first balloon Eustachian tube dilation at Adlux Apollo Hospital, 2023</li>
-  <li>Introduced advanced coblation and sialendoscopy at MIDAS Hospital, Thrissur, 2024</li>
+  <li>Introduced latest-generation coblation and sialendoscopy at MIDAS Hospital, Thrissur, 2024</li>
   <li>Introduced balloon Eustachian tube and balloon sinus surgery at MIDAS Hospital, Thrissur, 2025</li>
 </ul>
+
+<h2 id="experience">Experience with techniques</h2>
+<p>The year Dr Rejith began performing each technique.</p>
+<h3>Ear</h3>
+<div class="table-scroll"><table class="exp">
+<tr><th>Technique</th><th>Since</th></tr>
+<tr><td>Endoscopic ear surgery</td><td>2010</td></tr>
+<tr><td>Fat tympanoplasty</td><td>2010</td></tr>
+<tr><td>Myringotomy with grommet</td><td>2010</td></tr>
+<tr><td>Canal wall down mastoidectomy</td><td>2010</td></tr>
+<tr><td>Cartilage tympanoplasty; attic and posterior canal wall reconstruction</td><td>2013</td></tr>
+<tr><td>Ossiculoplasty, including staged reconstruction</td><td>2013</td></tr>
+<tr><td>Stapedotomy</td><td>2014</td></tr>
+<tr><td>Endoscopic tympanoplasty with PRP</td><td>2019</td></tr>
+<tr><td>Inside-out and modified inside-out mastoidectomy</td><td>2022</td></tr>
+<tr><td>Endoscopic interlay tympanoplasty</td><td>2023</td></tr>
+<tr><td>Balloon Eustachian tuboplasty</td><td>2023</td></tr>
+<tr><td>PRF myringoplasty</td><td>2024</td></tr>
+</table></div>
+<h3>Nose and sinus</h3>
+<div class="table-scroll"><table class="exp">
+<tr><th>Technique</th><th>Since</th></tr>
+<tr><td>Targeted endoscopic sinus surgery (uncinate-preserving)</td><td>2010</td></tr>
+<tr><td>Endoscopic and structural septoplasty (cartilage scoring, swinging door)</td><td>2013</td></tr>
+<tr><td>Coblation turbinoplasty and channelling</td><td>2019</td></tr>
+<tr><td>Submucous bone resection and partial turbinectomy</td><td>2019</td></tr>
+<tr><td>Balloon sinuplasty</td><td>2025</td></tr>
+<tr><td>Posterior nasal neurectomy</td><td>2025</td></tr>
+<tr><td>Laser submucous channelling</td><td>2026</td></tr>
+</table></div>
+<h3>Throat, airway and sleep apnoea</h3>
+<div class="table-scroll"><table class="exp">
+<tr><th>Technique</th><th>Since</th></tr>
+<tr><td>Drug-induced sleep endoscopy (DISE)</td><td>2011</td></tr>
+<tr><td>Styloidectomy</td><td>2013</td></tr>
+<tr><td>Intracapsular tonsillectomy (microdebrider)</td><td>2017</td></tr>
+<tr><td>Coblation intracapsular tonsillectomy</td><td>2018</td></tr>
+<tr><td>Coblation adenoidectomy</td><td>2018</td></tr>
+<tr><td>Multilevel sleep apnoea surgery</td><td>2018</td></tr>
+<tr><td>Barbed palatopharyngoplasty</td><td>2018</td></tr>
+<tr><td>Coblation epiglottopexy and partial epiglottectomy</td><td>2021</td></tr>
+<tr><td>Lingual tonsillectomy</td><td>2023</td></tr>
+<tr><td>Coblation midline glossectomy and tongue base channelling</td><td>2023</td></tr>
+<tr><td>MIDAS graded tonsil and adenoid surgery, including total, near-total and extrafascial adenoidectomy</td><td>2024</td></tr>
+<tr><td>Lateral expansion pharyngoplasty</td><td>2025</td></tr>
+<tr><td>Supraglottoplasty</td><td>2026</td></tr>
+</table></div>
+<h3>Skull base, facial nerve, salivary glands and vertigo</h3>
+<div class="table-scroll"><table class="exp">
+<tr><th>Technique</th><th>Since</th></tr>
+<tr><td>Vertigo repositioning manoeuvres</td><td>2010</td></tr>
+<tr><td>Skull base: pituitary, CSF leak</td><td>2017</td></tr>
+<tr><td>Facial reanimation</td><td>2019</td></tr>
+<tr><td>Endoscopic facial nerve decompression</td><td>2022</td></tr>
+<tr><td>Sialendoscopy</td><td>2024</td></tr>
+<tr><td>MIDAS staged vertigo approach (MVSP)</td><td>2025</td></tr>
+</table></div>
 
 <h2>Positions held</h2>
 <ul>
@@ -495,7 +577,7 @@ page(
 <h2>Our approach: MERA</h2>
 <p><strong>Maximising Effectiveness, Retaining Anatomy.</strong> Every treatment is planned around two questions: what needs to be treated, and what should be protected. Diseased tissue is treated fully. Healthy tissue that still works is kept.</p>
 <p>For example, the amount of adenoid or tonsil removed in a child is graded to the child's age and problem, rather than everything being removed by default.</p>
-<p>We use advanced, tissue-friendly techniques: endoscopic surgery, even for the ear and the salivary glands, and the latest-generation coblation system for function-preserving adenoid and tonsil surgery. MIDAS Hospital was among the first in Thrissur to offer advanced coblation and sialendoscopy (2024), and balloon Eustachian tube and balloon sinus surgery (2025).</p>
+<p>We use advanced, tissue-friendly techniques: endoscopic surgery, even for the ear and the salivary glands, and the latest-generation coblation system for function-preserving adenoid and tonsil surgery. MIDAS Hospital was among the first in Thrissur to offer latest-generation coblation and sialendoscopy (2024), and balloon Eustachian tube and balloon sinus surgery (2025).</p>
 
 <h2>One team, one standard</h2>
 <p>MIDAS ENT is a team of ENT surgeons and visiting specialists, led by Dr Rejith R S. Every doctor works from the same written MIDAS ENT protocols for diagnosis, treatment and surgery, so you get the same standard of care whichever doctor you see and whichever MIDAS ENT clinic you visit. <a href="doctors.html">Meet our doctors</a>.</p>

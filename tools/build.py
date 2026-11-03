@@ -391,6 +391,8 @@ page(
         "@context": "https://schema.org",
         "@type": "MedicalClinic",
         "name": "MIDAS ENT",
+        "alternateName": "MIDAS ENT Department",
+        "parentOrganization": {"@type": "Hospital", "name": "MIDAS Hospital and Surgical Centre", "address": {"@type": "PostalAddress", "addressLocality": "Ollur, Thrissur", "addressRegion": "Kerala", "addressCountry": "IN"}},
         "description": "ENT care for children and adults in Thrissur, Kerala. Our approach: MERA, Maximising Effectiveness, Retaining Anatomy.",
         "medicalSpecialty": "Otolaryngologic",
         "url": SITE + "/",

@@ -358,7 +358,8 @@ page(
 <h2>Why patients choose MIDAS ENT</h2>
 <ul class="why">
   <li><strong>Home the same day.</strong> Most operations are done as day-care surgery at <a href="midas.html">MIDAS Hospital, Ollur</a>.</li>
-  <li><strong>Only what's needed.</strong> Endoscopic and coblation techniques, with tissue removal graded to the problem. In children, the amount of adenoid and tonsil removed is planned for age.</li>
+  <li><strong>Surgery only when it's the better option for you.</strong> We try medicines and simple treatments first whenever they can work. When surgery is needed, we plan the operation that best suits your problem and your age.</li>
+  <li><strong>Advanced, tissue-friendly techniques.</strong> Endoscopic surgery, even for the ear and the salivary glands, and the Werewolf Coblation system, which allows function-preserving adenoid and tonsil surgery.</li>
   <li><strong>One team, written protocols.</strong> Every MIDAS ENT doctor follows the same written protocols, so the standard of care is the same whoever you see. <a href="doctors.html">Meet our doctors</a>.</li>
   <li><strong>Sleep apnoea surgery planned on evidence.</strong> Sleep endoscopy (DISE) shows exactly where your airway closes before any operation is planned.</li>
   <li><strong>Your child's privacy.</strong> We never ask you to send your child's sleep video by WhatsApp. Show it to us in the clinic.</li>

@@ -114,6 +114,15 @@ intro_html = "".join(f"<p>{runs(e['paragraph']['elements'])}</p>" for e in intro
 def render_section(elems):
     """Returns (html, list of (id, h2 text)) for one protocol."""
     out, toc, stack = [], [], []  # stack of (tag, level)
+    used = set()
+
+    def new_id(_kind, txt):
+        base = re.sub(r"[^a-z0-9]+", "-", txt.lower()).strip("-")[:50] or "h"
+        hid, n = base, 2
+        while hid in used:
+            hid, n = f"{base}-{n}", n + 1
+        used.add(hid)
+        return hid
 
     def close_lists(to_level=-1):
         while stack and stack[-1][1] > to_level:
@@ -151,17 +160,17 @@ def render_section(elems):
             if first_h1:
                 first_h1 = False
                 continue  # the page title is rendered separately
-            hid = f"s{len(toc) + 1}"
+            hid = new_id("h", plain(p["elements"]))
             toc.append((hid, plain(p["elements"])))
             out.append(f'<h2 id="{hid}">{text}</h2>')
         elif style == "HEADING_2":
-            hid = f"s{len(toc) + 1}"
+            hid = new_id("h", plain(p["elements"]))
             toc.append((hid, plain(p["elements"])))
             out.append(f'<h2 id="{hid}">{text}</h2>')
         elif style == "HEADING_3":
-            out.append(f"<h3>{text}</h3>")
+            out.append(f'<h3 id="{new_id("h", plain(p["elements"]))}">{text}</h3>')
         elif style.startswith("HEADING"):
-            out.append(f"<h4>{text}</h4>")
+            out.append(f'<h4 id="{new_id("h", plain(p["elements"]))}">{text}</h4>')
         else:
             out.append(f"<p>{text}</p>")
     close_lists()
@@ -185,6 +194,8 @@ HEAD = """<!doctype html>
 .proto h2 {{ border-top: 1px solid #dde5e1; padding-top: 1rem; }}
 .proto li {{ margin: .2rem 0; }}
 .proto td {{ border: 1px solid #dde5e1; padding: .4rem; vertical-align: top; }}
+.xref {{ text-decoration: underline dotted; }}
+:target {{ background: #fff6d6; scroll-margin-top: 1rem; }}
 #q {{ width: 100%; font-size: 17px; padding: .6rem; border: 1px solid #9db8ad; border-radius: 8px; }}
 .grp h2 {{ margin-bottom: .3rem; }}
 .grp ul {{ margin-top: .2rem; }}
@@ -201,9 +212,113 @@ FOOT = """
 </html>
 """
 
+# ---------------------------------------------------------------- cross-links
+# Terms that link to the section that defines them. (pattern, page, heading prefix, only_on_page)
+TERMS = [
+    (r"Grade I – Partial Tonsillotomy|Partial Tonsillotomy", "tonsil", "Grade I – Partial Tonsillotomy", None),
+    (r"Grade II – Subtotal Intracapsular Tonsillectomy|Subtotal Intracapsular Tonsillectomy", "tonsil", "Grade II – Subtotal Intracapsular", None),
+    (r"Grade III – Near Total Intracapsular Tonsillectomy|Near[- ]Total Intracapsular Tonsillectomy", "tonsil", "Grade III – Near Total Intracapsular", None),
+    (r"Grade IVA – Partial / Subtotal Hybrid Tonsillectomy|Subtotal Hybrid Tonsillectomy", "tonsil", "Grade IVA", None),
+    (r"Grade IVB – Total Hybrid Tonsillectomy|Total Hybrid Tonsillectomy", "tonsil", "Grade IVB", None),
+    (r"Grade IVA / IVB – Hybrid Tonsillectomy|Hybrid Tonsillectomy", "tonsil", "Grade IVA", None),
+    (r"Grade V – Total Extracapsular Tonsillectomy|Total Extracapsular Tonsillectomy", "tonsil", "Grade V – Total Extracapsular", None),
+    (r"Grade (?:I|II|III|IV|V)(?: \([a-z -]+\))? adenoidectomy", "adenoidectomy", "GRADE", None),
+    (r"Grade (?:I|II|III|IVA|IVB|V)(?: \([a-z -]+\))? (?:intracapsular )?(?:tonsillectomy|tonsillotomy)", "tonsil", "GRADE", None),
+    (r"Adenotomy|Debulking Adenoidectomy", "adenoidectomy", "Grade I – Adenotomy", None),
+    (r"Subtotal Adenoidectomy", "adenoidectomy", "Grade II – Subtotal Adenoidectomy", None),
+    (r"Near[- ]Total Adenoidectomy", "adenoidectomy", "Grade III – Near Total Adenoidectomy", None),
+    (r"Hybrid Adenoidectomy", "adenoidectomy", "Grade IV – Hybrid Adenoidectomy", None),
+    (r"(?<!Near )(?<!Near-)Total Adenoidectomy", "adenoidectomy", "Grade V – Total Adenoidectomy", None),
+    (r"Extrafascial Adenoidectomy", "adenoidectomy", "Extrafascial Adenoidectomy", None),
+    (r"Stage (?:IVA|IVB|IVC|III|II|IV|V|I)\b", "vertigo", None, "vertigo"),
+    (r"MVSP|MIDAS Vertigo Spectrum Management Protocol", "vertigo", "", None),
+    (r"Variation [ABCD]\b", "adult-osa", None, "adult-osa"),
+    (r"section \d{1,2}\b", None, None, None),
+    (r"NOT test|Noise Occlusion Test", "sudden-hearing-loss", "NOT (Noise Occlusion Test)", None),
+    (r"hum test", "sudden-hearing-loss", "Hum Test for Patient Self-Triage", None),
+    (r"SOM protocol", "som", "", None),
+    (r"(?:MIDAS )?Nasal Obstruction Protocol", "nasal-obstruction", "", None),
+    (r"(?:MIDAS )?Allergic Rhinitis Protocol|allergic rhinitis protocol", "allergic-rhinitis", "", None),
+    (r"(?:MIDAS )?Rhinosinusitis Protocol", "rhinosinusitis", "", None),
+    (r"(?:MIDAS )?Adult OSA [Pp]rotocol", "adult-osa", "", None),
+    (r"(?:Age )?Group [ABCD]\b|AGE GROUP [ABCD]\b", "paediatric-airway", None, "paediatric-airway"),
+]
+
+rendered = {slug: render_section(sections[slug]) for _, slug, _, _ in PROTOCOLS}
+HEADS = {}  # page -> [(id, text)]
+for slug, (content, _) in rendered.items():
+    HEADS[slug] = [(m.group(2), html.unescape(re.sub("<[^>]+>", "", m.group(3))))
+                   for m in re.finditer(r'<h([234]) id="([^"]+)">(.*?)</h\1>', content)]
+
+
+def find_anchor(page, prefix):
+    if prefix == "":
+        return ""
+    for hid, text in HEADS[page]:
+        if text.startswith(prefix):
+            return hid
+    return None
+
+
+def target_for(term, page_now):
+    """(page, anchor) for a matched term, or None."""
+    for pat, page, prefix, only in TERMS:
+        if not re.fullmatch(pat, term, flags=re.I):
+            continue
+        if only and page_now != only:
+            return None
+        if pat.startswith("section"):
+            n = term.split()[1]
+            hid = next((h for h, t in HEADS[page_now] if re.match(rf"{n}\.\s", t)), None)
+            return (page_now, hid) if hid else None
+        if prefix == "GRADE":  # "Grade II (subtotal) adenoidectomy" -> the Grade II definition
+            num = term.split()[1]
+            hid = next((h for h, t in HEADS[page] if t.startswith(f"Grade {num} –")), None)
+            return (page, hid) if hid else None
+        if prefix is None:  # stage / variation / group: heading containing the term
+            key = term.upper().replace("AGE ", "")
+            hid = next((h for h, t in HEADS[page] if t.upper().replace("AGE ", "").startswith(key)
+                        or t.upper().startswith("AGE " + key)), None)
+            return (page, hid) if hid else None
+        hid = find_anchor(page, prefix)
+        return (page, hid) if hid is not None else None
+    return None
+
+
+TERM_RE = re.compile("|".join(f"(?:{p})" for p, *_ in TERMS), flags=re.I)
+
+
+def link_terms(page_now, content):
+    parts = re.split(r"(<[^>]+>)", content)
+    out, in_a, in_h, current = [], 0, 0, None
+    for part in parts:
+        if part.startswith("<"):
+            if part.startswith("<a "): in_a += 1
+            elif part == "</a>": in_a -= 1
+            m = re.match(r'<h[234] id="([^"]+)"', part)
+            if m:
+                in_h += 1; current = m.group(1)
+            elif re.match(r"</h[234]>", part):
+                in_h -= 1
+            out.append(part)
+            continue
+        if in_a or in_h or not part.strip():
+            out.append(part)
+            continue
+        def sub(m):
+            t = target_for(m.group(0), page_now)
+            if not t or (t[0] == page_now and (t[1] == current or t[1] == "")):
+                return m.group(0)
+            href = ("" if t[0] == page_now else f"{t[0]}.html") + (f"#{t[1]}" if t[1] else "")
+            return f'<a class="xref" href="{href}">{m.group(0)}</a>'
+        out.append(TERM_RE.sub(sub, part))
+    return "".join(out)
+
+
 meta = []
 for start, slug, short, group in PROTOCOLS:
-    content, toc = render_section(sections[slug])
+    content, toc = rendered[slug]
+    content = link_terms(slug, content)
     full_title = plain(next(e["paragraph"]["elements"] for e in sections[slug] if "paragraph" in e))
     toc_html = ""
     if len(toc) > 2:

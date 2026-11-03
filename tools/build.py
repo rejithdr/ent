@@ -504,7 +504,7 @@ page(
 <div class="table-scroll"><table class="exp">
 <tr><th>Technique</th><th>Since</th></tr>
 <tr><td><a href="earsurgery.html#what-can-be-done-endoscopically">Endoscopic ear surgery</a></td><td>2010</td></tr>
-<tr><td><a href="earsurgery.html#other-ear-operations-we-perform">Fat tympanoplasty</a></td><td>2010</td></tr>
+<tr><td><a href="earsurgery.html#fat-prf-myringoplasty">Fat tympanoplasty</a></td><td>2010</td></tr>
 <tr><td><a href="earsurgery.html#other-ear-operations-we-perform">Myringotomy with grommet</a></td><td>2010</td></tr>
 <tr><td><a href="earsurgery.html#other-ear-operations-we-perform">Canal wall down mastoidectomy</a></td><td>2010</td></tr>
 <tr><td><a href="earsurgery.html#other-ear-operations-we-perform">Cartilage tympanoplasty; attic and posterior canal wall reconstruction</a></td><td>2013</td></tr>
@@ -514,7 +514,7 @@ page(
 <tr><td><a href="earsurgery.html#other-ear-operations-we-perform">Inside-out and modified inside-out mastoidectomy</a></td><td>2022</td></tr>
 <tr><td><a href="earsurgery.html#interlay">Endoscopic interlay tympanoplasty</a></td><td>2023</td></tr>
 <tr><td><a href="balloon-et.html">Balloon Eustachian tuboplasty</a></td><td>2023</td></tr>
-<tr><td><a href="earsurgery.html#interlay">PRF myringoplasty</a></td><td>2024</td></tr>
+<tr><td><a href="earsurgery.html#fat-prf-myringoplasty">PRF myringoplasty</a></td><td>2024</td></tr>
 </table></div>
 <h3>Nose and sinus</h3>
 <div class="table-scroll"><table class="exp">
@@ -524,7 +524,7 @@ page(
 <tr><td><a href="septum.html#how-is-it-treated">Coblation turbinoplasty and channelling</a></td><td>2019</td></tr>
 <tr><td><a href="septum.html#how-is-it-treated">Submucous bone resection and partial turbinectomy</a></td><td>2019</td></tr>
 <tr><td><a href="balloon-sinus.html">Balloon sinuplasty</a></td><td>2025</td></tr>
-<tr><td><a href="allergy.html#can-surgery-cure-allergy">Posterior nasal neurectomy</a></td><td>2025</td></tr>
+<tr><td><a href="allergy.html#posterior-nasal-neurectomy">Posterior nasal neurectomy</a></td><td>2025</td></tr>
 <tr><td><a href="septum.html#how-is-it-treated">Laser submucous channelling</a></td><td>2026</td></tr>
 </table></div>
 <h3>Throat, airway and sleep apnoea</h3>
@@ -1163,7 +1163,7 @@ page(
 
 <h2>Other ear operations we perform</h2>
 <ul>
-  <li><strong>Hole in the eardrum:</strong> usually closed by endoscopic tympanoplasty (interlay or underlay), using a graft from the covering of a muscle or from cartilage. Small holes can be closed with a fat graft. Holes with a weak or pulled-in eardrum may need a cartilage graft, which is stronger.</li>
+  <li><strong>Hole in the eardrum:</strong> usually closed by endoscopic tympanoplasty (interlay or underlay), using a graft from the covering of a muscle or from cartilage. Small holes can be closed with a fat graft or PRF (<a href="#fat-prf-myringoplasty">see below</a>). Holes with a weak or pulled-in eardrum may need a cartilage graft, which is stronger.</li>
   <li><strong>Otosclerosis</strong> (hearing loss from a stiff ear bone, often in young adults): <strong>stapedotomy</strong>, a fine operation to restore sound transmission.</li>
   <li><strong>Fluid behind the eardrum (glue ear):</strong> a tiny ventilation tube (grommet) when fluid doesn't clear with treatment.</li>
   <li><strong>Bone-eroding disease (cholesteatoma):</strong> <strong>mastoidectomy</strong>, planned to remove all disease while keeping as much of the ear's structure as possible.</li>
@@ -1180,6 +1180,10 @@ page(
 </ul>
 <p>Published studies of endoscopic interlay tympanoplasty report high rates of successful closure and good hearing results. It is technically demanding, so it is offered at relatively few centres.</p>
 <p>A blocked or poorly working Eustachian tube can make holes in the eardrum come back. In selected patients, <a href="balloon-et.html">balloon Eustachian tube dilation</a> may be advised as well.</p>
+
+<h2 id="fat-prf-myringoplasty">Fat and PRF myringoplasty</h2>
+<p><strong>Fat myringoplasty</strong> is a simple way to close a <strong>small hole</strong> in the eardrum. A tiny piece of fat is taken from the earlobe and placed into the hole through the ear canal, where it acts as a plug that the eardrum heals over. It is done under local anaesthesia as day care, with no cut behind the ear. It suits small, dry holes. Larger holes need a tympanoplasty.</p>
+<p><strong>PRF myringoplasty</strong> uses <strong>platelet-rich fibrin (PRF)</strong> made from a small sample of your own blood. PRF is rich in the body's natural healing factors. Placed on a small hole, alone or together with fat, it helps the edges of the eardrum grow and close. It is also done under local anaesthesia. Because it comes from your own blood, there is no risk of a reaction.</p>
 
 <h2>How long is the rest after ear surgery?</h2>
 <p>Usually 4–6 weeks of avoiding strain and keeping water out of the ear. After myringotomy alone, no rest is needed.</p>
@@ -1292,6 +1296,11 @@ page(
 
 <h2>Can surgery cure allergy?</h2>
 <p>No. Turbinate surgery helps only if a blocked nose persists despite treatment (see <a href="septum.html">blocked nose</a>). For sneezing and a runny nose that don't respond to any treatment, an operation called <strong>posterior nasal neurectomy</strong>, which is also done for non-allergic (vasomotor) rhinitis, may help. It works in only about half of patients, and the effect may wear off after a few years.</p>
+
+<h2 id="posterior-nasal-neurectomy">Posterior nasal neurectomy</h2>
+<p><strong>What it is:</strong> the nerves at the back of the nose that drive sneezing and a runny nose are cut or sealed through the nose, using an endoscope. There are no cuts on the face, and it's done as day care.</p>
+<p><strong>Who it's for:</strong> people with a constantly runny nose or frequent sneezing that hasn't settled with proper treatment, whether from allergy or non-allergic (vasomotor) rhinitis.</p>
+<p><strong>What to expect:</strong> it helps about half of patients, mainly by reducing the runny nose. The effect may wear off after a few years, and it can be repeated if needed. It doesn't cure allergy, so medicines may still be needed. Possible effects include temporary dryness or crusting in the nose, and rarely bleeding or numbness of the palate.</p>
 {BOOK}
 """,
 )

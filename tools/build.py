@@ -78,7 +78,7 @@ CHROME = {
                all_cond="All conditions", search_label="Search conditions",
                search_ph="For example: tonsils, giddiness, ear discharge",
                none="No matching page. Please call", none_end="and we'll help.",
-               foot_quals="Our approach: MERA, Maximising Effectiveness, Retaining Anatomy. Treat what's diseased. Protect what works.", doctors="Our doctors", msg_wa="Message on WhatsApp",
+               foot_quals="Our approach: MERA, Maximising Effectiveness, Retaining Anatomy. Treat what's diseased. Protect what works.", doctors="Our doctors", about_midas="About MIDAS ENT", msg_wa="Message on WhatsApp",
                videos="Videos on YouTube", clinics="MIDAS ENT clinics", midas="MIDAS Hospital, Ollur",
                metro="MIDAS ENT at Metropolitan Hospital, Thrissur", timings="All timings",
                fine="This website provides general information and is not a substitute for medical advice. Please consult a doctor about your own symptoms. Written and reviewed by Dr Rejith R S. Last updated {UPDATED}.",
@@ -235,7 +235,7 @@ def render(slug, p):
       <div>
         <p class="foot-name">{C["brand"]}</p>
         <p>{C["foot_quals"]}</p>
-        <p><a href="{link_for("doctors.html", lang)}">{C["doctors"]}</a></p>
+        <p><a href="{link_for("midas-ent.html", lang)}">{C["about_midas"]}</a><br><a href="{link_for("doctors.html", lang)}">{C["doctors"]}</a></p>
         <p><a href="tel:{PHONE_TEL}">{C["call"]} {PHONE_SHOW}</a><br><a href="{WHATSAPP}">{C["msg_wa"]}</a><br><a href="https://www.youtube.com/@Entdoctormidas">{C["videos"]}</a></p>
       </div>
       <div>
@@ -334,7 +334,7 @@ page(
 <section class="intro">
   <div class="intro-text">
     <h1>ENT care in Thrissur, for children and adults</h1>
-    <p class="lead">Snoring, a blocked nose, dizziness, ear trouble, or a child who breathes through the mouth. The MIDAS ENT team, led by Dr Rejith R S, treats problems of the ear, nose, throat and neck, and most operations need no overnight stay. <a href="doctors.html">Meet our doctors</a>.</p>
+    <p class="lead">Snoring, a blocked nose, dizziness, ear trouble, or a child who breathes through the mouth. The MIDAS ENT team, led by Dr Rejith R S, treats problems of the ear, nose, throat and neck, and most operations need no overnight stay. <a href="midas-ent.html">About MIDAS ENT</a> · <a href="doctors.html">Meet our doctors</a>.</p>
     <p class="intro-actions"><a class="btn" href="tel:{PHONE_TEL}">Call {PHONE_SHOW}</a> <a class="btn quiet" href="hospitals.html">Clinics and timings</a></p>
   </div>
   <img class="intro-photo" src="photo.jpg" alt="Dr Rejith R S, lead ENT surgeon, MIDAS ENT, Thrissur" width="250" height="300">
@@ -449,6 +449,39 @@ page(
     },
 )
 
+# ---------------------------------------------------------------- About MIDAS ENT
+page(
+    "midas-ent.html",
+    "About MIDAS ENT: Our Approach and Clinics | MIDAS ENT Thrissur",
+    "What MIDAS ENT stands for: Minimally Invasive Daycare Advanced Surgery, the MERA approach, one team working from shared protocols, and clinics across Thrissur.",
+    f"""
+<h1>About MIDAS ENT</h1>
+<p class="lead">MIDAS stands for <strong>Minimally Invasive Daycare Advanced Surgery</strong>. It began at <a href="midas.html">MIDAS Hospital and Surgical Centre</a>, Ollur, a hospital built for day-care surgery, where most operations are done with modern, minimally invasive techniques and patients go home the same day.</p>
+
+<h2>Our approach: MERA</h2>
+<p><strong>Maximising Effectiveness, Retaining Anatomy.</strong> Every treatment is planned around two questions: what needs to be treated, and what should be protected. Diseased tissue is treated fully. Healthy tissue that still works is kept.</p>
+<p>For example, the amount of adenoid or tonsil removed in a child is graded to the child's age and problem, rather than everything being removed by default.</p>
+
+<h2>One team, one standard</h2>
+<p>MIDAS ENT is a team of ENT surgeons and visiting specialists, led by Dr Rejith R S. Every doctor works from the same written MIDAS ENT protocols for diagnosis, treatment and surgery, so you get the same standard of care whichever doctor you see and whichever MIDAS ENT clinic you visit. <a href="doctors.html">Meet our doctors</a>.</p>
+
+<h2>Growing across Thrissur</h2>
+<p>MIDAS ENT runs ENT clinics and departments in partner hospitals, so care is closer to home:</p>
+<ul>
+  <li><a href="midas.html"><strong>MIDAS ENT at MIDAS Hospital, Ollur</strong></a>: our main centre for day-care surgery</li>
+  <li><a href="metropolitan.html"><strong>MIDAS ENT at Metropolitan Hospital, Thrissur</strong></a>: evening clinic</li>
+</ul>
+<p>Wherever you are seen, you have the same team and the same protocols. Surgery can be done at MIDAS Hospital or at the partner hospital, with the senior surgeons. New clinics will be listed here as they open. See <a href="hospitals.html">clinics and timings</a>.</p>
+
+<h2>Training ENT surgeons</h2>
+<p>MIDAS ENT trains young ENT surgeons in the MERA approach and the MIDAS ENT protocols, so that the same careful, function-preserving care can reach more patients.</p>
+
+<h2>Free self-checks</h2>
+<p>Our free <a href="self-checks.html">self-checks</a>, such as the MERA Sleep Apnoea Check and the Hearing Check, are built from the same protocols. They tell you how soon you should be seen.</p>
+{BOOK}
+""",
+)
+
 # ---------------------------------------------------------------- Doctors
 page(
     "doctors.html",
@@ -456,7 +489,7 @@ page(
     "The ENT surgeons and visiting specialists of MIDAS ENT, Thrissur, led by Dr Rejith R S.",
     f"""
 <h1>Our doctors</h1>
-<p class="lead">MIDAS ENT is a team. Every doctor follows the same MERA approach and the same written MIDAS ENT protocols, so you get the same standard of care whoever you see.</p>
+<p class="lead">MIDAS ENT is a team. Every doctor follows the same MERA approach and the same written MIDAS ENT protocols, so you get the same standard of care whoever you see. <a href="midas-ent.html">About MIDAS ENT</a>.</p>
 
 <h2>ENT surgeons</h2>
 <div class="doc-card">

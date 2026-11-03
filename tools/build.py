@@ -1,6 +1,7 @@
 """Builds the entmidas.com site into the repo folder given as argv[1]."""
 import json
 import re
+from html import unescape as html_unescape
 import sys
 from pathlib import Path
 
@@ -142,6 +143,20 @@ EXPERIENCE = {
 }
 
 
+def add_heading_ids(body):
+    """Gives every h2 without an id a stable one from its text, so other pages can link to it."""
+    used = set(re.findall(r'id="([^"]+)"', body))
+    def fix(m):
+        text = re.sub(r"<[^>]+>", "", m.group(1))
+        hid = re.sub(r"[^a-z0-9]+", "-", html_unescape(text).lower()).strip("-")[:60]
+        base, n = hid, 2
+        while hid in used:
+            hid, n = f"{base}-{n}", n + 1
+        used.add(hid)
+        return f'<h2 id="{hid}">{m.group(1)}</h2>'
+    return re.sub(r"<h2>(.*?)</h2>", fix, body)
+
+
 def add_experience(slug, body):
     note = EXPERIENCE.get(slug)
     if not note:
@@ -178,7 +193,7 @@ def render(slug, p):
         )
     robots = '<meta name="robots" content="noindex">\n' if is_draft(slug) else ""
     draft = f'<div class="urgent draft-note">{C["draft"]}</div>\n' if is_draft(slug) else ""
-    body = localise_links(p["body"].strip() if lang != "en" else add_experience(slug, p["body"].strip()), lang)
+    body = localise_links(add_heading_ids(p["body"].strip() if lang != "en" else add_experience(slug, p["body"].strip())), lang)
     in_conditions = any(href == eslug for _, items in CONDITIONS for href, _, _ in items)
     cond_html = "\n".join(
         '              <div class="cond-group"><h3>' + group + '</h3><ul>'
@@ -488,56 +503,56 @@ page(
 <h3>Ear</h3>
 <div class="table-scroll"><table class="exp">
 <tr><th>Technique</th><th>Since</th></tr>
-<tr><td>Endoscopic ear surgery</td><td>2010</td></tr>
-<tr><td>Fat tympanoplasty</td><td>2010</td></tr>
-<tr><td>Myringotomy with grommet</td><td>2010</td></tr>
-<tr><td>Canal wall down mastoidectomy</td><td>2010</td></tr>
-<tr><td>Cartilage tympanoplasty; attic and posterior canal wall reconstruction</td><td>2013</td></tr>
-<tr><td>Ossiculoplasty, including staged reconstruction</td><td>2013</td></tr>
-<tr><td>Stapedotomy</td><td>2014</td></tr>
-<tr><td>Endoscopic tympanoplasty with PRP</td><td>2019</td></tr>
-<tr><td>Inside-out and modified inside-out mastoidectomy</td><td>2022</td></tr>
-<tr><td>Endoscopic interlay tympanoplasty</td><td>2023</td></tr>
-<tr><td>Balloon Eustachian tuboplasty</td><td>2023</td></tr>
-<tr><td>PRF myringoplasty</td><td>2024</td></tr>
+<tr><td><a href="earsurgery.html#what-can-be-done-endoscopically">Endoscopic ear surgery</a></td><td>2010</td></tr>
+<tr><td><a href="earsurgery.html#other-ear-operations-we-perform">Fat tympanoplasty</a></td><td>2010</td></tr>
+<tr><td><a href="earsurgery.html#other-ear-operations-we-perform">Myringotomy with grommet</a></td><td>2010</td></tr>
+<tr><td><a href="earsurgery.html#other-ear-operations-we-perform">Canal wall down mastoidectomy</a></td><td>2010</td></tr>
+<tr><td><a href="earsurgery.html#other-ear-operations-we-perform">Cartilage tympanoplasty; attic and posterior canal wall reconstruction</a></td><td>2013</td></tr>
+<tr><td><a href="earsurgery.html#other-ear-operations-we-perform">Ossiculoplasty, including staged reconstruction</a></td><td>2013</td></tr>
+<tr><td><a href="earsurgery.html#other-ear-operations-we-perform">Stapedotomy</a></td><td>2014</td></tr>
+<tr><td><a href="earsurgery.html#interlay">Endoscopic tympanoplasty with PRP</a></td><td>2019</td></tr>
+<tr><td><a href="earsurgery.html#other-ear-operations-we-perform">Inside-out and modified inside-out mastoidectomy</a></td><td>2022</td></tr>
+<tr><td><a href="earsurgery.html#interlay">Endoscopic interlay tympanoplasty</a></td><td>2023</td></tr>
+<tr><td><a href="balloon-et.html">Balloon Eustachian tuboplasty</a></td><td>2023</td></tr>
+<tr><td><a href="earsurgery.html#interlay">PRF myringoplasty</a></td><td>2024</td></tr>
 </table></div>
 <h3>Nose and sinus</h3>
 <div class="table-scroll"><table class="exp">
 <tr><th>Technique</th><th>Since</th></tr>
-<tr><td>Targeted endoscopic sinus surgery (uncinate-preserving)</td><td>2010</td></tr>
-<tr><td>Endoscopic and structural septoplasty (cartilage scoring, swinging door)</td><td>2013</td></tr>
-<tr><td>Coblation turbinoplasty and channelling</td><td>2019</td></tr>
-<tr><td>Submucous bone resection and partial turbinectomy</td><td>2019</td></tr>
-<tr><td>Balloon sinuplasty</td><td>2025</td></tr>
-<tr><td>Posterior nasal neurectomy</td><td>2025</td></tr>
-<tr><td>Laser submucous channelling</td><td>2026</td></tr>
+<tr><td><a href="polyp.html#how-is-polypectomy-done">Targeted endoscopic sinus surgery (uncinate-preserving)</a></td><td>2010</td></tr>
+<tr><td><a href="septum.html#how-is-it-treated">Endoscopic and structural septoplasty (cartilage scoring, swinging door)</a></td><td>2013</td></tr>
+<tr><td><a href="septum.html#how-is-it-treated">Coblation turbinoplasty and channelling</a></td><td>2019</td></tr>
+<tr><td><a href="septum.html#how-is-it-treated">Submucous bone resection and partial turbinectomy</a></td><td>2019</td></tr>
+<tr><td><a href="balloon-sinus.html">Balloon sinuplasty</a></td><td>2025</td></tr>
+<tr><td><a href="allergy.html#can-surgery-cure-allergy">Posterior nasal neurectomy</a></td><td>2025</td></tr>
+<tr><td><a href="septum.html#how-is-it-treated">Laser submucous channelling</a></td><td>2026</td></tr>
 </table></div>
 <h3>Throat, airway and sleep apnoea</h3>
 <div class="table-scroll"><table class="exp">
 <tr><th>Technique</th><th>Since</th></tr>
-<tr><td>Drug-induced sleep endoscopy (DISE)</td><td>2011</td></tr>
-<tr><td>Styloidectomy</td><td>2013</td></tr>
-<tr><td>Intracapsular tonsillectomy (microdebrider)</td><td>2017</td></tr>
-<tr><td>Coblation intracapsular tonsillectomy</td><td>2018</td></tr>
-<tr><td>Coblation adenoidectomy</td><td>2018</td></tr>
-<tr><td>Multilevel sleep apnoea surgery</td><td>2018</td></tr>
-<tr><td>Barbed palatopharyngoplasty</td><td>2018</td></tr>
-<tr><td>Coblation epiglottopexy and partial epiglottectomy</td><td>2021</td></tr>
-<tr><td>Lingual tonsillectomy</td><td>2023</td></tr>
-<tr><td>Coblation midline glossectomy and tongue base channelling</td><td>2023</td></tr>
-<tr><td>MIDAS graded tonsil and adenoid surgery, including total, near-total and extrafascial adenoidectomy</td><td>2024</td></tr>
-<tr><td>Lateral expansion pharyngoplasty</td><td>2025</td></tr>
-<tr><td>Supraglottoplasty</td><td>2026</td></tr>
+<tr><td><a href="sleepapnoea.html#tests-for-sleep-apnoea">Drug-induced sleep endoscopy (DISE)</a></td><td>2011</td></tr>
+<tr><td><a href="tonsil.html#throat-pain-from-a-long-styloid-bone">Styloidectomy</a></td><td>2013</td></tr>
+<tr><td><a href="tonsil.html#types-of-tonsil-surgery">Intracapsular tonsillectomy (microdebrider)</a></td><td>2017</td></tr>
+<tr><td><a href="tonsil.html#types-of-tonsil-surgery">Coblation intracapsular tonsillectomy</a></td><td>2018</td></tr>
+<tr><td><a href="adenoids.html#how-is-adenoidectomy-done">Coblation adenoidectomy</a></td><td>2018</td></tr>
+<tr><td><a href="sleepapnoea.html#treatment-options">Multilevel sleep apnoea surgery</a></td><td>2018</td></tr>
+<tr><td><a href="sleepapnoea.html#treatment-options">Barbed palatopharyngoplasty</a></td><td>2018</td></tr>
+<tr><td><a href="sleepapnoea.html#treatment-options">Coblation epiglottopexy and partial epiglottectomy</a></td><td>2021</td></tr>
+<tr><td><a href="sleepapnoea.html#treatment-options">Lingual tonsillectomy</a></td><td>2023</td></tr>
+<tr><td><a href="sleepapnoea.html#treatment-options">Coblation midline glossectomy and tongue base channelling</a></td><td>2023</td></tr>
+<tr><td><a href="adenoids.html#different-degrees-of-adenoidectomy">MIDAS graded tonsil and adenoid surgery, including total, near-total and extrafascial adenoidectomy</a></td><td>2024</td></tr>
+<tr><td><a href="sleepapnoea.html#treatment-options">Lateral expansion pharyngoplasty</a></td><td>2025</td></tr>
+<tr><td><a href="sleepapnoea.html#treatment-options">Supraglottoplasty</a></td><td>2026</td></tr>
 </table></div>
 <h3>Skull base, facial nerve, salivary glands and vertigo</h3>
 <div class="table-scroll"><table class="exp">
 <tr><th>Technique</th><th>Since</th></tr>
-<tr><td>Vertigo repositioning manoeuvres</td><td>2010</td></tr>
-<tr><td>Skull base: pituitary, CSF leak</td><td>2017</td></tr>
-<tr><td>Facial reanimation</td><td>2019</td></tr>
-<tr><td>Endoscopic facial nerve decompression</td><td>2022</td></tr>
-<tr><td>Sialendoscopy</td><td>2024</td></tr>
-<tr><td>MIDAS staged vertigo approach (MVSP)</td><td>2025</td></tr>
+<tr><td><a href="vertigo.html#how-is-bppv-treated">Vertigo repositioning manoeuvres</a></td><td>2010</td></tr>
+<tr><td><a href="skullbase.html">Skull base: pituitary, CSF leak</a></td><td>2017</td></tr>
+<tr><td><a href="skullbase.html#facial-nerve-weakness-after-injury">Facial reanimation</a></td><td>2019</td></tr>
+<tr><td><a href="skullbase.html#facial-nerve-weakness-after-injury">Endoscopic facial nerve decompression</a></td><td>2022</td></tr>
+<tr><td><a href="sial.html">Sialendoscopy</a></td><td>2024</td></tr>
+<tr><td><a href="vertigo.html">MIDAS staged vertigo approach (MVSP)</a></td><td>2025</td></tr>
 </table></div>
 
 <h2>Positions held</h2>

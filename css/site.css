@@ -306,3 +306,10 @@ body.mera { padding-bottom: 0; }
 nav.main .lang-link { margin-left: auto; font-weight: 600; }
 .draft-note { margin-top: 1rem; }
 :lang(ml) body, html[lang="ml"] body { line-height: 1.75; }
+
+/* doctor cards */
+.doc-card { display: flex; gap: 1rem; align-items: flex-start; border: 1px solid #dde5e1; border-radius: 10px; padding: 1rem; margin: 1rem 0; }
+.doc-card img { width: 120px; height: auto; border-radius: 8px; flex: none; }
+.doc-card h3 { margin-top: 0; }
+.doc-card .doc-role { color: var(--muted); font-weight: 600; margin-top: -.4rem; }
+@media (max-width: 480px) { .doc-card { flex-direction: column; } }

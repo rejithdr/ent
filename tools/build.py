@@ -23,7 +23,7 @@ def asset(path):
 
 NAV = [
     ("index.html", "Home"),
-    ("about.html", "About Dr Rejith"),
+    ("doctors.html", "Our doctors"),
     ("hospitals.html", "Clinics & timings"),
     ("snoring.html", "Snoring & sleep apnoea"),
     ("self-checks.html", "Self-checks"),
@@ -74,11 +74,11 @@ PAGES = {}
 LIVE_LANGS = set()
 LANG_NAMES = {"en": "English", "ml": "മലയാളം", "hi": "हिन्दी", "ar": "العربية"}
 CHROME = {
-    "en": dict(skip="Skip to content", role="ENT Surgeon, Thrissur", call="Call", wa="WhatsApp",
+    "en": dict(skip="Skip to content", brand="MIDAS ENT", role="ENT care for children and adults, Thrissur", call="Call", wa="WhatsApp",
                all_cond="All conditions", search_label="Search conditions",
                search_ph="For example: tonsils, giddiness, ear discharge",
                none="No matching page. Please call", none_end="and we'll help.",
-               foot_quals="MBBS, DLO, Consultant ENT Surgeon, Thrissur", msg_wa="Message on WhatsApp",
+               foot_quals="Our approach: MERA, Maximising Effectiveness, Retaining Anatomy. Treat what's diseased. Protect what works.", doctors="Our doctors", msg_wa="Message on WhatsApp",
                videos="Videos on YouTube", clinics="MIDAS ENT clinics", midas="MIDAS Hospital, Ollur",
                metro="MIDAS ENT at Metropolitan Hospital, Thrissur", timings="All timings",
                fine="This website provides general information and is not a substitute for medical advice. Please consult a doctor about your own symptoms. Written and reviewed by Dr Rejith R S. Last updated {UPDATED}.",
@@ -127,7 +127,7 @@ def page(slug, title, description, body, h1=None, schema=None):
 
 def render(slug, p):
     lang = lang_of(slug)
-    C = CHROME[lang]
+    C = {**CHROME["en"], **CHROME[lang]}
     base = "" if lang == "en" else "../"
     eslug = en_slug(slug)
     url = SITE + "/" + (slug[:-len("index.html")] if slug.endswith("index.html") else slug)
@@ -197,7 +197,7 @@ def render(slug, p):
 <header class="site">
   <div class="wrap bar">
     <a class="brand" href="{link_for("index.html", lang)}">
-      <span class="name">Dr Rejith R S</span>
+      <span class="name">{C["brand"]}</span>
       <span class="role">{C["role"]}</span>
     </a>
     <div class="actions">
@@ -233,8 +233,9 @@ def render(slug, p):
   <div class="wrap">
     <div class="foot-grid">
       <div>
-        <p class="foot-name">Dr Rejith R S</p>
+        <p class="foot-name">{C["brand"]}</p>
         <p>{C["foot_quals"]}</p>
+        <p><a href="{link_for("doctors.html", lang)}">{C["doctors"]}</a></p>
         <p><a href="tel:{PHONE_TEL}">{C["call"]} {PHONE_SHOW}</a><br><a href="{WHATSAPP}">{C["msg_wa"]}</a><br><a href="https://www.youtube.com/@Entdoctormidas">{C["videos"]}</a></p>
       </div>
       <div>
@@ -327,19 +328,19 @@ BOOK = f"""
 # ---------------------------------------------------------------- Home
 page(
     "index.html",
-    "ENT Doctor in Thrissur | Dr Rejith R S, ENT Surgeon",
-    "Dr Rejith R S, ENT surgeon in Thrissur. Snoring and sleep apnoea, adenoids and tonsils, vertigo, ear surgery, sinus, voice and thyroid care, with day-care surgery.",
+    "MIDAS ENT, Thrissur | ENT Care for Children and Adults",
+    "MIDAS ENT, Thrissur, led by ENT surgeon Dr Rejith R S. Snoring and sleep apnoea, adenoids and tonsils, vertigo, ear surgery, sinus, voice and thyroid care, with day-care surgery.",
     f"""
 <section class="intro">
   <div class="intro-text">
     <h1>ENT care in Thrissur, for children and adults</h1>
-    <p class="lead">Snoring, a blocked nose, dizziness, ear trouble, or a child who breathes through the mouth. Dr Rejith R S and team treat problems of the ear, nose, throat and neck, and most operations need no overnight stay.</p>
+    <p class="lead">Snoring, a blocked nose, dizziness, ear trouble, or a child who breathes through the mouth. The MIDAS ENT team, led by Dr Rejith R S, treats problems of the ear, nose, throat and neck, and most operations need no overnight stay. <a href="doctors.html">Meet our doctors</a>.</p>
     <p class="intro-actions"><a class="btn" href="tel:{PHONE_TEL}">Call {PHONE_SHOW}</a> <a class="btn quiet" href="hospitals.html">Clinics and timings</a></p>
   </div>
-  <img class="intro-photo" src="photo.jpg" alt="Dr Rejith R S, ENT surgeon, Thrissur" width="250" height="300">
+  <img class="intro-photo" src="photo.jpg" alt="Dr Rejith R S, lead ENT surgeon, MIDAS ENT, Thrissur" width="250" height="300">
 </section>
 
-<p class="tagline"><strong>MIDAS MERA</strong>: Maximising Effectiveness, Retaining Anatomy. Treat what's diseased. Protect what works.</p>
+<p class="tagline"><strong>Our approach: MERA</strong>, Maximising Effectiveness, Retaining Anatomy. Treat what's diseased. Protect what works.</p>
 
 <h2>What brings you here?</h2>
 <ul class="paths">
@@ -388,12 +389,12 @@ page(
 """,
     schema={
         "@context": "https://schema.org",
-        "@type": "Physician",
-        "name": "Dr Rejith R S",
-        "description": "ENT surgeon in Thrissur, Kerala",
+        "@type": "MedicalClinic",
+        "name": "MIDAS ENT",
+        "description": "ENT care for children and adults in Thrissur, Kerala. Our approach: MERA, Maximising Effectiveness, Retaining Anatomy.",
         "medicalSpecialty": "Otolaryngologic",
         "url": SITE + "/",
-        "image": SITE + "/photo.jpg",
+        "employee": [{"@type": "Physician", "name": "Dr Rejith R S", "url": SITE + "/about.html", "medicalSpecialty": "Otolaryngologic"}],
         "telephone": PHONE_TEL,
         "address": {
             "@type": "PostalAddress",
@@ -408,12 +409,12 @@ page(
 # ---------------------------------------------------------------- About
 page(
     "about.html",
-    "About Dr Rejith R S, ENT Surgeon in Thrissur",
+    "Dr Rejith R S, Lead ENT Surgeon | MIDAS ENT Thrissur",
     "Dr Rejith R S, MBBS, DLO, Government Medical College Trivandrum. ENT surgeon in Thrissur with an interest in sleep apnoea, vertigo and day-care ENT surgery.",
     f"""
 <img class="portrait" src="photo.jpg" alt="Dr Rejith R S, ENT surgeon, Thrissur">
 <h1>Dr Rejith R S</h1>
-<p class="lead">Consultant ENT Surgeon, Thrissur</p>
+<p class="lead">Lead ENT Surgeon and Head of Department, MIDAS ENT, Thrissur</p>
 <p>ENT surgeon since 2010, with a special interest in snoring and sleep apnoea, vertigo, endoscopic ear surgery and day-care ENT surgery. He also works on medical innovation and on training young ENT surgeons.</p>
 
 <h2>Education</h2>
@@ -428,9 +429,45 @@ page(
   <li>Lecturer, Government Medical College, Thiruvananthapuram</li>
 </ul>
 
-<h2>Our approach: MIDAS MERA</h2>
+<h2>Our approach: MERA</h2>
 <p><strong>Maximising Effectiveness, Retaining Anatomy.</strong> Every operation is planned around what needs to be treated and what should be protected. Where tissue is diseased, it is treated fully. Where it still works, we try to keep it.</p>
 <p>For children's adenoid and tonsil surgery, this means a defined, graded protocol: the amount of tissue removed is planned according to the child's age and the problem being treated.</p>
+<p><a href="doctors.html">Meet all MIDAS ENT doctors</a></p>
+{BOOK}
+""",
+    schema={
+        "@context": "https://schema.org",
+        "@type": "Physician",
+        "name": "Dr Rejith R S",
+        "description": "Lead ENT surgeon, MIDAS ENT, Thrissur",
+        "medicalSpecialty": "Otolaryngologic",
+        "url": SITE + "/about.html",
+        "image": SITE + "/photo.jpg",
+        "memberOf": {"@type": "MedicalClinic", "name": "MIDAS ENT", "url": SITE + "/"},
+    },
+)
+
+# ---------------------------------------------------------------- Doctors
+page(
+    "doctors.html",
+    "Our Doctors | MIDAS ENT Thrissur",
+    "The ENT surgeons and visiting specialists of MIDAS ENT, Thrissur, led by Dr Rejith R S.",
+    f"""
+<h1>Our doctors</h1>
+<p class="lead">MIDAS ENT is a team. Every doctor follows the same MERA approach and the same written MIDAS ENT protocols, so you get the same standard of care whoever you see.</p>
+
+<h2>ENT surgeons</h2>
+<div class="doc-card">
+  <img src="photo.jpg" alt="Dr Rejith R S" width="120" height="144">
+  <div>
+    <h3>Dr Rejith R S</h3>
+    <p class="doc-role">Lead ENT Surgeon and Head of Department</p>
+    <p>MBBS, DLO (Government Medical College, Thiruvananthapuram). ENT surgeon since 2010.</p>
+    <p>Special interests: snoring and sleep apnoea, vertigo, endoscopic ear surgery, and children's airway surgery.</p>
+    <p><a href="about.html">Full profile</a></p>
+  </div>
+</div>
+<p>Profiles of our other ENT surgeons and visiting specialists are being added.</p>
 {BOOK}
 """,
 )
@@ -438,7 +475,7 @@ page(
 # ---------------------------------------------------------------- Clinics
 page(
     "hospitals.html",
-    "MIDAS ENT Clinics and Timings in Thrissur | Dr Rejith ENT",
+    "MIDAS ENT Clinics and Timings in Thrissur | MIDAS ENT Thrissur",
     "Consultation timings for Dr Rejith R S and the MIDAS ENT team at MIDAS Hospital, Ollur, and the MIDAS ENT evening clinic at Metropolitan Hospital, Thrissur.",
     f"""
 <h1>MIDAS ENT Clinics and Timings</h1>
@@ -459,7 +496,7 @@ page(
 def clinic(slug, name, place, timing, img, alt, tel, tel_show, extra=""):
     page(
         slug,
-        f"{name}, {place} | Dr Rejith ENT",
+        f"{name}, {place} | MIDAS ENT Thrissur",
         f"ENT consultation with Dr Rejith R S at {name}, {place}. {timing}",
         f"""
 {f'<img class="hero" src="{img}" alt="{alt}">' if img else ""}
@@ -521,12 +558,12 @@ CHILD_AI = ask_ai(
 # ---------------------------------------------------------------- Snoring (new page)
 page(
     "snoring.html",
-    "Snoring and Sleep Apnoea Treatment in Thrissur | Dr Rejith ENT",
+    "Snoring and Sleep Apnoea Treatment in Thrissur | MIDAS ENT Thrissur",
     "Snoring and sleep apnoea care for children and adults in Thrissur. Warning signs, when to see a doctor, and treatment options, from Dr Rejith R S, ENT surgeon.",
     f"""
 <h1>Snoring and Sleep Apnoea Treatment in Thrissur, for Children and Adults</h1>
 <p class="lead">Snoring is common, but it isn't always harmless. Sometimes it's a sign that breathing is being blocked during sleep. This page explains what to look for, when to see a doctor, and how it can be treated.</p>
-<p class="tagline">MIDAS MERA: Maximising Effectiveness, Retaining Anatomy. Treat what's diseased. Protect what works.</p>
+<p class="tagline"><strong>Our approach: MERA</strong>, Maximising Effectiveness, Retaining Anatomy. Treat what's diseased. Protect what works.</p>
 
 <div class="choose">
   <a href="#children">My child snores</a>
@@ -656,7 +693,7 @@ page(
 # ---------------------------------------------------------------- Sleep apnoea
 page(
     "sleepapnoea.html",
-    "Obstructive Sleep Apnoea Treatment in Thrissur | Dr Rejith ENT",
+    "Obstructive Sleep Apnoea Treatment in Thrissur | MIDAS ENT Thrissur",
     "Causes, symptoms, tests and treatment of obstructive sleep apnoea, including sleep study, DISE, CPAP, oral devices and airway surgery, in Thrissur.",
     f"""
 <img class="hero" src="osa.jpg" alt="Diagram of normal breathing and obstructive sleep apnoea">
@@ -713,7 +750,7 @@ page(
 # ---------------------------------------------------------------- Adenoids
 page(
     "adenoids.html",
-    "Adenoid Surgery (Coblation Adenoidectomy) in Thrissur | Dr Rejith ENT",
+    "Adenoid Surgery (Coblation Adenoidectomy) in Thrissur | MIDAS ENT Thrissur",
     "Adenoid enlargement in children: signs, tests, when medicines are enough, and endoscopic coblation adenoidectomy using a graded protocol, in Thrissur.",
     f"""
 <img class="hero" src="adenoid.jpg" alt="Diagram of normal adenoids and enlarged adenoids blocking the airway">
@@ -792,7 +829,7 @@ page(
 # ---------------------------------------------------------------- Tonsils
 page(
     "tonsil.html",
-    "Tonsil Surgery (Intracapsular Tonsillectomy) in Thrissur | Dr Rejith ENT",
+    "Tonsil Surgery (Intracapsular Tonsillectomy) in Thrissur | MIDAS ENT Thrissur",
     "Tonsil problems and types of tonsillectomy, including coblation intracapsular tonsil surgery, recovery time and risks, from Dr Rejith R S, ENT surgeon, Thrissur.",
     f"""
 <img class="hero" src="tonsil.jpg" alt="Tonsils">
@@ -841,7 +878,7 @@ page(
 # ---------------------------------------------------------------- Vertigo
 page(
     "vertigo.html",
-    "Vertigo and Balance Clinic in Thrissur | BPPV Treatment | Dr Rejith ENT",
+    "Vertigo and Balance Clinic in Thrissur | BPPV Treatment | MIDAS ENT Thrissur",
     "Vertigo, dizziness and imbalance: causes, BPPV and repositioning manoeuvres, vestibular rehabilitation and when to seek emergency care, in Thrissur.",
     f"""
 <img class="hero" src="vertigoclinic.jpg" alt="Vertigo and balance clinic">
@@ -906,7 +943,7 @@ page(
 # ---------------------------------------------------------------- Ear
 page(
     "earsurgery.html",
-    "Endoscopic Ear Surgery in Thrissur | Ear Discharge and Hearing Loss | Dr Rejith ENT",
+    "Endoscopic Ear Surgery in Thrissur | Ear Discharge and Hearing Loss | MIDAS ENT Thrissur",
     "Ear discharge, hearing loss and endoscopic ear surgery through the ear canal: tympanoplasty, myringotomy, ossiculoplasty and limited cholesteatoma, in Thrissur.",
     f"""
 <h1>Ear Problems and Endoscopic Ear Surgery</h1>
@@ -969,7 +1006,7 @@ page(
 # ---------------------------------------------------------------- Day care
 page(
     "daycare.html",
-    "Day-Care ENT Surgery in Thrissur | Same-Day Discharge | Dr Rejith ENT",
+    "Day-Care ENT Surgery in Thrissur | Same-Day Discharge | MIDAS ENT Thrissur",
     "Day-care (ambulatory) ENT surgery in Thrissur: which operations can be done with same-day discharge, its benefits, and who should stay in hospital.",
     f"""
 <img class="hero" src="ot.jpg" alt="Operation theatre">
@@ -1012,7 +1049,7 @@ page(
 # ---------------------------------------------------------------- Septum
 page(
     "septum.html",
-    "Nasal Septum Surgery (Septoplasty) in Thrissur | Dr Rejith ENT",
+    "Nasal Septum Surgery (Septoplasty) in Thrissur | MIDAS ENT Thrissur",
     "Deviated nasal septum: symptoms, diagnosis, septoplasty as day-care surgery, minimum age and recovery, from Dr Rejith R S, ENT surgeon, Thrissur.",
     f"""
 <img class="hero" src="endoscopy.jpg" alt="Nasal endoscopy examination">
@@ -1040,7 +1077,7 @@ page(
 # ---------------------------------------------------------------- Polyp
 page(
     "polyp.html",
-    "Nasal Polyps Treatment in Thrissur | Endoscopic Sinus Surgery | Dr Rejith ENT",
+    "Nasal Polyps Treatment in Thrissur | Endoscopic Sinus Surgery | MIDAS ENT Thrissur",
     "Nasal polyps: symptoms, types, medical treatment and endoscopic polypectomy as day-care surgery, in Thrissur.",
     f"""
 <h1>Nasal Polyps</h1>
@@ -1068,7 +1105,7 @@ page(
 # ---------------------------------------------------------------- Voice
 page(
     "voice.html",
-    "Voice Clinic in Thrissur | Hoarseness and Voice Change | Dr Rejith ENT",
+    "Voice Clinic in Thrissur | Hoarseness and Voice Change | MIDAS ENT Thrissur",
     "Voice change and hoarseness: what to do, when to see an ENT doctor, warning signs, and treatment of vocal nodules, polyps and cysts, in Thrissur.",
     f"""
 <img class="hero" src="voice.jpg" alt="Voice">
@@ -1107,7 +1144,7 @@ page(
 # ---------------------------------------------------------------- Thyroid
 page(
     "thyroid.html",
-    "Thyroid Surgery in Thrissur | Thyroid Nodules and Thyroidectomy | Dr Rejith ENT",
+    "Thyroid Surgery in Thrissur | Thyroid Nodules and Thyroidectomy | MIDAS ENT Thrissur",
     "Thyroid disease: symptoms, tests, when surgery is needed, types of thyroidectomy including endoscopic options, and advice on thyroid medicines, in Thrissur.",
     f"""
 <img class="hero" src="thyroid.jpg" alt="Thyroid gland">
@@ -1165,7 +1202,7 @@ page(
 # ---------------------------------------------------------------- Migraine
 page(
     "migraine.html",
-    "Headache and Migraine Clinic in Thrissur | Dr Rejith ENT",
+    "Headache and Migraine Clinic in Thrissur | MIDAS ENT Thrissur",
     "Migraine triggers, symptoms and treatment, including preventive medicines and Botox, and how ENT problems can cause headache, in Thrissur.",
     f"""
 <h1>Headache and Migraine</h1>
@@ -1200,7 +1237,7 @@ page(
 # ---------------------------------------------------------------- Sialendoscopy
 page(
     "sial.html",
-    "Sialendoscopy in Thrissur | Salivary Gland Stones and Swelling | Dr Rejith ENT",
+    "Sialendoscopy in Thrissur | Salivary Gland Stones and Swelling | MIDAS ENT Thrissur",
     "Sialendoscopy for salivary gland stones, duct narrowing and recurrent swelling: a minimally invasive, gland-preserving treatment, in Thrissur.",
     f"""
 <h1>Sialendoscopy for Salivary Gland Problems</h1>
@@ -1240,7 +1277,7 @@ page(
 # ---------------------------------------------------------------- Skull base
 page(
     "skullbase.html",
-    "Endoscopic Skull Base Surgery in Thrissur | Dr Rejith ENT",
+    "Endoscopic Skull Base Surgery in Thrissur | MIDAS ENT Thrissur",
     "Endoscopic skull base surgery for pituitary adenoma and CSF leak, facial nerve decompression after injury, and labyrinthectomy for severe vertigo, in Thrissur.",
     f"""
 <h1>Skull Base Surgery</h1>
@@ -1276,7 +1313,7 @@ page(
 # ---------------------------------------------------------------- MERA Sleep Apnoea Check
 page(
     "sleep-score.html",
-    "MERA Sleep Apnoea Check: Free Self-Check | Dr Rejith ENT, Thrissur",
+    "MERA Sleep Apnoea Check: Free Self-Check | MIDAS ENT Thrissur",
     "A free self-check for adults who snore: answer a few questions to see how likely obstructive sleep apnoea is. Nothing you enter is stored.",
     f"""
 <h1>MERA Sleep Apnoea Check</h1>
@@ -1294,7 +1331,7 @@ page(
 # ---------------------------------------------------------------- MERA Child Sleep Apnoea Check
 page(
     "child-sleep-score.html",
-    "MERA Child Sleep Apnoea Check: Free Check for Parents | Dr Rejith ENT, Thrissur",
+    "MERA Child Sleep Apnoea Check: Free Check for Parents | MIDAS ENT Thrissur",
     "A free check for parents of children who snore or breathe through the mouth: see how likely sleep apnoea is. Nothing you enter is stored.",
     f"""
 <h1>MERA Child Sleep Apnoea Check</h1>
@@ -1325,7 +1362,7 @@ def check_page(slug, tool, title, description, h1, lead, extra_attrs="", after="
 
 
 check_page("nose-check.html", "nose",
-    "Blocked Nose Check: Free Self-Check | Dr Rejith ENT, Thrissur",
+    "Blocked Nose Check: Free Self-Check | MIDAS ENT Thrissur",
     "A free check for a blocked nose: measure how much it affects you (NOSE score) and learn what may be causing it. Nothing you enter is stored.",
     "Blocked Nose Check",
     "For adults with a blocked or stuffy nose. Questions come one at a time, including the NOSE score, a standard measure of how much nasal blockage affects you.",
@@ -1333,7 +1370,7 @@ check_page("nose-check.html", "nose",
     '<p>Read more about <a href="septum.html">a bent nasal septum</a> and <a href="polyp.html">nasal polyps</a>.</p>')
 
 check_page("hearing-check.html", "hearing",
-    "Hearing Check with Hum Test: Free Self-Check | Dr Rejith ENT, Thrissur",
+    "Hearing Check with Hum Test: Free Self-Check | MIDAS ENT Thrissur",
     "A free hearing check with a simple hum test: see how urgently hearing loss needs to be seen. Sudden nerve hearing loss has the best result when treatment starts within 3 days.",
     "Hearing Check",
     "For adults and children with hearing loss in one or both ears. For sudden hearing loss, a simple hum test you do at home helps show how urgently you need to be seen.",
@@ -1341,7 +1378,7 @@ check_page("hearing-check.html", "hearing",
     '<div class="urgent"><strong>Sudden hearing loss is an emergency.</strong> The chance of recovery is best when treatment starts within 72 hours.</div>\n<p>Read more about <a href="earsurgery.html">ear problems and hearing loss</a>.</p>')
 
 check_page("dizziness-check.html", "dizzy",
-    "Dizziness and Vertigo Check: Free Self-Check | Dr Rejith ENT, Thrissur",
+    "Dizziness and Vertigo Check: Free Self-Check | MIDAS ENT Thrissur",
     "A free check for dizziness and vertigo: see what may be causing it and how soon to be seen. Nothing you enter is stored.",
     "Dizziness Check",
     "For adults with spinning, light-headedness or unsteadiness. Questions come one at a time, starting with warning signs that need emergency care.",
@@ -1349,7 +1386,7 @@ check_page("dizziness-check.html", "dizzy",
     '<p>Read more about <a href="vertigo.html">vertigo and the vertigo clinic</a>.</p>')
 
 page("self-checks.html",
-    "ENT Self-Checks: Free Online Checks | Dr Rejith ENT, Thrissur",
+    "ENT Self-Checks: Free Online Checks | MIDAS ENT Thrissur",
     "Free ENT self-checks: sleep apnoea for adults and children, blocked nose, hearing loss and dizziness. One question at a time; nothing you enter is stored.",
     """
 <h1>ENT Self-Checks</h1>
@@ -1367,7 +1404,7 @@ page("self-checks.html",
 # ---------------------------------------------------------------- Balloon Eustachian tube
 page(
     "balloon-et.html",
-    "Blocked Ear Treatment and Balloon Eustachian Tube Dilation in Thrissur | Dr Rejith ENT",
+    "Blocked Ear Treatment and Balloon Eustachian Tube Dilation in Thrissur | MIDAS ENT Thrissur",
     "Eustachian tube dysfunction: blocked ear, fullness, popping and fluid behind the eardrum. Medical treatment and balloon Eustachian tube dilation as day-care surgery in Thrissur.",
     f"""
 <h1>Blocked Ear and Balloon Eustachian Tube Dilation</h1>
@@ -1427,7 +1464,7 @@ page(
 # ---------------------------------------------------------------- Balloon sinus
 page(
     "balloon-sinus.html",
-    "Balloon Sinus Surgery in Thrissur | Balloon Sinuplasty | Dr Rejith ENT",
+    "Balloon Sinus Surgery in Thrissur | Balloon Sinuplasty | MIDAS ENT Thrissur",
     "Balloon sinus surgery for selected patients with chronic or repeated sinusitis: how it works, who it suits, benefits, risks and recovery, in Thrissur.",
     f"""
 <h1>Balloon Sinus Surgery</h1>
@@ -1497,7 +1534,7 @@ for slug, target in REDIRECTS.items():
     (OUT / slug).write_text(redirect(target), encoding="utf-8")
 
 (OUT / "404.html").write_text(render("404.html", dict(
-    title="Page not found | Dr Rejith ENT",
+    title="Page not found | MIDAS ENT Thrissur",
     description="Page not found.",
     schema=None,
     body="<h1>Page not found</h1><p>Sorry, this page doesn't exist. Please go to the <a href=\"index.html\">home page</a> or see <a href=\"hospitals.html\">clinics and timings</a>.</p>",

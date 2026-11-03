@@ -359,7 +359,7 @@ page(
 <ul class="why">
   <li><strong>Home the same day.</strong> Most operations are done as day-care surgery at <a href="midas.html">MIDAS Hospital, Ollur</a>.</li>
   <li><strong>Surgery only when it's the better option for you.</strong> We try medicines and simple treatments first whenever they can work. When surgery is needed, we plan the operation that best suits your problem and your age.</li>
-  <li><strong>Advanced, tissue-friendly techniques.</strong> Endoscopic surgery, even for the ear and the salivary glands, and the Werewolf Coblation system, which allows function-preserving adenoid and tonsil surgery.</li>
+  <li><strong>Advanced, tissue-friendly techniques.</strong> Endoscopic surgery, even for the ear and the salivary glands, and the Werewolf Coblation system, which allows function-preserving adenoid and tonsil surgery. MIDAS Hospital introduced Werewolf Coblation and sialendoscopy in Thrissur in 2024.</li>
   <li><strong>One team, written protocols.</strong> Every MIDAS ENT doctor follows the same written protocols, so the standard of care is the same whoever you see. <a href="doctors.html">Meet our doctors</a>.</li>
   <li><strong>Sleep apnoea surgery planned on evidence.</strong> Sleep endoscopy (DISE) shows exactly where your airway closes before any operation is planned.</li>
   <li><strong>Your child's privacy.</strong> We never ask you to send your child's sleep video by WhatsApp. Show it to us in the clinic.</li>
@@ -488,6 +488,7 @@ page(
 <h2>Our approach: MERA</h2>
 <p><strong>Maximising Effectiveness, Retaining Anatomy.</strong> Every treatment is planned around two questions: what needs to be treated, and what should be protected. Diseased tissue is treated fully. Healthy tissue that still works is kept.</p>
 <p>For example, the amount of adenoid or tonsil removed in a child is graded to the child's age and problem, rather than everything being removed by default.</p>
+<p>We use advanced, tissue-friendly techniques: endoscopic surgery, even for the ear and the salivary glands, and the Werewolf Coblation system for function-preserving adenoid and tonsil surgery. MIDAS Hospital introduced Werewolf Coblation and sialendoscopy in Thrissur in 2024.</p>
 
 <h2>One team, one standard</h2>
 <p>MIDAS ENT is a team of ENT surgeons and visiting specialists, led by Dr Rejith R S. Every doctor works from the same written MIDAS ENT protocols for diagnosis, treatment and surgery, so you get the same standard of care whichever doctor you see and whichever MIDAS ENT clinic you visit. <a href="doctors.html">Meet our doctors</a>.</p>

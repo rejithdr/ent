@@ -78,6 +78,7 @@ window.MERA_TEXT = {
         opts: ["Swelling or redness around the eye, eye pushed forward, double vision or blurred vision", "Severe headache with fever, or stiff neck, or confusion", "Swelling of the forehead", "Clear watery fluid dripping from one side of the nose after a head injury"] },
       rf: { label: "Warning signs", q: "Do you have any of these?", multi: true,
         opts: ["Blockage on one side only, not gone for more than 3 weeks", "Blood-stained discharge or repeated bleeding from one side", "Clear watery fluid dripping from one side of the nose", "A blocked ear on one side that has not cleared", "Numbness of the cheek or upper teeth, or teeth becoming loose", "A lump in the neck", "A bad smell from the nose that others notice"] },
+      main: { label: "Main problem", q: "What bothers you most?", opts: ["A blocked or stuffy nose", "Loss of smell, or a reduced sense of smell"] },
       dur: { label: "How long", q: "How long have you had the blocked nose?", opts: ["Less than 10 days", "10 days to 3 months", "More than 3 months, or it keeps coming back"] },
       n4a: { label: "Better then worse", q: "Did it get better and then worse again?", yn: true },
       n4b: { label: "Fever or face pain", q: "Do you have a high fever (above 39°C), or severe pain in the face or teeth?", yn: true },

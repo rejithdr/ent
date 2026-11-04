@@ -61,7 +61,7 @@
 
   var NOSE_S = ["s1", "s2", "s3", "s4", "s5"];
   TOOLS.nose = {
-    order: ["age", "em", "rf", "dur", "n4a", "n4b", "n5a", "n6a", "n6b", "n6c", "n6d", "n6e", "n6f", "n7a", "n7b", "n7c"].concat(NOSE_S),
+    order: ["age", "em", "rf", "main", "dur", "n4a", "n4b", "n5a", "n6a", "n6b", "n6c", "n6d", "n6e", "n6f", "n7a", "n7b", "n7c"].concat(NOSE_S),
     scoreIds: NOSE_S,
     next: function (A) {
       if (!A.age) return "age";
@@ -70,6 +70,16 @@
       if (ticked(A.em)) return null;
       if (A.rf == null) return "rf";
       if (ticked(A.rf)) return null;
+      if (!A.main) return "main";
+      if (A.main === "b") {  /* loss of smell as the main problem goes straight to the smell questions */
+        if (!A.n7a) return "n7a";
+        if (A.n7a !== "c") {
+          if (!A.n7b) return "n7b";
+          if (A.n7b === "n" && A.n7a !== "a" && !A.n7c) return "n7c";
+        }
+        for (var m = 0; m < NOSE_S.length; m++) if (A[NOSE_S[m]] == null) return NOSE_S[m];
+        return null;
+      }
       if (!A.dur) return "dur";
       var toScore = false;
       if (A.dur === "a") {
@@ -107,6 +117,13 @@
         return { codes: leak && rest ? ["R", "RCSF"] : leak ? ["RCSF"] : ["R"] };
       }
       var r = { codes: [], adds: [], score: scoreOf(A, NOSE_S, T.nose) };
+      if (A.main === "b") {
+        if (A.n7b === "y") r.codes.push("N1");
+        else if (A.n7a === "a") r.codes.push("N2");
+        else if (A.n7c === "y") r.codes.push("N3");
+        else r.codes.push("L6");
+        return r;
+      }
       if (A.dur === "a") r.codes.push(A.n4a === "y" || A.n4b === "y" ? "S1" : "S2");
       else if (A.dur === "b" && A.n5a === "y") r.codes.push("S3");
       else {

@@ -97,7 +97,13 @@ def en_slug(slug):
     return slug.split("/", 1)[1] if lang_of(slug) != "en" else slug
 
 
+# English pages built but not yet approved: noindex, out of the sitemap, not linked
+DRAFT_PAGES = {"mera-dizziness-check.html", "mera-nose-check.html", "mera-throat-check.html", "mera-checks-test.html"}
+
+
 def is_draft(slug):
+    if slug in DRAFT_PAGES:
+        return True
     lang = lang_of(slug)
     return lang != "en" and lang not in LIVE_LANGS
 
@@ -192,7 +198,8 @@ def render(slug, p):
             for l in versions
         )
     robots = '<meta name="robots" content="noindex">\n' if is_draft(slug) else ""
-    draft = f'<div class="urgent draft-note">{C["draft"]}</div>\n' if is_draft(slug) else ""
+    draft = (f'<div class="urgent draft-note">{C["draft"]}</div>\n' if lang != "en" else
+             '<div class="urgent draft-note"><strong>Draft for review</strong>: not yet public or linked from the site.</div>\n') if is_draft(slug) else ""
     body = localise_links(add_heading_ids(p["body"].strip() if lang != "en" else add_experience(slug, p["body"].strip())), lang)
     in_conditions = any(href == eslug for _, items in CONDITIONS for href, _, _ in items)
     cond_html = "\n".join(
@@ -1590,6 +1597,46 @@ def check_page(slug, tool, title, description, h1, lead, extra_attrs="", after="
 <noscript><p class="urgent">This check needs JavaScript. Please turn it on, or call to book a consultation.</p></noscript>
 <script src="{asset('js/ent-checks.js')}"></script>
 {after}
+""")
+
+
+def mera_check_page(slug, tool, title, description, h1, lead):
+    page(slug, title, description, f"""
+<h1>{h1}</h1>
+<p class="lead">{lead}</p>
+<div class="box">This is a check, not a diagnosis. Questions come one at a time. Your answers stay on your phone or computer and are not stored or sent anywhere.</div>
+<div id="mera-check" class="flow" data-tool="{tool}" data-tel="{PHONE_TEL}" data-tel-show="{PHONE_SHOW}" data-wa="{WHATSAPP}" data-book="hospitals.html"></div>
+<noscript><p class="urgent">This check needs JavaScript. Please turn it on, or call to book a consultation.</p></noscript>
+<script src="{asset('js/mera-checks-text.js')}"></script>
+<script src="{asset('js/mera-checks.js')}"></script>
+""")
+
+
+mera_check_page("mera-dizziness-check.html", "dizzy",
+    "MERA Dizziness Check: Free Self-Check | MIDAS ENT Thrissur",
+    "A free check for spinning, dizziness or imbalance: see what may be causing it and how soon to be seen. Nothing you enter is stored.",
+    "MERA Dizziness Check",
+    "For adults with spinning, dizziness, light-headedness or imbalance. Answer a few questions to see what may be causing it and how soon to be seen.")
+mera_check_page("mera-nose-check.html", "nose",
+    "MERA Blocked Nose Check: Free Self-Check | MIDAS ENT Thrissur",
+    "A free check for a blocked nose, sinus trouble, allergy or loss of smell, with the MERA Nose Score. Nothing you enter is stored.",
+    "MERA Blocked Nose Check",
+    "For adults with a blocked nose, sinus trouble, sneezing or loss of smell. Ends with the MERA Nose Score to show your ENT doctor.")
+mera_check_page("mera-throat-check.html", "throat",
+    "MERA Throat &amp; Voice Check: Free Self-Check | MIDAS ENT Thrissur",
+    "A free check for throat irritation, voice change and repeated sore throats, with the MERA Throat Score. Nothing you enter is stored.",
+    "MERA Throat &amp; Voice Check",
+    "For adults with throat irritation, a lump feeling, a change in voice, or repeated sore throats. Answer a few questions to see how soon to be seen.")
+page("mera-checks-test.html", "MERA checks: review of every result",
+    "Review page listing every result of the three new MERA checks.",
+    f"""
+<h1>MERA checks: every result</h1>
+<p class="lead">Each distinct result of the three new checks appears once, with the answers that reach it. "Open this result" opens the check at that result; use Back to step through the questions.</p>
+<p>Tick-any questions are tested with "None of these" and with each option on its own. Scores are tested with a few typical totals.</p>
+<div id="mera-test"><p>Loading…</p></div>
+<script src="{asset('js/mera-checks-text.js')}"></script>
+<script src="{asset('js/mera-checks.js')}"></script>
+<script src="{asset('js/mera-checks-test.js')}"></script>
 """)
 
 

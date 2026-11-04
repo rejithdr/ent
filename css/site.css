@@ -333,3 +333,8 @@ nav.main .lang-link { margin-left: auto; font-weight: 600; }
 /* experience */
 .exp-note { border-left: 4px solid var(--gold); background: #fbfaf6; padding: 8px 12px; font-size: 16px; }
 table.exp td:last-child, table.exp th:last-child { white-space: nowrap; text-align: right; }
+
+/* MERA checks review page */
+.test-list > li { margin: 1rem 0; border-bottom: 1px solid var(--line); padding-bottom: .6rem; }
+.test-list ul { font-size: 15px; color: var(--muted); }
+.test-key { display: inline-block; background: var(--green); color: #fff; border-radius: 6px; padding: 0 .4rem; font-size: 14px; }

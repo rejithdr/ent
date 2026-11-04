@@ -1,0 +1,169 @@
+/* All text for the MERA Dizziness, Blocked Nose and Throat & Voice checks, in one place for translation.
+   {EMERGENCY} is replaced by MERA_CONFIG.emergencyNumber. Result wording follows Dr Rejith's spec (November 2026). */
+window.MERA_CONFIG = { emergencyNumber: "108" };
+
+window.MERA_TEXT = {
+  common: {
+    question: "Question",
+    back: "Back",
+    cont: "Continue",
+    again: "Start again",
+    tickOne: "Please tick at least one, or \"{none}\".",
+    result: "Your result",
+    notDiagnosis: "Not a diagnosis. This check only helps you decide how soon to be seen.",
+    book: "Book an appointment",
+    call: "Call",
+    callEmergency: "Call {EMERGENCY}",
+    sendWa: "Send my result on WhatsApp",
+    waMsg: "Hello, I did the {check} on entmidas.com.\nResult: {when}\nI would like to book a consultation.",
+    answers: "Your answers",
+    score: "{name}: {total} out of {max} ({band})",
+    scoreShow: "Show this score to your ENT doctor at your visit.",
+    copyright: "MERA checks © Dr Rejith R S",
+    yes: "Yes",
+    no: "No",
+    none: "None of these",
+    tickAll: "Tick all that apply."
+  },
+
+  /* ============================================================ DIZZINESS */
+  dizzy: {
+    name: "MERA Dizziness Check",
+    footer: "This check is not a diagnosis. If you develop double vision, slurred speech, weakness, a drooping face or severe headache, go to emergency immediately.",
+    q: {
+      em: { label: "Warning signs", q: "Is any of these happening now, or did it start in the last 24 hours?", multi: true,
+        opts: ["Double vision, or eyes not moving together", "Slurred speech or trouble finding words", "Face drooping on one side", "Weakness or numbness in an arm or leg", "Cannot stand or walk, even holding on", "Sudden, very severe headache or neck pain", "Fainting, chest pain, or racing or irregular heartbeat"] },
+      feel: { label: "What it feels like", q: "What does it feel like?",
+        opts: ["The room is spinning, or I feel I am spinning", "I feel faint, light-headed or about to black out, especially on standing", "I feel unsteady or off-balance when walking, but nothing spins", "A floating, rocking or swaying feeling, worse in busy places like shops, for more than 3 months"] },
+      dur: { label: "How long a spell lasts", q: "How long does one spell of spinning last?",
+        opts: ["Less than a minute", "20 minutes to several hours", "It is there all the time, for a day or longer", "Not sure"] },
+      d4a: { label: "Brought on by position", q: "Does it start when you turn in bed, lie down, sit up, look up or bend down?", yn: true },
+      d4b: { label: "Spells on their own", q: "Do spells also come on their own, without moving your head?", yn: true },
+      d4c: { label: "Spells in the last week", q: "In the last week, have you still had spells?", yn: true },
+      d5a: { label: "Ear symptoms", q: "During or around the spells, does one ear feel blocked or full, sound muffled, or roar or ring?", yn: true },
+      d5b: { label: "Sudden hearing drop", q: "Has the hearing in one ear dropped suddenly and not come back?", yn: true },
+      d5c: { label: "Migraine features", q: "Do you get headaches with the spells, or sensitivity to light or noise during them, or have you had migraines?", yn: true },
+      d5d: { label: "Sound or pressure", q: "Can loud sounds, coughing, straining or pressing on the ear bring on a spell?", yn: true },
+      d6a: { label: "When it started", q: "When did it start?", opts: ["In the last 3 days", "More than 3 days ago"] },
+      d6b: { label: "Getting better", q: "Is it getting better day by day?", yn: true },
+      d6c: { label: "Hearing dropped", q: "Has the hearing in one ear dropped with it?", yn: true }
+    },
+    r: {
+      E: { level: "emergency", when: "Emergency: go to hospital now", text: "Your answers include warning signs that need a doctor straight away. Go to the nearest emergency department now, or call {EMERGENCY}. Do not drive yourself." },
+      F: { level: "high", when: "See a physician as soon as possible", text: "Feeling faint or about to black out is usually related to blood pressure, heart or blood sugar rather than the ear. Please see a physician as soon as possible. If you actually faint, or have chest pain or palpitations, go to the emergency department now." },
+      U: { level: "high", when: "See a neurologist as soon as possible", text: "Unsteadiness without spinning can come from the nerves, brain, eyes, muscles or ears. Please see a neurologist as soon as possible. If you cannot stand without support, go to the emergency department now." },
+      P: { level: "low", when: "Book a routine ENT visit", text: "A long-lasting floating or rocking feeling that is worse in busy places fits a recognised balance condition called PPPD. It is not dangerous, and it can be managed. Please book a routine ENT visit." },
+      A1: { level: "mid", when: "See ENT within the next few days", text: "Your answers fit a common and harmless inner-ear balance problem called BPPV, caused by tiny crystals moving out of place in the balance canals. The ENT doctor can confirm it in the clinic with a simple positional test. Please see ENT within the next few days. Avoid driving or working at heights until you are checked." },
+      A2: { level: "low", when: "Book an ENT visit within a week", text: "Your answers fit a mild, short-lived disturbance of the inner-ear balance system that has settled by itself. Please book an ENT visit within a week, or sooner if the spells come back." },
+      A3: { level: "mid", when: "See ENT within 2 to 3 days", text: "Short spells that come on without head movement need a closer look to find the cause. Please see ENT within 2 to 3 days." },
+      H: { level: "high", when: "See ENT today or tomorrow", text: "A sudden drop in hearing should be treated as soon as possible. Treatment works best when started within 3 days. Please see ENT today or tomorrow.", link: { href: "hearing-check.html", text: "Take the Hearing Check" } },
+      B1: { level: "mid", when: "See ENT within a week", text: "Your answers fit a problem with fluid pressure in the inner ear, such as Ménière's disease. Please see ENT within a week. A hearing test will be done, ideally close to a spell." },
+      B2: { level: "mid", when: "See ENT within a week", text: "Spells set off by sound or pressure can come from a small weakness in the bone or membrane of the inner ear. Please see ENT within a week." },
+      B3: { level: "low", when: "See ENT within 1 to 2 weeks", text: "Your answers fit migraine-related dizziness, which is common and can occur even without a headache. Please see ENT within 1 to 2 weeks." },
+      B4: { level: "mid", when: "See ENT within a week", text: "Please see ENT within a week. Note the date, time and length of each spell; this helps the doctor." },
+      C1: { level: "high", when: "See a doctor today", text: "Constant spinning that started recently must be examined by a doctor today. Most often it is an inflamed balance nerve, but a doctor's eye-movement check is needed to rule out a stroke; a CT scan alone can miss it. Go to ENT or the emergency department today." },
+      C1h: { add: true, text: "Your hearing also needs to be checked urgently." },
+      C2: { level: "mid", when: "See ENT within 2 to 3 days", text: "Your answers fit an inner-ear balance nerve problem that is settling. Please see ENT within 2 to 3 days to confirm and check your hearing." },
+      C3: { level: "high", when: "See a doctor today", text: "Constant dizziness that is not improving needs to be checked today. Please see ENT or the emergency department today." }
+    }
+  },
+
+  /* ============================================================ BLOCKED NOSE */
+  nose: {
+    name: "MERA Blocked Nose Check",
+    footer: "This check is not a diagnosis. If you develop swelling around the eye, change in vision, a severe headache with fever, or a stiff neck, go to emergency immediately.",
+    q: {
+      age: { label: "Age", q: "How old are you?", opts: ["18 or older", "Under 18"] },
+      em: { label: "Emergency signs", q: "Do you have any of these now?", multi: true,
+        opts: ["Swelling or redness around the eye, eye pushed forward, double vision or blurred vision", "Severe headache with fever, or stiff neck, or confusion", "Swelling of the forehead", "Clear watery fluid dripping from one side of the nose after a head injury"] },
+      rf: { label: "Warning signs", q: "Do you have any of these?", multi: true,
+        opts: ["Blockage on one side only, not gone for more than 3 weeks", "Blood-stained discharge or repeated bleeding from one side", "Clear watery fluid dripping from one side of the nose", "A blocked ear on one side that has not cleared", "Numbness of the cheek or upper teeth, or teeth becoming loose", "A lump in the neck", "A bad smell from the nose that others notice"] },
+      dur: { label: "How long", q: "How long have you had the blocked nose?", opts: ["Less than 10 days", "10 days to 3 months", "More than 3 months, or it keeps coming back"] },
+      n4a: { label: "Better then worse", q: "Did it get better and then worse again?", yn: true },
+      n4b: { label: "Fever or face pain", q: "Do you have a high fever (above 39°C), or severe pain in the face or teeth?", yn: true },
+      n5a: { label: "Sinus symptoms", q: "Do you have pain or pressure in the face, thick yellow-green discharge, or mucus dripping down the throat?", yn: true },
+      n6a: { label: "Allergy features", q: "Do you get sneezing bouts, an itchy nose or eyes, or a watery runny nose, worse with dust, season, pets or cold air?", yn: true },
+      n6b: { label: "One-sided or structural", q: "Is one side always more blocked, or did it start after a nose injury, or is your nose crooked?", yn: true },
+      n6c: { label: "Smell or discharge", q: "Do you have a reduced sense of smell, or thick discharge or facial pressure on most days?", yn: true },
+      n6d: { label: "Sinus attacks", q: "Do you get more than 4 sinus attacks a year?", yn: true },
+      n6e: { label: "Decongestant spray", q: "Have you used a decongestant nasal spray (for example oxymetazoline or xylometazoline) almost daily for more than a week?", yn: true },
+      n6f: { label: "Snoring", q: "Do you snore, or wake up tired?", yn: true },
+      n7a: { label: "Smell loss onset", q: "Has your sense of smell gone down? If so, did it go suddenly?", opts: ["Yes, it went suddenly", "Yes, but gradually", "No, my sense of smell is normal"] },
+      n7b: { label: "Nerve symptoms", q: "Do you have new headaches, weakness, memory change or other nerve symptoms?", yn: true },
+      n7c: { label: "Nose otherwise clear", q: "Is your nose otherwise clear, without blockage or discharge?", yn: true },
+      s1: { label: "Score: blocked nose", score: true, step: "MERA Nose Score, 1 of 5", q: "In the last week, how much has this bothered you: a blocked nose?" },
+      s2: { label: "Score: runny nose", score: true, step: "MERA Nose Score, 2 of 5", q: "In the last week, how much has this bothered you: a runny nose, or mucus going down the throat?" },
+      s3: { label: "Score: sneezing", score: true, step: "MERA Nose Score, 3 of 5", q: "In the last week, how much has this bothered you: sneezing, or an itchy nose or eyes?" },
+      s4: { label: "Score: smell", score: true, step: "MERA Nose Score, 4 of 5", q: "In the last week, how much has this bothered you: a reduced sense of smell?" },
+      s5: { label: "Score: sleep", score: true, step: "MERA Nose Score, 5 of 5", q: "In the last week, how much has this bothered you: the effect on your sleep (mouth breathing, waking, snoring)?" }
+    },
+    scoreOpts: ["0: Not at all", "1: Mild (I notice it but it doesn't bother me)", "2: Moderate (it bothers me)", "3: Severe (it affects my day or sleep)"],
+    scoreName: "MERA Nose Score (proposed)",
+    bands: [[4, "mild"], [9, "moderate"], [15, "severe"]],
+    r: {
+      CHILD: { level: "low", when: "Use the MERA Child Sleep Apnoea Check", text: "For children, please use the MERA Child Sleep Apnoea Check, which covers blocked nose, mouth breathing, snoring and adenoids.", link: { href: "child-sleep-score.html", text: "MERA Child Sleep Apnoea Check" } },
+      E: { level: "emergency", when: "Emergency: go to hospital now", text: "Your answers include signs that the infection or problem may be spreading beyond the nose. Go to the emergency department now, or call {EMERGENCY}." },
+      R: { level: "high", when: "See ENT as soon as possible", text: "Some of your symptoms need an ENT doctor to look inside the nose with a small camera, to find the cause. Please see ENT as soon as possible." },
+      S1: { level: "mid", when: "See ENT within 2 to 3 days", text: "Your answers fit a sinus infection that may need a doctor's treatment. Please see ENT within 2 to 3 days. Until then, avoid antihistamine tablets bought over the counter, and do not use over-the-counter nasal drops for more than 5 days." },
+      S2: { level: "low", when: "Likely a common cold", text: "Your answers fit a common cold. Most colds settle within 10 days. Do not use over-the-counter nasal drops for more than 5 days; longer use can itself block the nose. If you are not better by day 10, or you get worse after starting to improve, please see ENT." },
+      S3: { level: "mid", when: "See ENT within a week", text: "Your answers fit a sinus infection that has not settled. Please see ENT within a week." },
+      L1: { level: "low", when: "Book a routine ENT visit", text: "Your answers fit a nasal allergy (allergic rhinitis). It is very common and can be well controlled. Please book a routine ENT visit." },
+      L2: { level: "low", when: "Book a routine ENT visit", text: "Your answers suggest a structural cause, such as a bent septum (the wall between the nostrils) or swollen turbinates (the inner linings of the nose). Please book a routine ENT visit. Do not use over-the-counter nasal drops for more than 5 days; longer use can itself make the blockage worse." },
+      L3: { level: "mid", when: "See ENT within 2 weeks", text: "Your answers fit long-standing sinus inflammation, which can sometimes cause small swellings called polyps. Please see ENT within 2 weeks." },
+      L4: { level: "mid", when: "See ENT within 2 weeks", text: "Repeated sinus attacks need a check for an underlying cause. Please see ENT within 2 weeks." },
+      L5: { add: true, text: "Using decongestant sprays daily for a long time can itself keep the nose blocked. Please tell the ENT doctor how long you have used it." },
+      L6: { level: "low", when: "Book a routine ENT visit", text: "Please book a routine ENT visit to find the cause." },
+      SLEEP: { add: true, text: "Please also take the MERA Sleep Apnoea Check.", link: { href: "sleep-score.html", text: "MERA Sleep Apnoea Check" } },
+      N1: { level: "high", when: "See ENT as soon as possible", text: "Loss of smell with these symptoms needs to be checked as soon as possible. Please see ENT first: the nose must be examined before any referral to a neurologist." },
+      N2: { level: "mid", when: "See ENT within 2 weeks", text: "Sudden loss of smell, often after a viral infection, should be checked early. Please see ENT within 2 weeks." },
+      N3: { level: "mid", when: "Book an ENT visit within 2 weeks", text: "Loss of smell without nose symptoms still needs a check. Please book an ENT visit within 2 weeks." }
+    }
+  },
+
+  /* ============================================================ THROAT AND VOICE */
+  throat: {
+    name: "MERA Throat & Voice Check",
+    footer: "This check is not a diagnosis. If you develop difficulty breathing, cannot swallow saliva, or cough blood, go to emergency immediately.",
+    q: {
+      age: { label: "Age", q: "How old are you?", opts: ["18 or older", "Under 18"] },
+      em: { label: "Emergency signs", q: "Do you have any of these now?", multi: true,
+        opts: ["Difficulty breathing or noisy breathing", "Cannot swallow your own saliva, or drooling", "Cannot open your mouth fully, with severe one-sided throat pain and a muffled voice", "Swelling of the neck or under the jaw, with fever", "Coughing or vomiting blood", "Something stuck in the throat (for example a fish bone) and cannot swallow"] },
+      rf: { label: "Warning signs", q: "Do you have any of these?", multi: true,
+        opts: ["Any change in your voice lasting more than 3 weeks", "You smoke, or chew tobacco or pan, and are over 45", "Pain on one side of the throat that does not go away", "Throat pain that goes to the ear", "Food sticking when you swallow, or swallowing getting harder", "Weight loss without trying", "A lump in the neck", "One tonsil much bigger than the other"] },
+      main: { label: "Main problem", q: "What bothers you most?",
+        opts: ["Throat irritation, a lump feeling, frequent throat clearing, or mucus stuck in the throat", "A change in my voice", "Repeated sore throats or tonsil infections, white stones on the tonsils, or bad breath"] },
+      t1: { label: "Score: throat clearing", score: true, step: "MERA Throat Score, 1 of 6", q: "In the last 2 weeks, how much has this bothered you: clearing your throat?" },
+      t2: { label: "Score: lump feeling", score: true, step: "MERA Throat Score, 2 of 6", q: "In the last 2 weeks, how much has this bothered you: a lump, or a feeling of something stuck in the throat?" },
+      t3: { label: "Score: mucus", score: true, step: "MERA Throat Score, 3 of 6", q: "In the last 2 weeks, how much has this bothered you: mucus dripping down or stuck in the throat?" },
+      t4: { label: "Score: cough", score: true, step: "MERA Throat Score, 4 of 6", q: "In the last 2 weeks, how much has this bothered you: a cough after meals or on lying down?" },
+      t5: { label: "Score: acid", score: true, step: "MERA Throat Score, 5 of 6", q: "In the last 2 weeks, how much has this bothered you: heartburn, a sour taste, or acid coming up?" },
+      t6: { label: "Score: morning voice", score: true, step: "MERA Throat Score, 6 of 6", q: "In the last 2 weeks, how much has this bothered you: a voice that is worse in the morning?" },
+      v5a: { label: "Started with a cold", q: "Did it start with a cold or cough?", yn: true },
+      v5b: { label: "Sudden loss with pain", q: "Did your voice go suddenly while shouting, singing or coughing, with pain?", yn: true },
+      v5c: { label: "After surgery or tube", q: "Did it start after surgery on the neck, thyroid or chest, or after a breathing tube?", yn: true },
+      v5d: { label: "Professional voice", q: "Do you use your voice professionally (singer, teacher, speaker) with a performance coming up?", yn: true },
+      v5e: { label: "High-pitched voice", q: "For men: has your voice stayed high-pitched or childlike after puberty?", opts: ["Yes", "No", "Not applicable"] },
+      k6a: { label: "Sore throats with fever", q: "How many sore throats with fever have you had in the last year?", opts: ["Fewer than 3", "3 to 5", "More than 5"] },
+      k6b: { label: "Stones or bad breath", q: "Do you have white stones on the tonsils, or bad breath that keeps coming back?", yn: true }
+    },
+    scoreOpts: ["0: Not at all", "1: Mild", "2: Moderate", "3: Severe"],
+    scoreName: "MERA Throat Score (proposed)",
+    r: {
+      CHILD: { level: "low", when: "Please see ENT", text: "Please see ENT for throat or voice problems in children. If your child snores or breathes through the mouth, use the MERA Child Sleep Apnoea Check.", link: { href: "child-sleep-score.html", text: "MERA Child Sleep Apnoea Check" } },
+      E: { level: "emergency", when: "Emergency: go to hospital now", text: "Your answers include warning signs that need a doctor straight away. Go to the emergency department now, or call {EMERGENCY}." },
+      R: { level: "high", when: "See ENT within a week", text: "Some of your symptoms need an ENT doctor to look at your throat and voice box with a small camera. This is quick and done in the clinic. Please see ENT within a week." },
+      T1: { level: "mid", when: "Book an ENT visit within 2 weeks", text: "Your answers fit throat irritation caused by acid or stomach contents reaching the throat, called laryngopharyngeal reflux. It is common and can be controlled. Please book an ENT visit within 2 weeks." },
+      T2: { level: "low", when: "Book a routine ENT visit", text: "A lump feeling in the throat with normal swallowing is common and usually not serious. Please book a routine ENT visit to confirm." },
+      T3: { level: "low", when: "Book a routine ENT visit", text: "Please book a routine ENT visit to find the cause." },
+      V1: { level: "high", when: "See ENT within 1 to 2 days", text: "A sudden voice loss with pain can mean a small bleed in a vocal cord. Rest your voice and see ENT within 1 to 2 days." },
+      V2: { level: "mid", when: "See ENT within a week", text: "A weak or breathy voice after surgery or a breathing tube can mean a vocal cord is not moving well. Please see ENT within a week. If you have any difficulty breathing or noisy breathing, go to the emergency department now." },
+      V3: { level: "mid", when: "See ENT before your performance", text: "Please see ENT before your performance. Your vocal cords need to be seen before any medicine is given." },
+      V4: { level: "low", when: "Book a routine ENT visit", text: "A voice that has not deepened after puberty can be treated with voice therapy. Please book a routine ENT visit." },
+      V5: { level: "low", when: "Likely laryngitis", text: "Your answers fit a voice change from a throat infection (laryngitis). It usually settles within 2 to 3 weeks. If your voice is not back to normal by 3 weeks, please see ENT." },
+      V6: { level: "mid", when: "See ENT within 2 weeks", text: "Please see ENT within 2 weeks to have your vocal cords checked." },
+      K1: { level: "mid", when: "Book an ENT visit within 2 weeks", text: "Repeated tonsil infections should be checked. Please book an ENT visit within 2 weeks." },
+      K2: { level: "low", when: "Book a routine ENT visit", text: "Your answers fit tonsil stones, which are common and not dangerous. Please book a routine ENT visit." },
+      K3: { level: "low", when: "Book a routine ENT visit", text: "Please book a routine ENT visit if your sore throats continue." }
+    }
+  }
+};

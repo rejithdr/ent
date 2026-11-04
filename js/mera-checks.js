@@ -101,7 +101,11 @@
         var csf = A.em.indexOf("d") !== -1, other = A.em.some(function (x) { return x !== "d"; });
         return { codes: csf && other ? ["E", "ECSF"] : csf ? ["ECSF"] : ["E"] };
       }
-      if (ticked(A.rf)) return { codes: ["R"] };
+      if (ticked(A.rf)) {
+        /* clear watery fluid from one side (option c) may be a CSF leak */
+        var leak = A.rf.indexOf("c") !== -1, rest = A.rf.some(function (x) { return x !== "c"; });
+        return { codes: leak && rest ? ["R", "RCSF"] : leak ? ["RCSF"] : ["R"] };
+      }
       var r = { codes: [], adds: [], score: scoreOf(A, NOSE_S, T.nose) };
       if (A.dur === "a") r.codes.push(A.n4a === "y" || A.n4b === "y" ? "S1" : "S2");
       else if (A.dur === "b" && A.n5a === "y") r.codes.push("S3");

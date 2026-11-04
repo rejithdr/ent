@@ -96,7 +96,11 @@
     },
     result: function (A) {
       if (A.age === "b") return { codes: ["CHILD"] };
-      if (ticked(A.em)) return { codes: ["E"] };
+      if (ticked(A.em)) {
+        /* watery fluid after a head injury (option d) is a possible CSF leak, not a spreading infection */
+        var csf = A.em.indexOf("d") !== -1, other = A.em.some(function (x) { return x !== "d"; });
+        return { codes: csf && other ? ["E", "ECSF"] : csf ? ["ECSF"] : ["E"] };
+      }
       if (ticked(A.rf)) return { codes: ["R"] };
       var r = { codes: [], adds: [], score: scoreOf(A, NOSE_S, T.nose) };
       if (A.dur === "a") r.codes.push(A.n4a === "y" || A.n4b === "y" ? "S1" : "S2");

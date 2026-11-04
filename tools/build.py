@@ -44,12 +44,12 @@ CONDITIONS = [
         ("balloon-et.html", "Blocked ear and balloon Eustachian tube dilation", "blocked ear ear block fullness popping eustachian tube balloon dilation tuboplasty pressure flying"),
         ("vertigo.html", "Vertigo, dizziness and imbalance", "vertigo giddiness dizziness dizzy spinning balance bppv ear balance"),
         ("hearing-check.html", "Hearing Check (self-check)", "hearing loss deaf sudden hum test check quiz self check ear block"),
-        ("dizziness-check.html", "Dizziness Check (self-check)", "vertigo giddiness dizziness dizzy spinning check quiz self check"),
+        ("mera-dizziness-check.html", "MERA Dizziness Check (self-check)", "vertigo giddiness dizziness dizzy spinning bppv check quiz self check"),
     ]),
     ("Nose and sinus", [
         ("septum.html", "Blocked nose and deviated septum", "nose block blocked septum deviated septoplasty nosebleed turbinate"),
         ("allergy.html", "Nasal allergy (allergic rhinitis)", "allergy allergic rhinitis sneezing sneeze runny nose dust itching vasomotor"),
-        ("nose-check.html", "Blocked Nose Check (self-check)", "nose block blocked turbinate septum nose score check quiz self check"),
+        ("mera-nose-check.html", "MERA Blocked Nose Check (self-check)", "nose block blocked turbinate septum sinus smell allergy nose score check quiz self check"),
         ("polyp.html", "Nasal polyps and sinus surgery", "polyp polyps sinus sinusitis smell"),
         ("balloon-sinus.html", "Balloon sinus surgery", "balloon sinus sinusitis sinuplasty sinus headache"),
         ("migraine.html", "Headache and migraine", "headache migraine head pain"),
@@ -58,6 +58,7 @@ CONDITIONS = [
         ("adenoids.html", "Adenoids", "adenoid adenoids mouth breathing child snoring"),
         ("tonsil.html", "Tonsils and tonsil surgery", "tonsil tonsils tonsillitis throat infection quinsy tonsillectomy stones"),
         ("voice.html", "Voice change and hoarseness", "voice hoarse hoarseness throat nodule polyp"),
+        ("mera-throat-check.html", "MERA Throat & Voice Check (self-check)", "throat voice hoarse lump reflux sore throat tonsil stones check quiz self check"),
         ("thyroid.html", "Thyroid swelling and thyroid surgery", "thyroid neck swelling goitre nodule"),
         ("sial.html", "Salivary gland swelling and stones", "salivary saliva gland stone swelling sialendoscopy jaw"),
     ]),
@@ -98,7 +99,7 @@ def en_slug(slug):
 
 
 # English pages built but not yet approved: noindex, out of the sitemap, not linked
-DRAFT_PAGES = {"mera-dizziness-check.html", "mera-nose-check.html", "mera-throat-check.html", "mera-checks-test.html"}
+DRAFT_PAGES = {"mera-checks-test.html"}
 
 
 def is_draft(slug):
@@ -399,7 +400,7 @@ page(
   <li>
     <h2>Vertigo or dizziness</h2>
     <p>The room spins when you turn in bed or look up, or you feel unsteady.</p>
-    <p class="hc-links"><a class="btn" href="dizziness-check.html">Dizziness check</a> <a href="vertigo.html">Read more</a></p>
+    <p class="hc-links"><a class="btn" href="mera-dizziness-check.html">Dizziness check</a> <a href="vertigo.html">Read more</a></p>
   </li>
 </ul>
 
@@ -423,9 +424,10 @@ page(
 <ul class="paths">
   <li><a href="child-sleep-score.html"><strong>MERA Child Sleep Apnoea Check</strong><span>Snoring, mouth breathing, adenoids and tonsils, with a growth check</span></a></li>
   <li><a href="sleep-score.html"><strong>MERA Sleep Apnoea Check</strong><span>For adults who snore or feel sleepy in the day</span></a></li>
-  <li><a href="dizziness-check.html"><strong>Dizziness Check</strong><span>Spinning, light-headedness or imbalance</span></a></li>
+  <li><a href="mera-dizziness-check.html"><strong>MERA Dizziness Check</strong><span>Spinning, light-headedness or imbalance</span></a></li>
   <li><a href="hearing-check.html"><strong>Hearing Check</strong><span>With a simple hum test for sudden hearing loss</span></a></li>
-  <li><a href="nose-check.html"><strong>Blocked Nose Check</strong><span>With the NOSE score</span></a></li>
+  <li><a href="mera-nose-check.html"><strong>MERA Blocked Nose Check</strong><span>Blocked nose, sinus, allergy or loss of smell, with the MERA Nose Score</span></a></li>
+  <li><a href="mera-throat-check.html"><strong>MERA Throat &amp; Voice Check</strong><span>Throat irritation, voice change or repeated sore throats</span></a></li>
 </ul>
 
 <h2>Other problems we treat</h2>
@@ -1013,6 +1015,7 @@ page(
     f"""
 <img class="hero" src="tonsil.jpg" alt="Tonsils">
 <h1>Tonsils and Tonsil Surgery</h1>
+<div class="box"><strong>Repeated sore throats or tonsil stones?</strong> Take the free <a href="mera-throat-check.html">MERA Throat &amp; Voice Check</a>.</div>
 {video("pjgPvwq3RKE", "Tonsillectomy: explaining extracapsular and intracapsular tonsillectomy")}
 
 <h2>Tonsil problems</h2>
@@ -1065,7 +1068,7 @@ page(
     f"""
 <img class="hero" src="vertigoclinic.jpg" alt="Vertigo and balance clinic">
 <h1>Vertigo and Balance Clinic in Thrissur</h1>
-<div class="box"><strong>Check yourself:</strong> take the free <a href="dizziness-check.html">Dizziness Check</a> to see what your dizziness may be and how soon to be seen.</div>
+<div class="box"><strong>Check yourself:</strong> take the free <a href="mera-dizziness-check.html">MERA Dizziness Check</a> to see what your dizziness may be and how soon to be seen.</div>
 
 {video("E-4NMVUT89k", "Which specialist to consult for thalakarakam (vertigo, dizziness, fainting)?")}
 
@@ -1249,7 +1252,7 @@ page(
     f"""
 <img class="hero" src="endoscopy.jpg" alt="Nasal endoscopy examination">
 <h1>Nasal Septum Surgery</h1>
-<div class="box"><strong>Blocked nose?</strong> Take the free <a href="nose-check.html">Blocked Nose Check</a> to measure how much it affects you and what may be causing it.</div>
+<div class="box"><strong>Blocked nose?</strong> Take the free <a href="mera-nose-check.html">MERA Blocked Nose Check</a> to measure how much it affects you and what may be causing it.</div>
 
 <h2>When is septal surgery needed?</h2>
 <p>When a deviated nasal septum causes persistent nasal blockage, headache, repeated sinusitis, nosebleeds or <a href="sleepapnoea.html">sleep apnoea</a>.</p>
@@ -1285,7 +1288,7 @@ page(
 <h1>Nasal Allergy (Allergic Rhinitis)</h1>
 <p class="lead">Sneezing, a runny or blocked nose, and an itchy nose and eyes, often worse in the morning or with dust. This is allergic rhinitis. It's very common, and in most people it is controlled well with the right routine and medicines.</p>
 
-<div class="box"><strong>Blocked nose?</strong> Take the free <a href="nose-check.html">Blocked Nose Check</a>.</div>
+<div class="box"><strong>Blocked nose?</strong> Take the free <a href="mera-nose-check.html">MERA Blocked Nose Check</a>.</div>
 
 <h2>Simple steps that help</h2>
 <ul>
@@ -1349,6 +1352,7 @@ page(
 <img class="hero" src="voice.jpg" alt="Voice">
 <h1>Voice Change and Hoarseness</h1>
 <p class="lead">Voice is produced by the vocal cords, then shaped by the throat, mouth and tongue.</p>
+<div class="box"><strong>Voice or throat trouble?</strong> Take the free <a href="mera-throat-check.html">MERA Throat &amp; Voice Check</a> to see how soon to be seen.</div>
 
 <h2>What to do when your voice changes</h2>
 <ul>
@@ -1640,14 +1644,6 @@ page("mera-checks-test.html", "MERA checks: review of every result",
 """)
 
 
-check_page("nose-check.html", "nose",
-    "Blocked Nose Check: Free Self-Check | MIDAS ENT Thrissur",
-    "A free check for a blocked nose: measure how much it affects you (NOSE score) and learn what may be causing it. Nothing you enter is stored.",
-    "Blocked Nose Check",
-    "For adults with a blocked or stuffy nose. Questions come one at a time, including the NOSE score, a standard measure of how much nasal blockage affects you.",
-    ' data-mera="sleep-score.html"',
-    '<p>Read more about <a href="septum.html">a bent nasal septum</a> and <a href="polyp.html">nasal polyps</a>.</p>')
-
 check_page("hearing-check.html", "hearing",
     "Hearing Check with Hum Test: Free Self-Check | MIDAS ENT Thrissur",
     "A free hearing check with a simple hum test: see how urgently hearing loss needs to be seen. Sudden nerve hearing loss has the best result when treatment starts within 3 days.",
@@ -1656,26 +1652,19 @@ check_page("hearing-check.html", "hearing",
     ' data-mera-child="child-sleep-score.html"',
     '<div class="urgent"><strong>Sudden hearing loss is an emergency.</strong> The chance of recovery is best when treatment starts within 72 hours.</div>\n<p>Read more about <a href="earsurgery.html">ear problems and hearing loss</a>.</p>')
 
-check_page("dizziness-check.html", "dizzy",
-    "Dizziness and Vertigo Check: Free Self-Check | MIDAS ENT Thrissur",
-    "A free check for dizziness and vertigo: see what may be causing it and how soon to be seen. Nothing you enter is stored.",
-    "Dizziness Check",
-    "For adults with spinning, light-headedness or unsteadiness. Questions come one at a time, starting with warning signs that need emergency care.",
-    ' data-hearing="hearing-check.html"',
-    '<p>Read more about <a href="vertigo.html">vertigo and the vertigo clinic</a>.</p>')
-
 page("self-checks.html",
     "ENT Self-Checks: Free Online Checks | MIDAS ENT Thrissur",
-    "Free ENT self-checks: sleep apnoea for adults and children, blocked nose, hearing loss and dizziness. One question at a time; nothing you enter is stored.",
+    "Free ENT self-checks: sleep apnoea for adults and children, blocked nose, throat and voice, hearing loss and dizziness. One question at a time; nothing you enter is stored.",
     """
 <h1>ENT Self-Checks</h1>
 <p class="lead">Free checks that ask one question at a time and tell you what your symptoms may mean and how soon to be seen. They give no treatment advice, and nothing you enter is stored.</p>
 <ul class="paths">
   <li><a href="sleep-score.html"><strong>Snoring and sleep apnoea</strong><span>MERA Sleep Apnoea Check, for adults</span></a></li>
   <li><a href="child-sleep-score.html"><strong>Child who snores or mouth-breathes</strong><span>MERA Child Sleep Apnoea Check: adenoids, complications, tonsils</span></a></li>
-  <li><a href="nose-check.html"><strong>Blocked nose</strong><span>Blocked Nose Check, with the NOSE score</span></a></li>
+  <li><a href="mera-nose-check.html"><strong>Blocked nose, sinus or loss of smell</strong><span>MERA Blocked Nose Check, with the MERA Nose Score</span></a></li>
+  <li><a href="mera-throat-check.html"><strong>Throat or voice</strong><span>MERA Throat &amp; Voice Check, with the MERA Throat Score</span></a></li>
   <li><a href="hearing-check.html"><strong>Hearing loss</strong><span>Hearing Check, with a simple hum test</span></a></li>
-  <li><a href="dizziness-check.html"><strong>Dizziness or vertigo</strong><span>Dizziness Check</span></a></li>
+  <li><a href="mera-dizziness-check.html"><strong>Dizziness or vertigo</strong><span>MERA Dizziness Check</span></a></li>
 </ul>
 <p class="q-hint">These checks follow the MIDAS ENT protocols. They are not a diagnosis; only an examination by a doctor can confirm the cause.</p>
 """)
@@ -1808,6 +1797,8 @@ REDIRECTS = {
     "elixir.html": "hospitals.html",
     "apollo.html": "hospitals.html",
     "cooph.html": "hospitals.html",
+    "dizziness-check.html": "mera-dizziness-check.html",
+    "nose-check.html": "mera-nose-check.html",
 }
 for slug, target in REDIRECTS.items():
     (OUT / slug).write_text(redirect(target), encoding="utf-8")

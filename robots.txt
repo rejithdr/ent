@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /team/
+Disallow: /doctors/
 
 Sitemap: https://entmidas.com/sitemap.xml

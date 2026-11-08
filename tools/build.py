@@ -1900,7 +1900,7 @@ urls = "\n".join(
     f"{urls}\n</urlset>\n",
     encoding="utf-8",
 )
-(OUT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nDisallow: /team/\n\nSitemap: {SITE}/sitemap.xml\n")
+(OUT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nDisallow: /team/\nDisallow: /doctors/\n\nSitemap: {SITE}/sitemap.xml\n")
 (OUT / "CNAME").write_text("entmidas.com\n")
 (OUT / ".nojekyll").write_text("")
 (OUT / "README.md").write_text("Website for Dr Rejith R S, ENT surgeon, Thrissur: https://entmidas.com\n")

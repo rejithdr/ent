@@ -338,3 +338,5 @@ table.exp td:last-child, table.exp th:last-child { white-space: nowrap; text-ali
 .test-list > li { margin: 1rem 0; border-bottom: 1px solid var(--line); padding-bottom: .6rem; }
 .test-list ul { font-size: 15px; color: var(--muted); }
 .test-key { display: inline-block; background: var(--green); color: #fff; border-radius: 6px; padding: 0 .4rem; font-size: 14px; }
+
+.reviewed{font-size:.88rem;color:var(--muted,#5a6774);margin-top:1.5rem}

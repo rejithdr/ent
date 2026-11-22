@@ -697,18 +697,19 @@ clinic("metropolitan.html", "MIDAS ENT at Metropolitan Hospital", "Thrissur",
        "", PHONE_TEL, PHONE_SHOW,
        "<p>An evening ENT clinic of MIDAS ENT, where patients are seen by Dr Rejith R S. Please book an appointment before visiting.</p>")
 
-SLEEP_CHAT = chat([
+SLEEP_QA = [
     ("I only snore. Why do I need a sleep test?",
      "Snoring alone can be harmless. But loud snoring with daytime sleepiness, pauses in breathing noticed by your family, or high blood pressure may mean sleep apnoea. A sleep study is the only way to know how severe it is, and the right treatment depends on that."),
     ("Is the sleep study done at home or in hospital?",
-     "Both are possible. A home sleep study is convenient and suits many adults. A full study in hospital gives more detail and is better for some patients. We'll suggest which suits you."),
+     "We do both. A home sleep study is convenient and suits many adults. An overnight study in hospital suits some patients better. We offer level 3 studies (breathing, oxygen, pulse, position and snoring) and level 2 studies (which also record sleep itself). We'll suggest which suits you."),
     ("Will surgery cure my sleep apnoea?",
      "It can in selected patients, especially when there is a clear blockage such as large tonsils or a blocked nose. For many adults, CPAP works best. Before airway surgery we often do sleep endoscopy (DISE) to see exactly where your airway closes, so the operation is planned for your airway."),
     ("I tried CPAP and couldn't tolerate it. What now?",
      "That's common, and often fixable. The mask fit, the pressure setting or a blocked nose is frequently the problem. If CPAP still doesn't work for you, an oral device or surgery planned with sleep endoscopy may help."),
     ("Does losing weight help?",
      "Yes. Weight loss reduces sleep apnoea for most people, and sometimes removes it. For moderate or severe sleep apnoea, it works best alongside other treatment rather than as the only plan."),
-], "sleep")
+]
+SLEEP_CHAT = chat(SLEEP_QA, "sleep")
 
 SLEEP_AI = ask_ai(
     "I am a 45-year-old man. I snore loudly, my wife says I sometimes stop breathing at night, and I feel sleepy during the day. In simple language, please explain what obstructive sleep apnoea is, what can happen if it is not treated, how it is tested, and what treatments are available. Also list 5 questions I should ask my ENT doctor.",
@@ -736,10 +737,10 @@ CHILD_AI = ask_ai(
 # ---------------------------------------------------------------- Snoring (new page)
 page(
     "snoring.html",
-    "Snoring and Sleep Apnoea Treatment in Thrissur | MIDAS ENT Thrissur",
-    "Snoring and sleep apnoea care for children and adults in Thrissur. Warning signs, when to see a doctor, and treatment options, from Dr Rejith R S, ENT surgeon.",
+    "Snoring Treatment in Thrissur for Children and Adults | MIDAS ENT",
+    "Snoring treatment in Thrissur for children and adults: warning signs, when snoring means sleep apnoea, and treatment options, from Dr Rejith R S, ENT surgeon.",
     f"""
-<h1>Snoring and Sleep Apnoea Treatment in Thrissur, for Children and Adults</h1>
+<h1>Snoring Treatment in Thrissur, for Children and Adults</h1>
 <p class="lead">Snoring is common, but it isn't always harmless. Sometimes it's a sign that breathing is being blocked during sleep. This page explains what to look for, when to see a doctor, and how it can be treated.</p>
 <p class="tagline"><strong>Our approach: MERA</strong>, Maximising Effectiveness, Retaining Anatomy. Treat what's diseased. Protect what works.</p>
 
@@ -871,11 +872,12 @@ page(
 # ---------------------------------------------------------------- Sleep apnoea
 page(
     "sleepapnoea.html",
-    "Obstructive Sleep Apnoea Treatment in Thrissur | MIDAS ENT Thrissur",
-    "Causes, symptoms, tests and treatment of obstructive sleep apnoea, including sleep study, DISE, CPAP, oral devices and airway surgery, in Thrissur.",
+    "Sleep Apnoea (Sleep Apnea) Treatment in Thrissur | MIDAS ENT",
+    "Sleep apnea (OSA) treatment in Thrissur by ENT surgeon Dr Rejith R S: home and in-hospital sleep studies, sleep endoscopy (DISE), CPAP, oral devices and airway surgery.",
     f"""
 <img class="hero" src="osa.jpg" alt="Diagram of normal breathing and obstructive sleep apnoea">
-<h1>Obstructive Sleep Apnoea</h1>
+<h1>Sleep Apnoea (Sleep Apnea) Treatment in Thrissur</h1>
+<p class="lead">Obstructive sleep apnoea (OSA, also spelt sleep apnea) means the airway closes again and again during sleep, usually with loud snoring. At MIDAS ENT in Thrissur we test for it with sleep studies at home or in hospital, find where the airway closes with sleep endoscopy, and treat it with CPAP, an oral device or surgery, whichever suits your airway.</p>
 
 <h2>What causes obstructive sleep apnoea?</h2>
 <p>During deep sleep, the muscles that keep the upper airway open relax. The airway narrows, and with each breath it is sucked further inwards. Breathing effort continues, but air cannot pass freely.</p>
@@ -894,6 +896,14 @@ page(
   <li><strong>Sleep study:</strong> shows the type and severity of sleep apnoea</li>
   <li><strong>Sleep endoscopy (DISE):</strong> identifies the areas causing obstruction</li>
   <li><strong>Dynamic MRI:</strong> useful in selected patients</li>
+</ul>
+
+<h2>Sleep studies and sleep endoscopy at MIDAS ENT, Thrissur</h2>
+<ul>
+  <li><strong>Where:</strong> at home, or overnight in hospital.</li>
+  <li><strong>Level 3 sleep study:</strong> records breathing, oxygen level, pulse, body position and snoring. It suits most adults with suspected sleep apnoea.</li>
+  <li><strong>Level 2 sleep study:</strong> also records sleep itself (brain waves), for a fuller picture when it's needed.</li>
+  <li><strong>Sleep endoscopy (DISE):</strong> done at <a href="midas.html">MIDAS Hospital, Ollur</a>, as day care, when surgery is being considered.</li>
 </ul>
 
 <h2>Can sleep apnoea be cured?</h2>
@@ -920,9 +930,48 @@ page(
 {SLEEP_CHAT}
 {SLEEP_AI}
 
+<h2>Where we see you in Thrissur</h2>
+<p>Sleep apnoea care is led by <a href="about.html">Dr Rejith R S</a>, ENT surgeon (MBBS, DLO), with the <a href="doctors.html">MIDAS ENT team</a>.</p>
+<ul>
+  <li><a href="midas.html">MIDAS Hospital and Surgical Centre</a>, Ollur, Thrissur: Monday to Saturday, 3:00 pm to 5:00 pm</li>
+  <li><a href="metropolitan.html">MIDAS ENT at Metropolitan Hospital</a>, Thrissur: Monday to Saturday, 5:45 pm to 6:45 pm, by appointment only</li>
+</ul>
+
 <p>Read more about <a href="snoring.html">snoring in children and adults</a>.</p>
+<p class="reviewed">Reviewed by Dr Rejith R S, ENT surgeon. Last reviewed: November 2026.</p>
 {BOOK}
 """,
+    schema={
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "MedicalWebPage",
+                "@id": SITE + "/sleepapnoea.html",
+                "url": SITE + "/sleepapnoea.html",
+                "name": "Sleep Apnoea (Sleep Apnea) Treatment in Thrissur",
+                "inLanguage": "en",
+                "lastReviewed": "2026-11-23",
+                "reviewedBy": {"@type": "Physician", "name": "Dr Rejith R S", "url": SITE + "/about.html", "medicalSpecialty": "Otolaryngologic"},
+                "publisher": {"@type": "MedicalClinic", "name": "MIDAS ENT", "url": SITE + "/", "telephone": PHONE_TEL,
+                              "address": {"@type": "PostalAddress", "addressLocality": "Thrissur", "addressRegion": "Kerala", "addressCountry": "IN"}},
+                "about": {
+                    "@type": "MedicalCondition",
+                    "name": "Obstructive sleep apnoea",
+                    "alternateName": ["Obstructive sleep apnea", "Sleep apnea", "Sleep apnoea", "OSA"],
+                    "signOrSymptom": [{"@type": "MedicalSignOrSymptom", "name": n} for n in
+                                      ("Loud snoring with pauses in breathing", "Daytime sleepiness", "Poor memory and irritability")],
+                    "typicalTest": [{"@type": "MedicalTest", "name": n} for n in
+                                    ("Sleep study (polysomnography, level 2 and level 3)", "Drug-induced sleep endoscopy (DISE)")],
+                    "possibleTreatment": [{"@type": "MedicalTherapy", "name": n} for n in
+                                          ("CPAP", "Mandibular advancement device", "Myofunctional therapy", "Multilevel airway surgery", "Weight reduction")],
+                },
+            },
+            {
+                "@type": "FAQPage",
+                "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in SLEEP_QA],
+            },
+        ],
+    },
 )
 
 # ---------------------------------------------------------------- Adenoids
@@ -1889,8 +1938,17 @@ mera("child.html", "MERA Child Sleep Apnoea Check: Free Check for Parents",
 for slug, html in MERA_PAGES.items():
     (OUT / "mera" / slug).write_text(html, encoding="utf-8")
 
+import hashlib, datetime
+_LM = Path(__file__).with_name("lastmod.json")
+_lm = json.loads(_LM.read_text()) if _LM.exists() else {}
+_today = datetime.date.today().isoformat()
+for s in PAGES:
+    h = hashlib.sha1(json.dumps([PAGES[s]["title"], PAGES[s]["description"], PAGES[s]["body"], PAGES[s]["schema"]], sort_keys=True, default=str).encode()).hexdigest()
+    if _lm.get(s, {}).get("hash") != h:
+        _lm[s] = {"hash": h, "date": _today}
+_LM.write_text(json.dumps(_lm, indent=1, sort_keys=True) + "\n")
 urls = "\n".join(
-    f"  <url><loc>{SITE}/{s[:-len('index.html')] if s.endswith('index.html') else s}</loc></url>" for s in PAGES if not is_draft(s)
+    f"  <url><loc>{SITE}/{s[:-len('index.html')] if s.endswith('index.html') else s}</loc><lastmod>{_lm[s]['date']}</lastmod></url>" for s in PAGES if not is_draft(s)
 ) + "\n" + "\n".join(
     f"  <url><loc>{SITE}/mera/{'' if s == 'index.html' else s}</loc></url>" for s in MERA_PAGES
 )

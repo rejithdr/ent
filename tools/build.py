@@ -7,6 +7,9 @@ from pathlib import Path
 
 OUT = Path(sys.argv[1])
 SITE = "https://entmidas.com"
+MAP_MIDAS = "https://www.google.com/maps/place/MIDAS+ENT+department,+MIDAS+HOSPITAL+%26+SURGICAL+CENTRE/@10.4721276,76.2403341,17z/data=!3m1!4b1!4m6!3m5!1s0x3ba7f1b5b9e8f701:0x3eeddfce5bafb5d1!8m2!3d10.4721276!4d76.242909!16s%2Fg%2F11z_61_wc4"
+ADDR_MIDAS = {"@type": "PostalAddress", "streetAddress": "MIDAS Hospital and Surgical Centre, Ollur Industrial Estate", "addressLocality": "Ollur, Thrissur", "addressRegion": "Kerala", "postalCode": "680306", "addressCountry": "IN"}
+GEO_MIDAS = {"@type": "GeoCoordinates", "latitude": 10.4721276, "longitude": 76.242909}
 PHONE_TEL = "+918139005150"
 PHONE_SHOW = "81390 05150"
 WHATSAPP = "https://wa.me/918139005150"
@@ -476,12 +479,9 @@ page(
         "url": SITE + "/",
         "employee": [{"@type": "Physician", "name": "Dr Rejith R S", "url": SITE + "/about.html", "medicalSpecialty": "Otolaryngologic"}],
         "telephone": PHONE_TEL,
-        "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Thrissur",
-            "addressRegion": "Kerala",
-            "addressCountry": "IN",
-        },
+        "address": ADDR_MIDAS,
+        "geo": GEO_MIDAS,
+        "hasMap": MAP_MIDAS,
         "areaServed": "Thrissur",
     },
 )
@@ -933,7 +933,7 @@ page(
 <h2>Where we see you in Thrissur</h2>
 <p>Sleep apnoea care is led by <a href="about.html">Dr Rejith R S</a>, ENT surgeon (MBBS, DLO), with the <a href="doctors.html">MIDAS ENT team</a>.</p>
 <ul>
-  <li><a href="midas.html">MIDAS Hospital and Surgical Centre</a>, Ollur, Thrissur: Monday to Saturday, 3:00 pm to 5:00 pm</li>
+  <li><a href="midas.html">MIDAS Hospital and Surgical Centre</a>, Ollur Industrial Estate, Ollur, Thrissur 680306: Monday to Saturday, 3:00 pm to 5:00 pm. <a href="{MAP_MIDAS}">Find us on Google Maps</a></li>
   <li><a href="metropolitan.html">MIDAS ENT at Metropolitan Hospital</a>, Thrissur: Monday to Saturday, 5:45 pm to 6:45 pm, by appointment only</li>
 </ul>
 
@@ -953,7 +953,7 @@ page(
                 "lastReviewed": "2026-11-23",
                 "reviewedBy": {"@type": "Physician", "name": "Dr Rejith R S", "url": SITE + "/about.html", "medicalSpecialty": "Otolaryngologic"},
                 "publisher": {"@type": "MedicalClinic", "name": "MIDAS ENT", "url": SITE + "/", "telephone": PHONE_TEL,
-                              "address": {"@type": "PostalAddress", "addressLocality": "Thrissur", "addressRegion": "Kerala", "addressCountry": "IN"}},
+                              "address": ADDR_MIDAS, "geo": GEO_MIDAS, "hasMap": MAP_MIDAS},
                 "about": {
                     "@type": "MedicalCondition",
                     "name": "Obstructive sleep apnoea",

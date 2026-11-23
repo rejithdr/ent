@@ -1,0 +1,142 @@
+{
+ "about.html": {
+  "date": "2026-11-22",
+  "hash": "17a709173123c23ec6d9a8b83e97784802739236"
+ },
+ "adenoids.html": {
+  "date": "2026-11-22",
+  "hash": "5bc949de8db07fa1d80e1a0bd8be20f1d0a0681f"
+ },
+ "allergy.html": {
+  "date": "2026-11-22",
+  "hash": "1c37d87649e4d5b4939e94bff8fa6096b7ff0087"
+ },
+ "balloon-et.html": {
+  "date": "2026-11-22",
+  "hash": "80122df5acd935ee980fc36375eccf9654e553be"
+ },
+ "balloon-sinus.html": {
+  "date": "2026-11-22",
+  "hash": "4898acbf941da81d206e610778128f4b8fc93b43"
+ },
+ "child-sleep-score.html": {
+  "date": "2026-11-22",
+  "hash": "cd1039fc054b7d928d70aa80b675dd1bb6a88fcd"
+ },
+ "daycare.html": {
+  "date": "2026-11-22",
+  "hash": "d45259ff0484a693ce6468d104eed44f54f87e5e"
+ },
+ "doctors.html": {
+  "date": "2026-11-22",
+  "hash": "9482e0fb727b65e5a55cbf2988dc2884ea440e7b"
+ },
+ "earsurgery.html": {
+  "date": "2026-11-22",
+  "hash": "6b5d9b8dc56712f390643f2053f614a1296f4f8b"
+ },
+ "hearing-check.html": {
+  "date": "2026-11-22",
+  "hash": "758626f227646b89cc773fe1c2ae72de7066f998"
+ },
+ "hospitals.html": {
+  "date": "2026-11-22",
+  "hash": "00d7568c1f2e162b7a880f0925b984d50971b743"
+ },
+ "index.html": {
+  "date": "2026-11-22",
+  "hash": "4b31586bc668b79b23d63b8b56f25cbdc52fa998"
+ },
+ "mera-checks-test.html": {
+  "date": "2026-11-22",
+  "hash": "fe2d0c48a6cb6c05a713b59ebc6f6e7d9c0aa443"
+ },
+ "mera-dizziness-check.html": {
+  "date": "2026-11-22",
+  "hash": "a7175f0a32101af81ccbdaebbba606988630a302"
+ },
+ "mera-nose-check.html": {
+  "date": "2026-11-22",
+  "hash": "dc60c9af5b151ddf43e35c3098ce9696f42ab39b"
+ },
+ "mera-throat-check.html": {
+  "date": "2026-11-22",
+  "hash": "9f122bb388816119e7675b691ed27eea32664179"
+ },
+ "metropolitan.html": {
+  "date": "2026-11-22",
+  "hash": "ab9ab5927e67c9f7c1a5ee74b8a4c2469191242b"
+ },
+ "midas-ent.html": {
+  "date": "2026-11-22",
+  "hash": "f3c7d53d406d370e7c5dad5ac32ac19b35aea065"
+ },
+ "midas.html": {
+  "date": "2026-11-22",
+  "hash": "7b96947d70a908a00adbcd5b02576f1717858917"
+ },
+ "migraine.html": {
+  "date": "2026-11-22",
+  "hash": "48d7fbb09ede37aac03626afdde736cd3634be69"
+ },
+ "ml/hospitals.html": {
+  "date": "2026-11-22",
+  "hash": "a81a8d43d93d6cec1215533fad3e195b0a08ad51"
+ },
+ "ml/index.html": {
+  "date": "2026-11-22",
+  "hash": "0c247d900966209403db25f89ce414b47662c7e0"
+ },
+ "ml/snoring.html": {
+  "date": "2026-11-22",
+  "hash": "4bf65f5e0e1c3043069cce1381f2741fb193934e"
+ },
+ "polyp.html": {
+  "date": "2026-11-22",
+  "hash": "72697b06402c463c2a9953850ec779f537717bae"
+ },
+ "self-checks.html": {
+  "date": "2026-11-22",
+  "hash": "2f3fd5a444f648629da3afd9a3d42c37e5eaa839"
+ },
+ "septum.html": {
+  "date": "2026-11-22",
+  "hash": "003f7dfded12e78b71fb8235e84e291367e4cc0a"
+ },
+ "sial.html": {
+  "date": "2026-11-22",
+  "hash": "a53ade3bad0409fa9691cf09c8555d7fe3ddd835"
+ },
+ "skullbase.html": {
+  "date": "2026-11-22",
+  "hash": "4123d8f36c0f07b3905e337d060404de118e4e29"
+ },
+ "sleep-score.html": {
+  "date": "2026-11-22",
+  "hash": "8303a077508afdc719ea022862f7413c57b159c2"
+ },
+ "sleepapnoea.html": {
+  "date": "2026-11-22",
+  "hash": "412ceae49254c2a15685210bf8cb0c00d92b8135"
+ },
+ "snoring.html": {
+  "date": "2026-11-22",
+  "hash": "52838c751c88cbf57e650f5476373a7de42bd78d"
+ },
+ "thyroid.html": {
+  "date": "2026-11-22",
+  "hash": "3e2f80d78499c5268db138275a0b1095600bb9c8"
+ },
+ "tonsil.html": {
+  "date": "2026-11-22",
+  "hash": "74d6881c7c4ec1ba731d866d4ed199f56ac43bce"
+ },
+ "vertigo.html": {
+  "date": "2026-11-22",
+  "hash": "31b9f0958bdf4dacba1176b08131eee79604c38b"
+ },
+ "voice.html": {
+  "date": "2026-11-22",
+  "hash": "cb135325ec9e5b0d2bc903fd0fab6662896482bf"
+ }
+}
